@@ -46,7 +46,10 @@
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/custom.css') }}" />
+
     <!-- END: Custom CSS-->
 </head>
 
-<body>
+<body class="vertical-layout vertical-menu-modern 1-column navbar-floating footer-static  " data-open="click"
+    data-menu="vertical-menu-modern" data-col="1-column">
