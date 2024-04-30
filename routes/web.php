@@ -14,14 +14,19 @@ Route::get('/signup', function () {
     return view('user/signup');
 });
 
-Route::get('/academic', function () {
-    return view('user/academic');
-});
+
 
 Route::get('/welcome', function () {
     return view('user/welcome');
 });
 
-Route::get('/student', function () {
-    return view('user/student');
+Route::group(['prefix' => 'user'], function () {
+
+    Route::get('academic', function () {
+        return view('user/academic/index');
+    })->name('user.academic.index');
+
+    Route::get('personal-information', function () {
+        return view('user/personal_information/index');
+    })->name('user.personal_information.index');
 });

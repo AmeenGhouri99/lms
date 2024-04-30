@@ -6,7 +6,7 @@
         <form>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="student_name" class="form-label">Student Name</label>
+                    <label for="student_name" class="form-label">Student First Name</label>
                     <input type="text" class="form-control" id="student_name" name="student_name"
                         placeholder="Enter student name">
                 </div>
