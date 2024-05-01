@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,7 +27,5 @@ Route::group(['prefix' => 'user'], function () {
         return view('user/academic/index');
     })->name('user.academic.index');
 
-    Route::get('personal-information', function () {
-        return view('user/personal_information/index');
-    })->name('user.personal_information.index');
+    Route::get('personal-information', [UserController::class, 'create'])->name('user.personal_information.create');
 });

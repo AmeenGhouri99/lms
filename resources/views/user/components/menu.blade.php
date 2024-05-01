@@ -46,8 +46,8 @@
          </div>
          <ul class="nav justify-content-center with-space-between mb-2">
              <li class="nav-item">
-                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.personal_information.index') ? 'btn-success' : null }}"
-                     href="{{ route('user.personal_information.index') }}">Personal
+                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.personal_information.create') ? 'btn-success' : null }}"
+                     href="{{ route('user.personal_information.create') }}">Personal
                      Information</a>
              </li>
              <li class="nav-item">
