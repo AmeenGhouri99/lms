@@ -69,6 +69,7 @@
         });
     });
 </script>
+@stack('js_scripts')
 
 </body>
 

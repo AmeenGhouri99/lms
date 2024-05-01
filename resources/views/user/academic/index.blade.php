@@ -41,7 +41,9 @@
                                     {{ html()->text('obtained_marks')->class('form-control form-control-sm') }}
                                 </div>
                                 <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0 mt-1">
-                                    <input type="submit" value="Save Qualification" name="submit" class="btn btn-success">
+                                    <input type="
+                                    " value="Save Qualification"
+                                        name="submit" class="btn btn-success">
                                 </div>
                                 {{ html()->form()->close() }}
                             </div>
