@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\UserContract;
+use App\Contracts\AcademicInformationContract;
 use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserAcademicInformationController extends Controller
 {
+    public $academic_information;
+    public function __construct(AcademicInformationContract $academic_information)
+    {
+        $this->academic_information = $academic_information;
+    }
     /**
      * Display a listing of the resource.
      */
-    public $user;
-    public function __construct(UserContract $user)
-    {
-        $this->user = $user;
-    }
     public function index()
     {
         //
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function create()
     {
         try {
-            return $this->user->create();
+            return $this->academic_information->create();
         } catch (CustomException $e) {
             return $this->$e->getMessage();
         } catch (\Exception $e) {

@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface UserContract
+interface AcademicInformationContract
 {
     public function index();
     public function create();
