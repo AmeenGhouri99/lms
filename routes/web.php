@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\UserAcademicInformationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPersonalInformationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,11 +23,8 @@ Route::get('/welcome', function () {
     return view('user/welcome');
 });
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 
-    Route::get('academic', function () {
-        return view('user/academic/index');
-    })->name('user.academic.index');
-
-    Route::get('personal-information', [UserController::class, 'create'])->name('user.personal_information.create');
+    Route::resource('personal-information', UserPersonalInformationController::class);
+    Route::resource('academic-information', UserAcademicInformationController::class);
 });

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\UserContract;
+use App\Contracts\PersonalInformationContract;
 use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserPersonalInformationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public $user;
-    public function __construct(UserContract $user)
+    public $personal_information;
+    public function __construct(PersonalInformationContract $personal_information)
     {
-        $this->user = $user;
+        $this->personal_information = $personal_information;
     }
     public function index()
     {
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function create()
     {
         try {
-            return $this->user->create();
+            return $this->personal_information->create();
         } catch (CustomException $e) {
             return $this->$e->getMessage();
         } catch (\Exception $e) {

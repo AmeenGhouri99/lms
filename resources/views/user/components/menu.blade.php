@@ -46,13 +46,13 @@
          </div>
          <ul class="nav justify-content-center with-space-between mb-2">
              <li class="nav-item">
-                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.personal_information.create') ? 'btn-success' : null }}"
-                     href="{{ route('user.personal_information.create') }}">Personal
+                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.personal-information.create') ? 'btn-success' : null }}"
+                     href="{{ route('user.personal-information.create') }}">Personal
                      Information</a>
              </li>
              <li class="nav-item">
-                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.academic.index') ? 'btn-success' : null }}"
-                     href="{{ route('user.academic.index') }}">Academic Information</a>
+                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.academic-information.create') ? 'btn-success' : null }}"
+                     href="{{ route('user.academic-information.create') }}">Academic Information</a>
              </li>
              <li class="nav-item">
                  <a class=" nav-link btn btn-success btn-outline-success" href="#">Choose Programme to Apply</a>
