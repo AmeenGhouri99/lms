@@ -59,8 +59,8 @@
                      href="{{ route('user.choose-program-to-apply.create') }}">Choose Programme to Apply</a>
              </li>
              <li class="nav-item">
-                 <a class=" nav-link btn btn-success btn-outline-success" href="#" tabindex="-1"
-                     aria-disabled="true">Documents to be Attached</a>
+                 <a class=" nav-link btn  btn-outline-success {{ Route::CurrentRouteNamed('user.documents.create') ? 'btn-success' : null }}"
+                     href="{{ route('user.documents.create') }}">Documents to be Attached</a>
              </li>
              <li class="nav-item">
                  <a class=" nav-link btn btn-success btn-outline-success" href="#" tabindex="-1"
