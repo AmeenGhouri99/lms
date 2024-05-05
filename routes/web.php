@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserAcademicInformationController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserChooseProgramController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -18,6 +19,7 @@ Route::get('/login', function () {
 Route::get('/signup', function () {
     return view('user/signup');
 });
+Route::post('/signup', [UserAuthController::class, 'store'])->name('register');
 
 
 

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Contracts\AcademicInformationContract;
+use App\Contracts\AuthContract;
 use App\Contracts\PersonalInformationContract;
 use App\Contracts\UserContract;
 use App\Services\AcademicInformationService;
+use App\Services\AuthService;
 use App\Services\PersonalInformationService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -33,6 +35,12 @@ class UniversityServiceProvider extends ServiceProvider
             AcademicInformationContract::class,
             function ($app) {
                 return $app->make(AcademicInformationService::class);
+            }
+        );
+        $this->app->bind(
+            AuthContract::class,
+            function ($app) {
+                return $app->make(AuthService::class);
             }
         );
     }
