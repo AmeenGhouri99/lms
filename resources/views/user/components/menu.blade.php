@@ -55,7 +55,8 @@
                      href="{{ route('user.academic-information.create') }}">Academic Information</a>
              </li>
              <li class="nav-item">
-                 <a class=" nav-link btn btn-success btn-outline-success" href="#">Choose Programme to Apply</a>
+                 <a class=" nav-link btn  btn-outline-success {{ Route::CurrentRouteNamed('user.choose-program-to-apply.create') ? 'btn-success' : null }}"
+                     href="{{ route('user.choose-program-to-apply.create') }}">Choose Programme to Apply</a>
              </li>
              <li class="nav-item">
                  <a class=" nav-link btn btn-success btn-outline-success" href="#" tabindex="-1"
