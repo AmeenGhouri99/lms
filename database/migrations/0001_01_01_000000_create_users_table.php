@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('father_name');
             $table->string('cnic')->unique();
             $table->string('degree_level_to_apply');
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

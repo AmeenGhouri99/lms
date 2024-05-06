@@ -13,11 +13,11 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('user/login');
+    return view('user/auth/login');
 });
 
 Route::get('/signup', function () {
-    return view('user/signup');
+    return view('user/auth/signup');
 });
 Route::post('/signup', [UserAuthController::class, 'store'])->name('register');
 
