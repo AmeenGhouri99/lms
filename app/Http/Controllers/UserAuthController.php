@@ -42,14 +42,31 @@ class UserAuthController extends Controller
             $this->user->store($request->prepareRequest());
             DB::commit();
             return "Your account register Successfully!";
+        } catch (CustomException $th) {
+            DB::rollBack();
+            return $th->getMessage();
         } catch (\Exception $e) {
             DB::rollBack();
             Helper::logMessage('register store', $request->input(), $e->getMessage());
             return "something Went Wrong!";
             return back();
+        }
+    }
+    public function login(CreateRegisterRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $this->user->store($request->prepareRequest());
+            DB::commit();
+            return "Your account register Successfully!";
         } catch (CustomException $th) {
             DB::rollBack();
             return $th->getMessage();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Helper::logMessage('register store', $request->input(), $e->getMessage());
+            return "something Went Wrong!";
+            return back();
         }
     }
 

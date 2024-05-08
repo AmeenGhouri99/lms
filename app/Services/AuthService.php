@@ -23,7 +23,7 @@ class AuthService implements AuthContract
     public function store($data)
     {
         $user = $this->model->where('cnic', $data['cnic'])->orWhere('email', $data['email'])->first();
-        if (!empty($user)) {
+        if ($user) {
             throw new CustomException("This CNIC/b-form already Registered!");
         }
         $model = new $this->model;
