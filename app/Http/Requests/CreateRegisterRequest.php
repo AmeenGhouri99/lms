@@ -22,7 +22,7 @@ class CreateRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             "full_name" => 'required',
             "father_name" => 'required',
             "cnic_or_b-form" => "required|unique:users,cnic",

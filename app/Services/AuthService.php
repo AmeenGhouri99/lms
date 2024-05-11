@@ -29,6 +29,15 @@ class AuthService implements AuthContract
         $model = new $this->model;
         return $this->prepareData($model, $data, true);
     }
+    public function login($data)
+    {
+        $user = $this->model->where('cnic', $data['cnic'])->orWhere('email', $data['email'])->first();
+        if (!$user) {
+            throw new CustomException("Sorry this CNIC/b-form Not Registered!");
+        }
+        $model = new $this->model;
+        return $this->prepareData($model, $data, true);
+    }
     private function prepareData($model, $data, $new_record = false)
     {
         if (isset($data['full_name']) && $data['full_name']) {

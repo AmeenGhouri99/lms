@@ -6,6 +6,7 @@ use App\Contracts\AuthContract;
 use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use App\Http\Requests\CreateRegisterRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,19 +53,19 @@ class UserAuthController extends Controller
             return back();
         }
     }
-    public function login(CreateRegisterRequest $request)
+    public function login(LoginRequest $request)
     {
         try {
             DB::beginTransaction();
-            $this->user->store($request->prepareRequest());
+            $this->user->login($request->prepareRequest());
             DB::commit();
-            return "Your account register Successfully!";
+            return view('user.personal_information.create');
         } catch (CustomException $th) {
             DB::rollBack();
             return $th->getMessage();
         } catch (\Exception $e) {
             DB::rollBack();
-            Helper::logMessage('register store', $request->input(), $e->getMessage());
+            Helper::logMessage('login ', $request->input(), $e->getMessage());
             return "something Went Wrong!";
             return back();
         }
