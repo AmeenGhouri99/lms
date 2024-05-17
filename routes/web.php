@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDocumentController;
 use App\Http\Controllers\UserPersonalInformationController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +22,12 @@ Route::get('/login', function () {
 Route::get('/signup', function () {
     return view('user/auth/signup');
 });
+Route::get('/logout', function () {
+    Auth::logout();
+    return view('user.auth.login');
+});
 Route::post('/signup', [UserAuthController::class, 'store'])->name('register');
+Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
 
 
@@ -27,8 +35,7 @@ Route::get('/welcome', function () {
     return view('user/welcome');
 });
 
-Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-
+Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::resource('personal-information', UserPersonalInformationController::class);
     Route::resource('academic-information', UserAcademicInformationController::class);
     Route::resource('choose-program-to-apply', UserChooseProgramController::class);

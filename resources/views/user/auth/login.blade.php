@@ -73,8 +73,10 @@
                                         <h4 class="card-title mb-1">Welcome to University!</h4>
                                         <p class="card-text mb-2">Please sign-in to your account and start the adventure
                                         </p>
-
-                                        <form class="auth-login-form mt-2" action="index.html" method="POST">
+                                        @include('flash::message')
+                                        <form class="auth-login-form mt-2" action="{{ route('login') }}"
+                                            method="POST">
+                                            @csrf
                                             <div class="mb-1">
                                                 <label for="login-email" class="form-label">CNIC/B-form Number <span
                                                         class="text-danger">(without Dashes (-))</span></label>
@@ -92,7 +94,7 @@
                                                 </div>
                                                 <div class="input-group input-group-merge form-password-toggle">
                                                     <input type="password" class="form-control form-control-merge"
-                                                        id="login-password" name="login-password" tabindex="2"
+                                                        id="login-password" name="password" tabindex="2"
                                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                         aria-describedby="login-password" />
                                                     <span class="input-group-text cursor-pointer"><i

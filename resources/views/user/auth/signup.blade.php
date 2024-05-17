@@ -69,6 +69,7 @@
                                                 style="height: 50px; width:50px;">
                                             <h2 class="brand-text text-primary ms-1">University</h2>
                                         </a>
+                                        @include('flash::message')
 
                                         <h4 class="card-title mb-1">Welcome to University!</h4>
                                         <p class="card-text mb-2">Please Sign-up for apply Here</p>
@@ -130,7 +131,7 @@
 
                                         <p class="text-center mt-2">
                                             <span>If you already register</span>
-                                            <a href="auth-register-basic.html">
+                                            <a href="{{ route('login') }}">
                                                 <button class="btn btn-secondary">Sign-in</button>
                                             </a>
                                         </p>

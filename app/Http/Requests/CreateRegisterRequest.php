@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+// use App\Abstracts\FormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRegisterRequest extends FormRequest
