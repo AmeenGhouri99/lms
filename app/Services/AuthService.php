@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Contracts\AuthContract;
 use App\Exceptions\CustomException;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService implements AuthContract
 {
@@ -23,11 +25,22 @@ class AuthService implements AuthContract
     public function store($data)
     {
         $user = $this->model->where('cnic', $data['cnic'])->orWhere('email', $data['email'])->first();
-        if (!empty($user)) {
+        if ($user) {
             throw new CustomException("This CNIC/b-form already Registered!");
         }
         $model = new $this->model;
         return $this->prepareData($model, $data, true);
+    }
+    public function login($data)
+    {
+        $user = $this->model->where('cnic', $data['cnic'])->first();
+        if (!$user) {
+            throw new CustomException("Sorry this CNIC/b-form Not Registered!");
+        }
+        if (!Auth::attempt(['cnic' => $data['cnic'], 'password' => $data['password']])) {
+            throw new CustomException('Invalid Credentials');
+        }
+        return $user;
     }
     private function prepareData($model, $data, $new_record = false)
     {

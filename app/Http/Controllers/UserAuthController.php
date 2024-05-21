@@ -6,9 +6,11 @@ use App\Contracts\AuthContract;
 use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use App\Http\Requests\CreateRegisterRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Laracasts\Flash\Flash;
 
 class UserAuthController extends Controller
 {
@@ -37,19 +39,36 @@ class UserAuthController extends Controller
      */
     public function store(CreateRegisterRequest $request)
     {
+
         try {
             DB::beginTransaction();
             $this->user->store($request->prepareRequest());
             DB::commit();
-            return "Your account register Successfully!";
+            flash("Your Account Registered Successfully.")->success();
+            return view('user.auth.signup');
+        } catch (CustomException $th) {
+            DB::rollBack();
+            flash($th->getMessage())->error();
+            return back();
         } catch (\Exception $e) {
             DB::rollBack();
             Helper::logMessage('register store', $request->input(), $e->getMessage());
-            return "something Went Wrong!";
+            flash("Something Went Wrong!")->error();
             return back();
+        }
+    }
+    public function login(LoginRequest $request)
+    {
+        try {
+            $this->user->login($request->prepareRequest());
+            return redirect()->route('user.personal-information.create');
         } catch (CustomException $th) {
-            DB::rollBack();
-            return $th->getMessage();
+            flash($th->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('login ', $request->input(), $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
         }
     }
 

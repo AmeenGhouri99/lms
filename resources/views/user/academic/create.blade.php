@@ -14,6 +14,7 @@
                     </ul>
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
+                            @include('flash::message')
                             {{ html()->form('PUT', '/post')->open() }}
                             <div class="row">
                                 <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">

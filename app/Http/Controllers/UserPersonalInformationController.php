@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Contracts\PersonalInformationContract;
 use App\Exceptions\CustomException;
+use App\Helpers\Helper;
+use App\Http\Requests\CreatePersonalInformationRequest;
+use App\Http\Requests\UpdatePersonalInformationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserPersonalInformationController extends Controller
 {
@@ -29,17 +33,36 @@ class UserPersonalInformationController extends Controller
         try {
             return $this->personal_information->create();
         } catch (CustomException $e) {
-            return $this->$e->getMessage();
+            flash($e->getMessage())->error();
+            return back();
         } catch (\Exception $e) {
+            Helper::logMessage('personal Information create ', 'none', $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
         }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreatePersonalInformationRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->personal_information->store($request->prepareRequest());
+            DB::commit();
+            flash('Personal Information Saved Successfully.')->success();
+            return redirect()->route('user.academic-information.create');
+        } catch (CustomException $th) {
+            DB::rollback();
+            flash($th->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Helper::logMessage('personal Information store ', $request->input(), $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
     }
 
     /**
@@ -55,15 +78,40 @@ class UserPersonalInformationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $user = $this->personal_information->edit($id);
+            return view('user.personal_information.edit', compact('user'));
+        } catch (CustomException $e) {
+            flash($e->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('personal Information edit ', 'id=' . $id, $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePersonalInformationRequest $request, string $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->personal_information->update($request->prepareRequest(), $id);
+            DB::commit();
+            flash('Personal Information Update Successfully.')->success();
+            return redirect()->route('user.academic-information.create');
+        } catch (CustomException $th) {
+            DB::rollback();
+            flash($th->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Helper::logMessage('personal Information Update ', $request->input(), $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
     }
 
     /**

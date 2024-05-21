@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+// use App\Abstracts\FormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRegisterRequest extends FormRequest
@@ -22,7 +23,7 @@ class CreateRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             "full_name" => 'required',
             "father_name" => 'required',
             "cnic_or_b-form" => "required|unique:users,cnic",
