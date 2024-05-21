@@ -30,45 +30,6 @@
 </script>
 
 <!-- Add this code inside the script tags at the end of your HTML body -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        const tbody = document.querySelector('tbody');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Get form input values
-            const qualification = document.getElementById('qualification').value;
-            const university = document.getElementById('university').value;
-            const rollno = document.getElementById('rollno').value;
-            const examyear = document.getElementById('examyear').value;
-            const totalmarks = document.getElementById('totalmarks').value;
-            const obtainedmarks = document.getElementById('obtainedmarks').value;
-
-            // Create a new row for the table
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                    <td>${qualification}</td>
-                    <td>${university}</td>
-                    <td>${rollno}</td>
-                    <td>${examyear}</td>
-                    <td>${totalmarks}</td>
-                    <td>${obtainedmarks}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                `;
-
-            // Append the new row to the table body
-            tbody.appendChild(newRow);
-
-            // Reset form fields
-            form.reset();
-        });
-    });
-</script>
 @stack('js_scripts')
 
 </body>

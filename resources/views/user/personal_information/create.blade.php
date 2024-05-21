@@ -14,8 +14,9 @@
                     </ul>
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
-                            {{ html()->form('PUT', '/post')->open() }}
-                            @include('user.personal_information.fields')
+                            @include('flash::message')
+                            {!! html()->form('POST', route('user.personal-information.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
+                            @include('user.personal_information.fields');
                             {{ html()->form()->close() }}
                         </div>
                     </div>
