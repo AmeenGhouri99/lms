@@ -100,7 +100,7 @@ class UserPersonalInformationController extends Controller
             DB::beginTransaction();
             $this->personal_information->update($request->prepareRequest(), $id);
             DB::commit();
-            flash('Personal Information Update Successfully.')->success();
+            flash('Personal Information Updated Successfully.')->success();
             return redirect()->route('user.academic-information.create');
         } catch (CustomException $th) {
             DB::rollback();
@@ -119,6 +119,5 @@ class UserPersonalInformationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }
