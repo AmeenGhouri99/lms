@@ -33,7 +33,7 @@
                                         data-feather='edit'></i></a></div>
                             <div class="col-3">
                                 <form action="{{ route('user.academic-information.destroy', $academic_detail->id) }}"
-                                    method="post" onclick="return confirm('Are you sure to want delete?')">
+                                    method="post" onclick="return confirm('Are you sure to delete?')">
                                     @csrf
                                     @method('delete')
                                     <button

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="d-flex mb-1">
         <a href="#" class="me-25">
-            <img src="{{ $user ? asset('storage/' . $user->profile_image) : asset('app-assets/images/no_image_icon.jpg') }}"
+            <img src="{{ isset($user) && $user ? asset('storage/' . $user->profile_image) : asset('app-assets/images/no_image_icon.jpg') }}"
                 id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100"
                 width="100" />
         </a>
@@ -105,7 +105,9 @@
         {{ html()->text('permanent_address')->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1 text-end">
-        <input type="submit" name="submit" value="Save & Go To Next" />
+        <a href="{{ url('home') }}" class="btn btn-primary"><i data-feather='arrow-left'></i>Back</a>
+        <input type="submit" name="submit" value="Save & Go To Next" class="btn btn-success btn-sm" />
+
     </div>
     @push('js_scripts')
         <script>

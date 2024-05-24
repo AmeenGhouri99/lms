@@ -5,15 +5,18 @@ namespace App\Services;
 use App\Contracts\AcademicInformationContract;
 use App\Exceptions\CustomException;
 use App\Models\AcademicInformation;
+use App\Models\PersonalInformation;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AcademicInformationService implements AcademicInformationContract
 {
     public $academic_information;
+    public $personal_information;
     public function __construct()
     {
         $this->academic_information = new AcademicInformation();
+        $this->personal_information = new PersonalInformation();
     }
     public function index()
     {
@@ -21,6 +24,10 @@ class AcademicInformationService implements AcademicInformationContract
     public function create()
     {
         $user_id = Auth::id();
+        $personal_information = $this->personal_information->where('user_id', $user_id)->first();
+        if (empty($personal_information)) {
+            throw new CustomException('Please add the Personal Information');
+        }
         $user_academic_detail = $this->academic_information->where('user_id', $user_id)->get();
         return $user_academic_detail;
     }

@@ -38,7 +38,7 @@ class UserAcademicInformationController extends Controller
             return view('user.academic.create', compact('academic_details'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
-            return back();
+            return redirect()->route('user.personal-information.create');
         } catch (\Exception $e) {
             Helper::logMessage('personal Information create ', 'none', $e->getMessage());
             flash("Something Went Wrong!")->error();
