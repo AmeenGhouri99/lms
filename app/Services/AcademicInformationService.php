@@ -7,12 +7,14 @@ use App\Exceptions\CustomException;
 use App\Models\AcademicInformation;
 use App\Models\PersonalInformation;
 use App\Models\User;
+use App\Traits\ImageUpload;
 use Illuminate\Support\Facades\Auth;
 
 class AcademicInformationService implements AcademicInformationContract
 {
     public $academic_information;
     public $personal_information;
+    use ImageUpload;
     public function __construct()
     {
         $this->academic_information = new AcademicInformation();
@@ -89,6 +91,9 @@ class AcademicInformationService implements AcademicInformationContract
 
         if (isset($data['obtained_marks']) && $data['obtained_marks']) {
             $model->obtained_marks = $data['obtained_marks'];
+        }
+        if (isset($data['image']) && $data['image']) {
+            $model->image = $this->upload($data['image']);
         }
         $model->save();
         return $model;

@@ -15,7 +15,7 @@
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
                             @include('flash::message')
-                            {{ html()->form('post', route('user.academic-information.store'))->open() }}
+                            {{ html()->form('post', route('user.academic-information.store'))->attribute('enctype', 'multipart/form-data')->open() }}
                             @include('user.academic.fields')
                             {{ html()->form()->close() }}
                             @include('user.academic.table')

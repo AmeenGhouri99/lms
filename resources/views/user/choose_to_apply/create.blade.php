@@ -9,6 +9,8 @@
                     <h3>Choose to apply</h3>
                     <ul style="color: red">
                         <li>Entries with (*) is Compulsory.</li>
+                        <li>Choosing Program depends on your Intermediate Degree suppose you have degree of Simple FA then
+                            you can apply only on BBA/IT </li>
                         <li>Click "Select Quota" button to apply in the program.</li>
                         <li>After you have selected the quota of the program please click on "Apply" button.</li>
                         <li>The list of the all programs will be displayed at the end of the page click "Print Chalan" to
