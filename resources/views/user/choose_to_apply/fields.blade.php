@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Program Eligible to Apply</label>
-        <select class="form-control form-control-sm" id="degree_level_to_apply">
+        <select class="form-control form-control-sm" id="degree_level_to_apply" name="degree_level_to_apply">
             <option value="" selected disabled>Select Degree Level to apply</option>
             @foreach ($degree_levels as $degree_level)
                 <option value="{{ $degree_level->id }}"> {{ $degree_level->name }}</option>
@@ -17,7 +17,7 @@
     </div>
     <div id="selected_programs" class="col-12 mt-2"></div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1 text-end" id="submit_button" style="display: none">
-        <input type="button" value="Save & Go To Next" name="submit" class="btn btn-success btn-sm">
+        <input type="submit" value="Save & Go To Next" name="submit" class="btn btn-success btn-sm">
     </div>
 </div>
 @push('js_scripts')

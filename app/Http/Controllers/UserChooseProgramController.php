@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Contracts\ChooseProgramContract;
 use App\Exceptions\CustomException;
 use App\Helpers\Helper;
+use App\Http\Requests\CreateChooseProgramRequest;
 use App\Http\Requests\UpdateAcademicInformationRequest;
+use App\Models\Admission;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Event\Test\MockObjectCreated;
 
 class UserChooseProgramController extends Controller
 {
@@ -54,8 +57,9 @@ class UserChooseProgramController extends Controller
     {
         try {
             $degree_levels = $this->user_choose_program->create();
+            $applied_programs = Admission::where('user_id', Auth::id())->get();
 
-            return view('user.choose_to_apply.create', compact('degree_levels'));
+            return view('user.choose_to_apply.create', compact('degree_levels', 'applied_programs'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return redirect()->route('user.personal-information.create');
@@ -69,21 +73,22 @@ class UserChooseProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateChooseProgramRequest $request)
     {
         try {
             DB::beginTransaction();
             $this->user_choose_program->store($request->prepareRequest());
             DB::commit();
-            flash('Personal Information Saved Successfully.')->success();
-            return redirect()->route('user.academic-information.create');
+            flash('Program Saved Successfully.')->success();
+            return back();
+            // return redirect()->route('user.academic-information.create');
         } catch (CustomException $th) {
             DB::rollback();
             flash($th->getMessage())->error();
             return back();
         } catch (\Exception $e) {
             DB::rollback();
-            Helper::logMessage('personal Information store ', $request->input(), $e->getMessage());
+            Helper::logMessage('Program choose store ', $request->input(), $e->getMessage());
             flash("Something Went Wrong!")->error();
             return back();
         }

@@ -7,21 +7,23 @@ use App\Exceptions\CustomException;
 use App\Helpers\Constant;
 use App\Models\Program;
 use App\Models\AcademicInformation;
+use App\Models\Admission;
 use Illuminate\Support\Facades\Auth;
 
 class ChooseProgramService implements ChooseProgramContract
 {
     public $choose_program;
+    public $admission;
     public $user_academic_detail;
     public function __construct()
     {
         $this->choose_program = new Program();
+        $this->admission = new Admission();
         $this->user_academic_detail = new AcademicInformation();
     }
     public function index($data)
     {
         $user_intermediate_degrees = $this->user_academic_detail->where('user_id', Auth::id())->where('qualification', '!=', 'matriculation')->get();
-
         // Iterate through the user intermediate degrees
         foreach ($user_intermediate_degrees as $user_intermediate_degree) {
 
@@ -126,7 +128,15 @@ class ChooseProgramService implements ChooseProgramContract
     }
     public function store($data)
     {
-        $model = new $this->choose_program;
+        // $record_exists = $this->admission->where('user_id', $data['user_id'])
+        //     ->where('first_program_id', $data['programs'][0])
+        //     ->orWhere('second_program_id', $data['programs'][1] ?? null)
+        //     ->orWhere('third_program_id', $data['programs'][2] ?? null)
+        //     ->orWhere('fourth_program_id', $data['programs'][3] ?? null)->first();
+        // if (!empty($record_exists)) {
+        //     throw new CustomException('You have already applied in Once');
+        // }
+        $model = new $this->admission;
         return $this->prepareData($model, $data, true);
     }
     public function update($data, $id)
@@ -155,28 +165,15 @@ class ChooseProgramService implements ChooseProgramContract
             $model->user_id = $data['user_id'];
         }
 
-        if (isset($data['qualification']) && $data['qualification']) {
-            $model->qualification = $data['qualification'];
+        if (isset($data['programs']) && $data['programs']) {
+            $model->first_program_id = $data['programs'][0];
+            $model->second_program_id = $data['programs'][1] ?? null;
+            $model->third_program_id = $data['programs'][2] ?? null;
+            $model->fourth_program_id = $data['programs'][3] ?? null;
         }
 
-        if (isset($data['board_university_name']) && $data['board_university_name']) {
-            $model->board_university_name = $data['board_university_name'];
-        }
-
-        if (isset($data['roll_no']) && $data['roll_no']) {
-            $model->roll_no = $data['roll_no'];
-        }
-
-        if (isset($data['degree_exam_year']) && $data['degree_exam_year']) {
-            $model->degree_exam_year = $data['degree_exam_year'];
-        }
-
-        if (isset($data['total_marks']) && $data['total_marks']) {
-            $model->total_marks = $data['total_marks'];
-        }
-
-        if (isset($data['obtained_marks']) && $data['obtained_marks']) {
-            $model->obtained_marks = $data['obtained_marks'];
+        if (isset($data['degree_level_applied_id']) && $data['degree_level_applied_id']) {
+            $model->degree_level_applied_id = $data['degree_level_applied_id'];
         }
         $model->save();
         return $model;

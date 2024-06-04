@@ -27,6 +27,7 @@
                             {{ html()->form('POST', route('user.choose-program-to-apply.store'))->open() }}
                             @include('user.choose_to_apply.fields')
                             {{ html()->form()->close() }}
+                            @include('user.choose_to_apply.table')
                         </div>
                     </div>
                 </div>
