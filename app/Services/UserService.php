@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contracts\UserContract;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserService implements UserContract
 {
@@ -19,5 +20,10 @@ class UserService implements UserContract
     {
         // dd("ok");
         return view('user.personal_information.create');
+    }
+    public function reviewApplication()
+    {
+        $model = $this->user->with(['personalInformation', 'qualification', 'admission', 'document', 'feeChalan'])->find(Auth::id());
+        return $model;
     }
 }

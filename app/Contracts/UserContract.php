@@ -6,4 +6,5 @@ interface UserContract
 {
     public function index();
     public function create();
+    public function reviewApplication();
 }

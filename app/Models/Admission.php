@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Admission extends Model
 {
@@ -39,5 +40,34 @@ class Admission extends Model
                 $model->admission_date = Carbon::now()->toDateString();
             }
         });
+    }
+    /**
+     * Get the user that owns the Admission
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function firstProgram(): BelongsTo
+    {
+        return $this->belongsTo(program::class, 'first_program_id');
+    }
+    public function secondProgram(): BelongsTo
+    {
+        return $this->belongsTo(program::class, 'second_program_id');
+    }
+    public function thirdProgram(): BelongsTo
+    {
+        return $this->belongsTo(program::class, 'third_program_id');
+    }
+    public function fourthProgram(): BelongsTo
+    {
+        return $this->belongsTo(program::class, 'fourth_program_id');
+    }
+    public function degreeLevelApplied(): BelongsTo
+    {
+        return $this->belongsTo(program::class, 'degree_level_applied_id');
     }
 }

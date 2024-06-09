@@ -6,12 +6,15 @@ use App\Contracts\AcademicInformationContract;
 use App\Contracts\AuthContract;
 use App\Contracts\ChooseProgramContract;
 use App\Contracts\DocumentContract;
+use App\Contracts\FeeChalanContract;
 use App\Contracts\PersonalInformationContract;
 use App\Contracts\UserContract;
+use App\Models\FeeChalan;
 use App\Services\AcademicInformationService;
 use App\Services\AuthService;
 use App\Services\ChooseProgramService;
 use App\Services\DocumentService;
+use App\Services\FeeChalanService;
 use App\Services\PersonalInformationService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -57,6 +60,12 @@ class UniversityServiceProvider extends ServiceProvider
             ChooseProgramContract::class,
             function ($app) {
                 return $app->make(ChooseProgramService::class);
+            }
+        );
+        $this->app->bind(
+            FeeChalanContract::class,
+            function ($app) {
+                return $app->make(FeeChalanService::class);
             }
         );
     }

@@ -1,4 +1,5 @@
-<table class="table mt-2" style="overflow:scroll">
+<h4>Applied In Following Programs</h4>
+<table class="table" style="overflow:scroll">
     <thead>
         <tr>
             <th>Sr#</th>
@@ -22,11 +23,11 @@
             @foreach ($applied_programs as $applied_program)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td> {{ $applied_program->degree_level_applied_id }}</td>
-                    <td>{{ $applied_program->first_program_id }}</td>
-                    <td>{{ $applied_program->second_program_id }}</td>
-                    <td>{{ $applied_program->third_program_id }}</td>
-                    <td>{{ $applied_program->fourth_program_id }}</td>
+                    <td> {{ $applied_program->degreeLevelApplied->name }}</td>
+                    <td>{{ $applied_program->firstProgram->name }}</td>
+                    <td>{{ $applied_program->secondProgram->name ?? 'Not Choosed' }}</td>
+                    <td>{{ $applied_program->thirdProgram->name ?? 'Not Choosed' }}</td>
+                    <td>{{ $applied_program->fourthProgram->name ?? 'Not Choosed' }}</td>
                     <td>{{ $applied_program->status }}</td>
                     <td>{{ $applied_program->admission_fee }}</td>
 
@@ -35,11 +36,15 @@
 
                     <td>
                         <div class="row">
+                            <div class="col-3"><a href="{{ route('user.pay-admission-fee.show', $applied_program->id) }}"
+                                    class="btn btn-primary btn-sm">PayFee</a>
+                            </div>
                             <div class="col-3"><a
                                     href="{{ route('user.choose-program-to-apply.edit', $applied_program->id) }}"><i
                                         data-feather='edit'></i></a></div>
                             <div class="col-3">
-                                <form action="{{ route('user.choose-program-to-apply.destroy', $applied_program->id) }}"
+                                <form
+                                    action="{{ route('user.choose-program-to-apply.destroy', $applied_program->id) }}"
                                     method="post" onclick="return confirm('Are you sure to delete?')">
                                     @csrf
                                     @method('delete')

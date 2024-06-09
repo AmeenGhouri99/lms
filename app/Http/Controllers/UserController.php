@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\UserContract;
 use App\Exceptions\CustomException;
+use App\Helpers\Helper;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -72,5 +73,19 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function reviewAdmissionApplication()
+    {
+        try {
+            $user = $this->user->reviewApplication();
+            return view('user.verify_and_submit.index', compact('user'));
+        } catch (CustomException $e) {
+            flash($e->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('review & submit application in user Controller ', 'none', $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
     }
 }

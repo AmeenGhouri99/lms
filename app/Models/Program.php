@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Program extends Model
 {
@@ -23,5 +23,17 @@ class Program extends Model
     public function children()
     {
         return $this->hasMany(Program::class, 'parent_id');
+    }
+    public function secondChooseProgram(): HasMany
+    {
+        return $this->hasMany(Admission::class, 'second_program_id');
+    }
+    public function thirdChooseProgram(): HasMany
+    {
+        return $this->hasMany(Admission::class, 'third_program_id');
+    }
+    public function fourthChooseProgram(): HasMany
+    {
+        return $this->hasMany(Admission::class, 'fourth_program_id');
     }
 }

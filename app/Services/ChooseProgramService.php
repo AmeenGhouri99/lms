@@ -153,7 +153,7 @@ class ChooseProgramService implements ChooseProgramContract
     }
     public function delete($id)
     {
-        $user_academic_detail = $this->choose_program->where('user_id', Auth::id())->find($id);
+        $user_academic_detail = $this->admission->where('user_id', Auth::id())->find($id);
         if (!$user_academic_detail->count() > 0) {
             throw new CustomException('Record Not Exists!');
         }

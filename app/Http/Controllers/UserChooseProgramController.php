@@ -57,7 +57,7 @@ class UserChooseProgramController extends Controller
     {
         try {
             $degree_levels = $this->user_choose_program->create();
-            $applied_programs = Admission::where('user_id', Auth::id())->get();
+            $applied_programs = Admission::with(['degreeLevelApplied', 'firstProgram', 'secondProgram', 'thirdProgram', 'fourthProgram'])->where('user_id', Auth::id())->get();
 
             return view('user.choose_to_apply.create', compact('degree_levels', 'applied_programs'));
         } catch (CustomException $e) {
@@ -158,7 +158,20 @@ class UserChooseProgramController extends Controller
             flash($e->getMessage())->error();
             return back();
         } catch (\Exception $e) {
-            Helper::logMessage('academic Information delete ', 'id=' . $id, $e->getMessage());
+            Helper::logMessage('choose Program delete ', 'id=' . $id, $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
+    }
+    public function payAdmissionFeeCreate()
+    {
+        try {
+            return view('user.choose_to_apply.pay_admission_fee');
+        } catch (CustomException $e) {
+            flash($e->getMessage())->error();
+            return redirect()->route('user.personal-information.create');
+        } catch (\Exception $e) {
+            Helper::logMessage('personal Information create ', 'none', $e->getMessage());
             flash("Something Went Wrong!")->error();
             return back();
         }

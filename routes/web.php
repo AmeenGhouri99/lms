@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeeChalanController;
 use App\Http\Controllers\UserAcademicInformationController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserChooseProgramController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\UserDocumentController;
 use App\Http\Controllers\UserPersonalInformationController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
+use App\Services\ChooseProgramService;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -40,4 +42,7 @@ Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as'
     Route::resource('academic-information', UserAcademicInformationController::class);
     Route::resource('choose-program-to-apply', UserChooseProgramController::class);
     Route::resource('documents', UserDocumentController::class);
+    Route::resource('pay-admission-fee', FeeChalanController::class);
+    Route::get('review-application', [UserController::class, 'reviewAdmissionApplication'])->name('review-application');
+    Route::post('review-application', [UserController::class, 'reviewAdmissionApplication'])->name('review-application.store');
 });
