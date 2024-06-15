@@ -6,6 +6,8 @@ use App\Contracts\UserContract;
 use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Laracasts\Flash\Flash;
 
 class UserController extends Controller
 {
@@ -74,17 +76,41 @@ class UserController extends Controller
     {
         //
     }
-    public function reviewAdmissionApplication()
+    public function reviewAdmissionApplication($id)
     {
         try {
-            $user = $this->user->reviewApplication();
-            return view('user.verify_and_submit.index', compact('user'));
+            $user = $this->user->reviewApplication($id);
+            if ($user === false) {
+                return view('user.verify_and_submit.already_submit_application');
+            }
+            $admission_id = $id;
+            session()->put('admission_id', $admission_id);
+            return view('user.verify_and_submit.index', compact('user', 'admission_id'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
         } catch (\Exception $e) {
             Helper::logMessage('review & submit application in user Controller ', 'none', $e->getMessage());
             flash("Something Went Wrong!")->error();
+            return back();
+        }
+    }
+    public function updateIsUndertakingAccept(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user = $this->user->isUndertakingAccept($request->all());
+            DB::commit();
+            flash('Congratulation! Your Application is Submitted Successfully')->success();
+            return redirect()->route('user.review-application');
+        } catch (CustomException $e) {
+            flash($e->getMessage())->error();
+            DB::rollBack();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('update is undertaking accept in user Controller ', $request->all(), $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            DB::rollBack();
             return back();
         }
     }

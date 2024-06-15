@@ -8,6 +8,7 @@ use App\Helpers\Constant;
 use App\Models\Program;
 use App\Models\AcademicInformation;
 use App\Models\Admission;
+use App\Models\AppliedProgram;
 use Illuminate\Support\Facades\Auth;
 
 class ChooseProgramService implements ChooseProgramContract
@@ -15,11 +16,13 @@ class ChooseProgramService implements ChooseProgramContract
     public $choose_program;
     public $admission;
     public $user_academic_detail;
+    public $applied_program;
     public function __construct()
     {
         $this->choose_program = new Program();
         $this->admission = new Admission();
         $this->user_academic_detail = new AcademicInformation();
+        $this->applied_program = new AppliedProgram();
     }
     public function index($data)
     {
@@ -136,6 +139,12 @@ class ChooseProgramService implements ChooseProgramContract
         // if (!empty($record_exists)) {
         //     throw new CustomException('You have already applied in Once');
         // }
+        foreach ($data['programs'] as $program) {
+            $record_exists = $this->applied_program->where('program_id', $program)->where('user_id', Auth::id())->first();
+            if (!empty($record_exists)) {
+                throw new CustomException('You have already applied in this' . $record_exists->program->name);
+            }
+        }
         $model = new $this->admission;
         return $this->prepareData($model, $data, true);
     }
@@ -164,18 +173,17 @@ class ChooseProgramService implements ChooseProgramContract
         if (isset($data['user_id']) && $data['user_id']) {
             $model->user_id = $data['user_id'];
         }
-
-        if (isset($data['programs']) && $data['programs']) {
-            $model->first_program_id = $data['programs'][0];
-            $model->second_program_id = $data['programs'][1] ?? null;
-            $model->third_program_id = $data['programs'][2] ?? null;
-            $model->fourth_program_id = $data['programs'][3] ?? null;
-        }
-
-        if (isset($data['degree_level_applied_id']) && $data['degree_level_applied_id']) {
-            $model->degree_level_applied_id = $data['degree_level_applied_id'];
-        }
         $model->save();
+        if (isset($data['programs']) && $data['programs']) {
+            foreach ($data['programs'] as $program) {
+                $applied_program_model = new $this->applied_program;
+                $applied_program_model->admission_id = $model->id;
+                $applied_program_model->user_id = $data['user_id'];
+                $applied_program_model->program_id = $program;
+                $applied_program_model->degree_level_applied_id = $data['degree_level_applied_id'];
+                $applied_program_model->save();
+            }
+        }
         return $model;
     }
 }

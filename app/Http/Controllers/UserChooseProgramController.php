@@ -57,7 +57,7 @@ class UserChooseProgramController extends Controller
     {
         try {
             $degree_levels = $this->user_choose_program->create();
-            $applied_programs = Admission::with(['degreeLevelApplied', 'firstProgram', 'secondProgram', 'thirdProgram', 'fourthProgram'])->where('user_id', Auth::id())->get();
+            $applied_programs = Admission::with(['program'])->where('user_id', Auth::id())->get();
 
             return view('user.choose_to_apply.create', compact('degree_levels', 'applied_programs'));
         } catch (CustomException $e) {

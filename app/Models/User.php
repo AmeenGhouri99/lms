@@ -78,8 +78,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function firstChooseProgram(): HasMany
+    public function appliedProgram(): HasMany
     {
-        return $this->hasMany(Admission::class, 'first_program_id');
+        return $this->hasMany(AppliedProgram::class, 'user_id');
     }
 }

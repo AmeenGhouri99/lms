@@ -3,13 +3,8 @@
     <thead>
         <tr>
             <th>Sr#</th>
-            <th>Applied Degree level</th>
-            <th>First Program</th>
-            <th>Second Program</th>
-            <th>Third Program</th>
-            <th>Fourth Program</th>
+            <th>Applied Programs</th>
             <th>Status</th>
-            <th>Admission Fee</th>
             <th>Admission Date</th>
             <th>Action</th>
         </tr>
@@ -23,28 +18,33 @@
             @foreach ($applied_programs as $applied_program)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td> {{ $applied_program->degreeLevelApplied->name }}</td>
-                    <td>{{ $applied_program->firstProgram->name }}</td>
-                    <td>{{ $applied_program->secondProgram->name ?? 'Not Choosed' }}</td>
-                    <td>{{ $applied_program->thirdProgram->name ?? 'Not Choosed' }}</td>
-                    <td>{{ $applied_program->fourthProgram->name ?? 'Not Choosed' }}</td>
+                    <td>
+                        @foreach ($applied_program->program as $program)
+                            {{ $program->appliedDegreeLevel->name }}{{ $program->program->name }} |<br>
+                        @endforeach
+                    </td>
                     <td>{{ $applied_program->status }}</td>
-                    <td>{{ $applied_program->admission_fee }}</td>
-
                     <td>{{ $applied_program->admission_date }}</td>
-
-
                     <td>
                         <div class="row">
-                            <div class="col-3"><a href="{{ route('user.pay-admission-fee.show', $applied_program->id) }}"
-                                    class="btn btn-primary btn-sm">PayFee</a>
-                            </div>
-                            <div class="col-3"><a
+
+                            @if ($applied_program->is_undertaking_accept === 1)
+                                <div class="col-3">
+                                    <span class="badge bg-success">Applied</span>
+                                </div>
+                            @else
+                                <div class="col-3"><a
+                                        href="{{ route('user.pay-admission-fee.show', $applied_program->id) }}"
+                                        class="btn btn-primary btn-sm">PayFee</a>
+                                </div>
+                            @endif
+
+
+                            {{-- <div class="col-3"><a
                                     href="{{ route('user.choose-program-to-apply.edit', $applied_program->id) }}"><i
                                         data-feather='edit'></i></a></div>
                             <div class="col-3">
-                                <form
-                                    action="{{ route('user.choose-program-to-apply.destroy', $applied_program->id) }}"
+                                <form action="{{ route('user.choose-program-to-apply.destroy', $applied_program->id) }}"
                                     method="post" onclick="return confirm('Are you sure to delete?')">
                                     @csrf
                                     @method('delete')
@@ -52,10 +52,8 @@
                                         style="border-radius: none; padding:none;border:none;color:none;background:none"><i
                                             data-feather='delete' class="text-danger"></i></button>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
-
-
                     </td>
                 </tr>
             @endforeach

@@ -31,7 +31,7 @@ class FeeChalanService implements FeeChalanContract
     {
         $model = $this->model->where('user_id', Auth::id())->where('admission_id', $id)->first();
         if (!empty($model)) {
-            return redirect()->route('user.review-application');
+            return false;
             throw new CustomException('Chalan Information already saved.');
         }
         return $model;

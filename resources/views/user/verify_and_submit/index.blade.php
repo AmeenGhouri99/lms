@@ -15,8 +15,11 @@
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
                             @include('flash::message')
-                            {!! html()->form('POST', route('user.review-application.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
-                            @include('user.verify_and_submit.review_application');
+                            {!! html()->form('POST', route('user.is-undertaking-accept.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
+                            {{-- @dd($admission_id) --}}
+                            @include('user.verify_and_submit.review_application', [
+                                'admission_id' => $admission_id,
+                            ]);
                             {{ html()->form()->close() }}
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Admission extends Model
 {
@@ -15,16 +16,13 @@ class Admission extends Model
 
     protected $fillable = [
         'user_id',
-        'first_program_id',
-        'second_program_id',
-        'third_program_id',
-        'fourth_program_id',
         'session',
         'admission_date',
         'admission_status',
         'degree_level_applied_id',
         'admission_fee',
         'admission_amount',
+        'is_undertaking_accept'
     ];
 
     protected $attributes = [
@@ -50,24 +48,8 @@ class Admission extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function firstProgram(): BelongsTo
+    public function program(): HasMany
     {
-        return $this->belongsTo(program::class, 'first_program_id');
-    }
-    public function secondProgram(): BelongsTo
-    {
-        return $this->belongsTo(program::class, 'second_program_id');
-    }
-    public function thirdProgram(): BelongsTo
-    {
-        return $this->belongsTo(program::class, 'third_program_id');
-    }
-    public function fourthProgram(): BelongsTo
-    {
-        return $this->belongsTo(program::class, 'fourth_program_id');
-    }
-    public function degreeLevelApplied(): BelongsTo
-    {
-        return $this->belongsTo(program::class, 'degree_level_applied_id');
+        return $this->hasMany(AppliedProgram::class, 'admission_id');
     }
 }

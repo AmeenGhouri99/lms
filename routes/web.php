@@ -38,11 +38,13 @@ Route::get('/welcome', function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('home', [UserController::class, 'index'])->name('home');
     Route::resource('personal-information', UserPersonalInformationController::class);
     Route::resource('academic-information', UserAcademicInformationController::class);
     Route::resource('choose-program-to-apply', UserChooseProgramController::class);
     Route::resource('documents', UserDocumentController::class);
     Route::resource('pay-admission-fee', FeeChalanController::class);
-    Route::get('review-application', [UserController::class, 'reviewAdmissionApplication'])->name('review-application');
+    Route::get('review-application/{id}', [UserController::class, 'reviewAdmissionApplication'])->name('review-application');
     Route::post('review-application', [UserController::class, 'reviewAdmissionApplication'])->name('review-application.store');
+    Route::post('is_undertaking_accept', [UserController::class, 'updateIsUndertakingAccept'])->name('is-undertaking-accept.store');
 });

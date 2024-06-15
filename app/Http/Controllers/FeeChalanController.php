@@ -63,8 +63,13 @@ class FeeChalanController extends Controller
     public function show(string $id)
     {
         try {
-            $this->fee_chalan->show($id);
+            $record_exist = $this->fee_chalan->show($id);
+            if ($record_exist === false) {
+                flash('You have Already Save the Voucher information, So Review & Submit Your Application')->success();
+                return redirect()->route('user.review-application', ['id' => $id]);
+            }
             $admission_detail  = Admission::find($id);
+
             return view('user.choose_to_apply.pay_admission_fee', compact('admission_detail'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
