@@ -39,6 +39,8 @@ Route::get('/welcome', function () {
 
 Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('home', [UserController::class, 'index'])->name('home');
+    Route::get('states', [UserPersonalInformationController::class, 'getStates'])->name('state');
+    Route::get('domicile/{id}', [UserPersonalInformationController::class, 'getDomicileCity'])->name('domicile');
     Route::resource('personal-information', UserPersonalInformationController::class);
     Route::resource('academic-information', UserAcademicInformationController::class);
     Route::resource('choose-program-to-apply', UserChooseProgramController::class);

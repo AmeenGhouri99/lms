@@ -72,7 +72,7 @@
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Country <span class="text-danger">*</span></label>
-        {{ html()->select('country', ['pakistan' => 'Pakistan', 'india' => 'India'])->class('form-control form-control-sm') }}
+        {{ html()->select('country', ['' => 'Select Country'] + $countries->toArray())->class('form-control form-control-sm')->attribute('id', 'country_id') }}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Province <span class="text-danger">*</span></label>
@@ -135,6 +135,27 @@
                         accountUserImage.attr('src', resetImage);
                     });
                 }
+            });
+
+            $('#country_id').on('change', function() {
+                let country_id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('user.state') }}",
+                    data: {
+                        country_id: country_id,
+                        // _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status === false) {} else {
+                            displayPrograms(response.data);
+                        }
+                    },
+                    error: function(response) {
+
+                    }
+                });
             });
         </script>
     @endpush

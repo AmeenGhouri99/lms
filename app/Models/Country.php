@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Country extends Model
+{
+    use HasFactory;
+
+    protected $table = 'countries';
+
+    protected $fillable = [
+        'id',
+        'name'
+    ];
+
+    protected $attributes = [
+        'admission_date' => null,
+    ];
+
+    /**
+     * Get the user that owns the Admission
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function state(): HasMany
+    {
+        return $this->hasMany(State::class, 'country_id');
+    }
+}

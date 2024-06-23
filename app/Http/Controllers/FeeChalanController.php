@@ -41,10 +41,10 @@ class FeeChalanController extends Controller
     {
         try {
             DB::beginTransaction();
-            $this->fee_chalan->store($request->prepareRequest());
+            $admission_detail = $this->fee_chalan->store($request->prepareRequest());
             DB::commit();
             flash('Chalan Information Saved Successfully.')->success();
-            return redirect()->route('user.pay-admission-fee.create');
+            return redirect()->route('user.review-application', ['id' => $admission_detail->admission_id]);
         } catch (CustomException $th) {
             DB::rollback();
             flash($th->getMessage())->error();

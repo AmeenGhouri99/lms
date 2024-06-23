@@ -21,7 +21,17 @@ class UserController extends Controller
     }
     public function index()
     {
-        //
+        try {
+            $user = $this->user->index();
+            return view('user.home', compact('user'));
+        } catch (CustomException $e) {
+            flash($e->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('index userController ', 'none', $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
     }
 
     /**
@@ -30,10 +40,14 @@ class UserController extends Controller
     public function create()
     {
         try {
-            return $this->user->create();
+            $this->user->create();
         } catch (CustomException $e) {
-            return $this->$e->getMessage();
+            flash($e->getMessage())->error();
+            return back();
         } catch (\Exception $e) {
+            Helper::logMessage('index userController ', 'none', $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
         }
     }
 
@@ -102,7 +116,7 @@ class UserController extends Controller
             $user = $this->user->isUndertakingAccept($request->all());
             DB::commit();
             flash('Congratulation! Your Application is Submitted Successfully')->success();
-            return redirect()->route('user.review-application');
+            return redirect()->route('user.review-application', ['id' => $user->id]);
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             DB::rollBack();

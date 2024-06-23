@@ -19,7 +19,7 @@
                             {{-- @dd($admission_id) --}}
                             @include('user.verify_and_submit.review_application', [
                                 'admission_id' => $admission_id,
-                            ]);
+                            ])
                             {{ html()->form()->close() }}
                         </div>
                     </div>

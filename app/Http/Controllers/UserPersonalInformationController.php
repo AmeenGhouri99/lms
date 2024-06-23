@@ -7,6 +7,8 @@ use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use App\Http\Requests\CreatePersonalInformationRequest;
 use App\Http\Requests\UpdatePersonalInformationRequest;
+use App\Models\Country;
+use Faker\Extension\CountryExtension;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +33,9 @@ class UserPersonalInformationController extends Controller
     public function create()
     {
         try {
-            return $this->personal_information->create();
+            $user = $this->personal_information->create();
+            $countries = Country::pluck('name', 'id');
+            return view('user.personal_information.create', compact('countries'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
@@ -119,5 +123,34 @@ class UserPersonalInformationController extends Controller
      */
     public function destroy(string $id)
     {
+    }
+    public function getStates()
+    {
+        try {
+            dd('ki');
+            $states = $this->personal_information->getStates($id);
+            return $this->successResponse($states);
+        } catch (CustomException $th) {
+            return $this->failedResponse($th->getMessage());
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('personal Information Update ', 'id=' . $id, $e->getMessage());
+            return $this->failedResponse('Something Went Wrong!');
+            return back();
+        }
+    }
+    public function getDomicile(string $id)
+    {
+        try {
+            $states = $this->personal_information->getDomicile($id);
+            return $this->successResponse($states);
+        } catch (CustomException $th) {
+            return $this->failedResponse($th->getMessage());
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('get Domicile ', 'id=' . $id, $e->getMessage());
+            return $this->failedResponse('Something Went Wrong!');
+            return back();
+        }
     }
 }

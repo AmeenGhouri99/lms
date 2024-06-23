@@ -27,10 +27,13 @@
                     <td>{{ $applied_program->admission_date }}</td>
                     <td>
                         <div class="row">
-
                             @if ($applied_program->is_undertaking_accept === 1)
                                 <div class="col-3">
                                     <span class="badge bg-success">Applied</span>
+                                </div>
+                            @elseif ($applied_program->admissionFee != null && $applied_program->admissionFee->count() > 0)
+                                <div class="col-3"><a href="{{ route('user.review-application', $applied_program->id) }}"
+                                        class="btn btn-warning btn-sm">Review&Submit</a>
                                 </div>
                             @else
                                 <div class="col-3"><a

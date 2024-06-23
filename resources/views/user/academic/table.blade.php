@@ -8,8 +8,8 @@
             <th>Degree Exam Year</th>
             <th>Total Marks</th>
             <th>Obtained Marks</th>
+            <th>%age</th>
             <th>Degree Image</th>
-            <th>Percentage</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -26,9 +26,10 @@
                     <td>{{ $academic_detail->board_university_name }}</td>
                     <td>{{ $academic_detail->roll_no }}</td>
                     <td>{{ $academic_detail->degree_exam_year }}</td>
-                    <td>{{ $academic_detail->total_marks }}</td>
                     <td>{{ $academic_detail->obtained_marks }}</td>
-                    <td>{{ number_format(($academic_detail->total_marks / $academic_detail->obtained_marks) * 100) }} %
+
+                    <td>{{ $academic_detail->total_marks }}</td>
+                    <td>{{ number_format(($academic_detail->obtained_marks / $academic_detail->total_marks) * 100) }} %
                     </td>
                     <td> <img src="{{ asset('storage/' . $academic_detail->image) }}" style="width: 65px; height:65px">
                     </td>

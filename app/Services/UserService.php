@@ -19,6 +19,8 @@ class UserService implements UserContract
     }
     public function index()
     {
+        $model = $this->user->with(['personalInformation', 'qualification', 'admission', 'document', 'feeChalan'])->find(Auth::id());
+        return $model;
     }
     public function create()
     {
@@ -27,7 +29,9 @@ class UserService implements UserContract
     }
     public function reviewApplication($id)
     {
-        $model = $this->user->with(['personalInformation', 'qualification', 'admission', 'document', 'feeChalan'])->find(Auth::id());
+        $model = $this->user->with(['personalInformation', 'qualification', 'admission' => function ($query) use ($id) {
+            $query->where('id',  $id);
+        }, 'document', 'feeChalan'])->find(Auth::id());
         return $model;
     }
 

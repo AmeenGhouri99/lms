@@ -195,10 +195,23 @@
         <li>I hereby declare that I am not student or have not got admission in any other Degree Program in any
             university.</li>
     </ol>
-    <input type="hidden" value="{{ $admission_id }}" name="admission_id">
-    <input type="checkbox" id="acceptAll" name="accept_all" required class="form-checkbox-input"value="1">
-    <label for="acceptAll">I accept all the undertakings listed above.</label><br><br>
-    <button type="submit" class="btn btn-success" name="submit">Submit Application</button>
+    @php
+        $is_undertaking_accept = 0;
+    @endphp
+    @foreach ($user->admission as $admission)
+        @php
+            $is_undertaking_accept = $admission->is_undertaking_accept;
+        @endphp
+    @endforeach
+    @if ($is_undertaking_accept === 0)
+        <input type="hidden" value="{{ $admission_id }}" name="admission_id">
+        <input type="checkbox" id="acceptAll" name="accept_all" required class="form-checkbox-input"value="1">
+        <label for="acceptAll">I accept all the undertakings listed above.</label><br><br>
+        <button type="submit" class="btn btn-success" name="submit">Submit Application</button>
+    @else
+        <span class="alert alert-success">Your Application is already submit</span><br>
+        <a class="btn btn-primary btn-sm" href="{{ route('user.home') }}">Back To Home</a>
+    @endif
 </body>
 
 </html>
