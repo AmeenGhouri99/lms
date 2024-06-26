@@ -55,7 +55,7 @@ class UserAcademicInformationController extends Controller
             DB::beginTransaction();
             $this->academic_information->store($request->prepareRequest());
             DB::commit();
-            flash('Personal Information Saved Successfully.')->success();
+            flash('Academic Information Saved Successfully.')->success();
             return redirect()->route('user.academic-information.create');
         } catch (CustomException $th) {
             DB::rollback();

@@ -44,6 +44,24 @@
     @push('js_scripts')
         <script>
             $(document).ready(function() {
+                $('#total_marks, #obtained_marks').on('input', function() {
+                    let total_marks = parseFloat($('#total_marks').val());
+                    let obtained_marks = parseFloat($('#obtained_marks').val());
+                    if (isNaN(total_marks) || isNaN(obtained_marks)) {
+                        // Optionally handle invalid inputs if needed
+                        return;
+                    }
+
+                    if (total_marks < obtained_marks) {
+                        alert('Obtained Marks Must Not Be Greater than Total Marks');
+                        $('#obtained_marks').val('');
+
+                    }
+
+                });
+
+
+
                 var form = $('.validate-form'),
                     accountUploadImg = $('#account-upload-img'),
                     accountUploadBtn = $('#account-upload'),

@@ -15,6 +15,9 @@
                     </ul>
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
+                            {{-- @dd($admission_detail) --}}
+                            <a href="{{ route('user.generate-pdf', ['id' => $admission_detail->id]) }}"
+                                class="btn btn-primary">Print Chalan</a>
                             @include('flash::message')
                             {{ html()->form('POST', route('user.pay-admission-fee.store'))->attribute('enctype', 'multipart/form-data')->open() }}
                             <div class="row mb-1">

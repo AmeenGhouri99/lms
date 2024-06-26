@@ -2,13 +2,12 @@
 
 namespace App\Contracts;
 
-interface PersonalInformationContract
+interface PdfContract
 {
     public function index();
-    public function create();
+    public function create($id);
     public function store($data);
     public function edit($id);
     public function update($data, $id);
-    public function getStates($data);
-    public function getDomicile($data);
+    public function delete($id);
 }

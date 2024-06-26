@@ -65,6 +65,7 @@ class AcademicInformationService implements AcademicInformationContract
     }
     private function prepareData($model, $data, $new_record = false)
     {
+        // dd($data);
         if (isset($data['user_id']) && $data['user_id']) {
             $model->user_id = $data['user_id'];
         }

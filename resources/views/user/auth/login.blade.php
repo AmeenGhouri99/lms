@@ -114,7 +114,7 @@
 
                                         <p class="text-center mt-2">
                                             <span>New on our platform?</span>
-                                            <a href="auth-register-basic.html">
+                                            <a href="{{ route('register') }}">
                                                 <button class="btn btn-secondary">Create an account</button>
                                             </a>
                                         </p>

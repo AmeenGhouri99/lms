@@ -23,7 +23,7 @@ class User extends Authenticatable
         'cnic',
         'password',
         'father_name',
-        'degree_level_to_apply'
+        // 'degree_level_to_apply'
     ];
 
     /**

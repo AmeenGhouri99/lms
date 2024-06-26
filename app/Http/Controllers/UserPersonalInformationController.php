@@ -124,31 +124,30 @@ class UserPersonalInformationController extends Controller
     public function destroy(string $id)
     {
     }
-    public function getStates()
+    public function getStates(Request $request)
     {
         try {
-            dd('ki');
-            $states = $this->personal_information->getStates($id);
+            $states = $this->personal_information->getStates($request->all());
             return $this->successResponse($states);
         } catch (CustomException $th) {
             return $this->failedResponse($th->getMessage());
             return back();
         } catch (\Exception $e) {
-            Helper::logMessage('personal Information Update ', 'id=' . $id, $e->getMessage());
+            Helper::logMessage('personal Information Update ', $request->all(), $e->getMessage());
             return $this->failedResponse('Something Went Wrong!');
             return back();
         }
     }
-    public function getDomicile(string $id)
+    public function getDomicileCity(Request $request)
     {
         try {
-            $states = $this->personal_information->getDomicile($id);
+            $states = $this->personal_information->getDomicile($request->all());
             return $this->successResponse($states);
         } catch (CustomException $th) {
             return $this->failedResponse($th->getMessage());
             return back();
         } catch (\Exception $e) {
-            Helper::logMessage('get Domicile ', 'id=' . $id, $e->getMessage());
+            Helper::logMessage('get Domicile ', $request->all(), $e->getMessage());
             return $this->failedResponse('Something Went Wrong!');
             return back();
         }

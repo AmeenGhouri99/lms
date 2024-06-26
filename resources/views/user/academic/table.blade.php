@@ -6,8 +6,8 @@
             <th>University/Board</th>
             <th>Roll No</th>
             <th>Degree Exam Year</th>
-            <th>Total Marks</th>
             <th>Obtained Marks</th>
+            <th>Total Marks</th>
             <th>%age</th>
             <th>Degree Image</th>
             <th>Action</th>
@@ -27,7 +27,6 @@
                     <td>{{ $academic_detail->roll_no }}</td>
                     <td>{{ $academic_detail->degree_exam_year }}</td>
                     <td>{{ $academic_detail->obtained_marks }}</td>
-
                     <td>{{ $academic_detail->total_marks }}</td>
                     <td>{{ number_format(($academic_detail->obtained_marks / $academic_detail->total_marks) * 100) }} %
                     </td>

@@ -76,11 +76,11 @@
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Province <span class="text-danger">*</span></label>
-        {{ html()->select('province', ['punjab' => 'Punjab', 'sindh' => 'Sindh'])->class('form-control form-control-sm') }}
+        {!! html()->select('province', ['' => 'Select Province'])->id('state_select_box')->class('form-control form-control-sm') !!}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Domicile <span class="text-danger">*</span></label>
-        {{ html()->select('domicile', ['layyah' => 'Layyah', 'multan' => 'Multan'])->class('form-control form-control-sm') }}
+        {{ html()->select('domicile', ['' => 'Select Domicile'])->id('domicile_select_box')->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Phone No <span class="text-danger">*(without -
@@ -97,12 +97,13 @@
     </div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Address <span class="text-danger">*</span></label>
-        {{ html()->text('address')->class('form-control form-control-sm') }}
+        {{ html()->text('address')->id('address')->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0">
-        <label for="name">Permanent Address <span class="text-danger">(same as above)
+        <label for="name">Permanent Address <span class="text-danger"><input type="checkbox"
+                    id="check_same_as_above">(same as above)
                 *</span></label>
-        {{ html()->text('permanent_address')->class('form-control form-control-sm') }}
+        {{ html()->text('permanent_address')->id('permanent_address')->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1 text-end">
         <a href="{{ url('home') }}" class="btn btn-primary"><i data-feather='arrow-left'></i>Back</a>
@@ -139,23 +140,89 @@
 
             $('#country_id').on('change', function() {
                 let country_id = $(this).val();
+                let state_select_box = $('#state_select_box');
+
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('user.state') }}",
                     data: {
                         country_id: country_id,
-                        // _token: "{{ csrf_token() }}"
+                        _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
-                        console.log(response);
-                        if (response.status === false) {} else {
-                            displayPrograms(response.data);
+                        console.log(response.data);
+
+                        // Clear the existing options
+                        state_select_box.empty();
+
+                        // Append the default option
+                        state_select_box.append('<option value="">Select Province</option>');
+
+                        // Check if response status is true and data is present
+                        if (response.status === true && response.data.length > 0) {
+                            // Loop through the states data and append each option to the select box
+                            $.each(response.data, function(index, state) {
+                                state_select_box.append('<option value="' + state.id + '">' + state
+                                    .name + '</option>');
+                            });
+                        } else {
+                            // If no states found, you can handle the message here
+                            state_select_box.append('<option value="">No states available</option>');
                         }
                     },
                     error: function(response) {
-
+                        // Handle error case
+                        console.error('Error:', response);
                     }
                 });
             });
+            $('#state_select_box').on('change', function() {
+                let state_id = $(this).val();
+                let domicile_select_box = $('#domicile_select_box');
+
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('user.domicile') }}",
+                    data: {
+                        state_id: state_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        console.log(response.data);
+
+                        // Clear the existing options
+                        domicile_select_box.empty();
+
+                        // Append the default option
+                        domicile_select_box.append('<option value="">Select Province</option>');
+
+                        // Check if response status is true and data is present
+                        if (response.status === true && response.data.length > 0) {
+                            // Loop through the states data and append each option to the select box
+                            $.each(response.data, function(index, state) {
+                                domicile_select_box.append('<option value="' + state.id + '">' +
+                                    state
+                                    .name + '</option>');
+                            });
+                        } else {
+                            // If no states found, you can handle the message here
+                            domicile_select_box.append('<option value="">No Domicile available</option>');
+                        }
+                    },
+                    error: function(response) {
+                        // Handle error case
+                        console.error('Error:', response);
+                    }
+                });
+            });
+            $('#check_same_as_above').click(function() {
+                if (this.checked) {
+                    let address = $('#address').val();
+                    $('#permanent_address').val(address);
+                } else {
+                    $('#permanent_address').val('');
+                }
+            })
+        </script>
         </script>
     @endpush

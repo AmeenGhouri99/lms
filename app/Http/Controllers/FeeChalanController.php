@@ -9,6 +9,7 @@ use App\Http\Requests\CreateFeeChalanRequest;
 use App\Http\Requests\UpdateAcademicInformationRequest;
 use App\Models\AcademicInformation;
 use App\Models\Admission;
+use App\Models\FeeChalan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -68,7 +69,8 @@ class FeeChalanController extends Controller
                 flash('You have Already Save the Voucher information, So Review & Submit Your Application')->success();
                 return redirect()->route('user.review-application', ['id' => $id]);
             }
-            $admission_detail  = Admission::find($id);
+            $admission_detail  = Admission::with('admissionFee')->find($id);
+            // $chalan = FeeChalan::count() + 1;
 
             return view('user.choose_to_apply.pay_admission_fee', compact('admission_detail'));
         } catch (CustomException $e) {

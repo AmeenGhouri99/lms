@@ -7,6 +7,7 @@ use App\Contracts\AuthContract;
 use App\Contracts\ChooseProgramContract;
 use App\Contracts\DocumentContract;
 use App\Contracts\FeeChalanContract;
+use App\Contracts\PdfContract;
 use App\Contracts\PersonalInformationContract;
 use App\Contracts\UserContract;
 use App\Models\FeeChalan;
@@ -15,6 +16,7 @@ use App\Services\AuthService;
 use App\Services\ChooseProgramService;
 use App\Services\DocumentService;
 use App\Services\FeeChalanService;
+use App\Services\PdfService;
 use App\Services\PersonalInformationService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -66,6 +68,12 @@ class UniversityServiceProvider extends ServiceProvider
             FeeChalanContract::class,
             function ($app) {
                 return $app->make(FeeChalanService::class);
+            }
+        );
+        $this->app->bind(
+            PdfContract::class,
+            function ($app) {
+                return $app->make(PdfService::class);
             }
         );
     }
