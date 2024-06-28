@@ -8,6 +8,7 @@ use App\Helpers\Helper;
 use App\Http\Requests\CreateAcademicInformationRequest;
 use App\Http\Requests\UpdateAcademicInformationRequest;
 use App\Models\AcademicInformation;
+use App\Models\BoardUniversity;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +36,11 @@ class UserAcademicInformationController extends Controller
     {
         try {
             $academic_details = $this->academic_information->create();
-            return view('user.academic.create', compact('academic_details'));
+            $board_unis = BoardUniversity::pluck('name', 'id');
+            return view('user.academic.create', compact('academic_details', 'board_unis'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
-            return back();
+            return redirect()->route('user.personal-information.create');
         } catch (\Exception $e) {
             Helper::logMessage('personal Information create ', 'none', $e->getMessage());
             flash("Something Went Wrong!")->error();
@@ -55,7 +57,7 @@ class UserAcademicInformationController extends Controller
             DB::beginTransaction();
             $this->academic_information->store($request->prepareRequest());
             DB::commit();
-            flash('Personal Information Saved Successfully.')->success();
+            flash('Academic Information Saved Successfully.')->success();
             return redirect()->route('user.academic-information.create');
         } catch (CustomException $th) {
             DB::rollback();

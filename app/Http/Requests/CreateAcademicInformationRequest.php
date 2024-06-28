@@ -28,7 +28,8 @@ class CreateAcademicInformationRequest extends FormRequest
             'roll_no' => 'required',
             'degree_exam_year' => 'required',
             'total_marks' => 'required',
-            'obtained_marks' => 'required'
+            'obtained_marks' => 'required',
+            'degree_image' => 'required|mimes:png,jpg,jpeg'
         ];
     }
     public function prepareRequest()
@@ -37,11 +38,12 @@ class CreateAcademicInformationRequest extends FormRequest
         return [
             'user_id' => Auth::id(),
             'qualification' => $request['qualification'],
-            'board_university_name' => $request['board_university_name'],
+            'board_university_id' => $request['board_university_name'],
             'roll_no' => $request['roll_no'],
             'degree_exam_year' => $request['degree_exam_year'],
             'total_marks' => $request['total_marks'],
-            'obtained_marks' => $request['obtained_marks']
+            'obtained_marks' => $request['obtained_marks'],
+            'image' => $request['degree_image'],
         ];
     }
 }

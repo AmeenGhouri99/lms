@@ -28,7 +28,7 @@ class CreateRegisterRequest extends FormRequest
             "father_name" => 'required',
             "cnic_or_b-form" => "required|unique:users,cnic",
             'password' => 'required|confirmed|min:6',
-            'degree_level_to_apply' => 'required'
+            // 'degree_level_to_apply' => 'required'
         ];
     }
     public function prepareRequest()
@@ -39,7 +39,7 @@ class CreateRegisterRequest extends FormRequest
             'email' => $request['email'],
             'cnic' => $request['cnic_or_b-form'],
             'password' => $request['password'],
-            'degree_level_to_apply' => $request['degree_level_to_apply'],
+            // 'degree_level_to_apply' => $request['degree_level_to_apply'],
             'father_name' => $request['father_name']
         ];
     }

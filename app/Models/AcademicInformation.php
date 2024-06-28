@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AcademicInformation extends Model
 {
@@ -12,10 +13,29 @@ class AcademicInformation extends Model
     protected $fillable = [
         'user_id',
         'qualification',
-        'board_university_name',
+        'board_university_id',
         'roll_no',
         'total_marks',
         'obtained_marks',
-        'degree_exam_year'
+        'degree_exam_year',
+        'image',
     ];
+    /**
+     * Get the user that owns the AcademicInformation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    /**
+     * Get the user that owns the AcademicInformation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function BoardUniversity(): BelongsTo
+    {
+        return $this->belongsTo(BoardUniversity::class, 'board_university_id');
+    }
 }

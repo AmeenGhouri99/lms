@@ -15,11 +15,18 @@
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
                             @include('flash::message')
-                            {{ html()->form('post', route('user.academic-information.store'))->open() }}
+                            {{ html()->form('post', route('user.academic-information.store'))->attribute('enctype', 'multipart/form-data')->open() }}
                             @include('user.academic.fields')
                             {{ html()->form()->close() }}
-
                             @include('user.academic.table')
+                            <div class="row">
+                                <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1 text-end">
+                                    <a href="{{ route('user.personal-information.create') }}"
+                                        class="btn btn-primary btn-sm"><i data-feather='arrow-left'></i>Back</a>
+                                    <a href="{{ route('user.choose-program-to-apply.create') }}" value=""
+                                        class="btn btn-success btn-sm">Go To Next</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('qualification');
-            $table->string('board_university_name');
             $table->string('roll_no');
             $table->date('degree_exam_year');
             $table->string('total_marks');
             $table->string('obtained_marks');
+            $table->string('image')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

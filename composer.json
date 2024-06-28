@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^2.2",
         "intervention/image": "^3.6",
         "intervention/image-laravel": "^1.2",
         "laracasts/flash": "^3.2",
@@ -30,7 +31,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files":[
-            "App\\Helpers\\Helper.php"
+            "App\\Helpers\\Helper.php",
+            "App\\Helpers\\Constant.php"
         ]
     },
     "autoload-dev": {

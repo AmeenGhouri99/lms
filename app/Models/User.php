@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,7 +23,7 @@ class User extends Authenticatable
         'cnic',
         'password',
         'father_name',
-        'degree_level_to_apply'
+        // 'degree_level_to_apply'
     ];
 
     /**
@@ -45,5 +47,39 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    /**
+     * Get all of the academicInformation for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function qualification(): HasMany
+    {
+        return $this->hasMany(AcademicInformation::class, 'user_id');
+    }
+    public function personalInformation(): HasOne
+    {
+        return $this->hasOne(PersonalInformation::class, 'user_id');
+    }
+    public function admission(): HasMany
+    {
+        return $this->hasMany(Admission::class, 'user_id');
+    }
+    public function document(): HasMany
+    {
+        return $this->hasMany(Document::class, 'user_id');
+    }
+    public function feeChalan(): HasMany
+    {
+        return $this->hasMany(FeeChalan::class, 'user_id');
+    }
+    /**
+     * Get all of the firstChooseProgram for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appliedProgram(): HasMany
+    {
+        return $this->hasMany(AppliedProgram::class, 'user_id');
     }
 }

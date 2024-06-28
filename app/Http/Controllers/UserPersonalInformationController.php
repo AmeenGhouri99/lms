@@ -7,7 +7,10 @@ use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use App\Http\Requests\CreatePersonalInformationRequest;
 use App\Http\Requests\UpdatePersonalInformationRequest;
+use App\Models\Country;
+use Faker\Extension\CountryExtension;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserPersonalInformationController extends Controller
@@ -31,7 +34,12 @@ class UserPersonalInformationController extends Controller
     public function create()
     {
         try {
-            return $this->personal_information->create();
+            $user = $this->personal_information->create();
+            if ($user === false) {
+                return redirect()->route('user.personal-information.edit', Auth::id());
+            }
+            $countries = Country::pluck('name', 'id');
+            return view('user.personal_information.create', compact('countries'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
@@ -80,7 +88,8 @@ class UserPersonalInformationController extends Controller
     {
         try {
             $user = $this->personal_information->edit($id);
-            return view('user.personal_information.edit', compact('user'));
+            $countries = Country::pluck('name', 'id');
+            return view('user.personal_information.edit', compact('user', 'countries'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
@@ -119,5 +128,33 @@ class UserPersonalInformationController extends Controller
      */
     public function destroy(string $id)
     {
+    }
+    public function getStates(Request $request)
+    {
+        try {
+            $states = $this->personal_information->getStates($request->all());
+            return $this->successResponse($states);
+        } catch (CustomException $th) {
+            return $this->failedResponse($th->getMessage());
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('personal Information Update ', $request->all(), $e->getMessage());
+            return $this->failedResponse('Something Went Wrong!');
+            return back();
+        }
+    }
+    public function getDomicileCity(Request $request)
+    {
+        try {
+            $states = $this->personal_information->getDomicile($request->all());
+            return $this->successResponse($states);
+        } catch (CustomException $th) {
+            return $this->failedResponse($th->getMessage());
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('get Domicile ', $request->all(), $e->getMessage());
+            return $this->failedResponse('Something Went Wrong!');
+            return back();
+        }
     }
 }

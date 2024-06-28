@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Contracts\PersonalInformationContract;
 use App\Exceptions\CustomException;
+use App\Models\Domicile;
 use App\Models\PersonalInformation;
+use App\Models\State;
 use App\Models\User;
 use App\Traits\ImageUpload;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +16,13 @@ class PersonalInformationService implements PersonalInformationContract
 {
     use ImageUpload;
     public $personal_information;
+    public $states_model;
+    public $domicile_model;
     public function __construct()
     {
         $this->personal_information = new PersonalInformation();
+        $this->states_model = new State();
+        $this->domicile_model = new Domicile();
     }
     public function index()
     {
@@ -26,6 +32,7 @@ class PersonalInformationService implements PersonalInformationContract
         $user_id = Auth::id();
         $user_personal_detail = $this->personal_information->where('user_id', $user_id)->first();
         if (!empty($user_personal_detail)) {
+            return false;
             return redirect()->route('user.personal-information.edit', $user_id);
         }
         return view('user.personal_information.create');
@@ -126,8 +133,8 @@ class PersonalInformationService implements PersonalInformationContract
             $model->state_id = $data['state_id'];
         }
 
-        if (isset($data['domicile']) && $data['domicile']) {
-            $model->domicile = $data['domicile'];
+        if (isset($data['domicile_id']) && $data['domicile_id']) {
+            $model->domicile_id = $data['domicile_id'];
         }
 
         if (isset($data['phone_no']) && $data['phone_no']) {
@@ -146,6 +153,16 @@ class PersonalInformationService implements PersonalInformationContract
             $model->permanent_address = $data['permanent_address'];
         }
         $model->save();
+        return $model;
+    }
+    public function getStates($data)
+    {
+        $model = $this->states_model->where('country_id', $data['country_id'])->get();
+        return $model;
+    }
+    public function getDomicile($data)
+    {
+        $model = $this->domicile_model->where('state_id', $data['state_id'])->get();
         return $model;
     }
 }

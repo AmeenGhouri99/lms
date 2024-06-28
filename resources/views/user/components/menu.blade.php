@@ -46,25 +46,35 @@
          </div>
          <ul class="nav justify-content-center with-space-between mb-2">
              <li class="nav-item">
-                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.personal-information.create') ? 'btn-success' : null }}"
+                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.home') ? 'btn-success' : null }}"
+                     href="{{ route('user.home') }}">Home</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.personal-information.create') || Route::CurrentRouteNamed('user.personal-information.edit') ? 'btn-success' : null }}"
                      href="{{ route('user.personal-information.create') }}">Personal
                      Information</a>
              </li>
              <li class="nav-item">
-                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.academic-information.create') ? 'btn-success' : null }}"
+                 <a class="nav-link btn btn-outline-success {{ Route::CurrentRouteNamed('user.academic-information.create') || Route::CurrentRouteNamed('user.academic-information.edit') ? 'btn-success' : null }}"
                      href="{{ route('user.academic-information.create') }}">Academic Information</a>
+             </li>
+             <li class="nav-item">
+                 <a class=" nav-link btn  btn-outline-success {{ Route::CurrentRouteNamed('user.documents.create') || Route::CurrentRouteNamed('user.documents.create') ? 'btn-success' : null }}"
+                     href="{{ route('user.documents.create') }}">Documents to be Attached</a>
              </li>
              <li class="nav-item">
                  <a class=" nav-link btn  btn-outline-success {{ Route::CurrentRouteNamed('user.choose-program-to-apply.create') ? 'btn-success' : null }}"
                      href="{{ route('user.choose-program-to-apply.create') }}">Choose Programme to Apply</a>
              </li>
-             <li class="nav-item">
-                 <a class=" nav-link btn  btn-outline-success {{ Route::CurrentRouteNamed('user.documents.create') ? 'btn-success' : null }}"
-                     href="{{ route('user.documents.create') }}">Documents to be Attached</a>
-             </li>
-             <li class="nav-item">
-                 <a class=" nav-link btn btn-success btn-outline-success" href="#" tabindex="-1"
-                     aria-disabled="true">Verify & Submit</a>
-             </li>
+             @if (Route::currentRouteName() === 'user.review-application')
+                 <li class="nav-item">
+                     <a class="nav-link btn btn-success btn-outline-success"
+                         href="{{ route('user.review-application', request()->id) }}" tabindex="-1"
+                         aria-disabled="true">
+                         Verify & Submit
+                     </a>
+                 </li>
+             @endif
+
          </ul>
          <!-- Center Alignment ends -->

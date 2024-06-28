@@ -29,8 +29,8 @@ return new class extends Migration
             $table->date('dob');
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('state_id')->nullable();
-            // $table->unsignedBigInteger('domicile_city_id')->nullable();
-            $table->string('domicile');
+            // $table->unsignedBigInteger('domicile_id')->nullable();
+            // $table->string('domicile');
             $table->string('phone_no');
             $table->string('email');
             $table->string('address');
@@ -38,7 +38,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
-            // $table->foreign('domicile_city_id')->references('id')->on('cities')->onDelete('cascade');
+            // $table->foreign('domicile_id')->references('id')->on('domiciles')->onDelete('cascade');
             $table->timestamps();
         });
     }

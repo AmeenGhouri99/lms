@@ -60,8 +60,12 @@ class UserAuthController extends Controller
     public function login(LoginRequest $request)
     {
         try {
-            $this->user->login($request->prepareRequest());
-            return redirect()->route('user.personal-information.create');
+            $user = $this->user->login($request->prepareRequest());
+            if ($user->role_id === 2) {
+                return redirect()->route('user.personal-information.create');
+            } else {
+                return redirect()->route('admin.dashboard');
+            }
         } catch (CustomException $th) {
             flash($th->getMessage())->error();
             return back();

@@ -114,7 +114,7 @@
                                                     aria-describedby="login-email" tabindex="1" autofocus />
                                             </div>
 
-                                            <div class="mb-1">
+                                            {{-- <div class="mb-1">
                                                 <select class="form-select" id="degree-level"
                                                     name="degree_level_to_apply" tabindex="1">
                                                     <option selected disabled>Select Degree Level to Apply</option>
@@ -123,7 +123,7 @@
                                                     <option value="3">PhD</option>
                                                     <option value="4">Diploma</option>
                                                 </select>
-                                            </div>
+                                            </div> --}}
 
                                             <input type="submit" class="btn btn-success w-100" tabindex="4"
                                                 value="Signup">
