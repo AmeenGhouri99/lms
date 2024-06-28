@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\FeeChalanController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserAcademicInformationController;
@@ -28,7 +30,7 @@ Route::get('/signup', function () {
 Route::get('/logout', function () {
     Auth::logout();
     return view('user.auth.login');
-});
+})->name('logout');
 Route::post('/signup', [UserAuthController::class, 'store'])->name('register');
 Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
@@ -51,4 +53,10 @@ Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as'
     Route::post('review-application', [UserController::class, 'reviewAdmissionApplication'])->name('review-application.store');
     Route::post('is_undertaking_accept', [UserController::class, 'updateIsUndertakingAccept'])->name('is-undertaking-accept.store');
     Route::get('generate-pdf/{id}', [PdfController::class, 'generatePDF'])->name('generate-pdf');
+});
+Route::group(['middleware' => ['auth:sanctum', 'admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('home', [HomeController::class, 'index'])->name('dashboard');
+    Route::resource('users', AdminUserController::class);
+    Route::resource('settings', HomeController::class);
+    Route::get('profile/setting', [HomeController::class, 'profileSetting'])->name('profile.setting');
 });

@@ -52,6 +52,3 @@
 
     <!-- END: Custom CSS-->
 </head>
-
-<body class="vertical-layout vertical-menu-modern 1-column navbar-floating footer-static  " data-open="click"
-    data-menu="vertical-menu-modern" data-col="1-column">

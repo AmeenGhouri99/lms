@@ -20,4 +20,5 @@ class Constant
     const ICS = 'ics';
     const ICOM = 'icom';
     const DAE_MECHANICAL = 'dae_mechanical';
+    const USER_ROLE_ID = 2;
 }
