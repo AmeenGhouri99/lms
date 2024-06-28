@@ -20,7 +20,7 @@
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Select University/Board:</label>
-        {{ html()->select('board_university_name', ['' => 'Select', 'dg_khan_board' => 'Dg Khan Board', 'multan_board' => 'Multan Board', 'sargodha_board' => 'Sargodha Board'])->class('form-control form-control-sm') }}
+        {{ html()->select('board_university_name', ['' => 'Select'] + $board_unis->toArray())->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Enter Roll No:</label>

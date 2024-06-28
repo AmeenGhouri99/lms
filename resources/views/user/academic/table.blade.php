@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td> {{ $academic_detail->qualification }}</td>
-                    <td>{{ $academic_detail->board_university_name }}</td>
+                    <td>{{ $academic_detail->boardUniversity->name }}</td>
                     <td>{{ $academic_detail->roll_no }}</td>
                     <td>{{ $academic_detail->degree_exam_year }}</td>
                     <td>{{ $academic_detail->obtained_marks }}</td>

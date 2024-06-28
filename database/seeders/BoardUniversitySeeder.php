@@ -89,6 +89,8 @@ class BoardUniversitySeeder extends Seeder
             ['name' => 'Minhaj University Lahore, Lahore, Punjab'],
             ['name' => 'Mirpur University of Science and Technology, Mirpur, Azad Kashmir'],
             ['name' => 'Muhammad Ali Jinnah University, Karachi, Sindh'],
+            ['name' => 'Muhammad Nawaz Sharif University of Engineering & Technology, Multan, punjab'],
+            ['name' => 'Muhammad Nawaz Sharif University of Agriculture, Multan, punjab'],
             ['name' => 'National Defence University, Islamabad, Federal Capital'],
             ['name' => 'National University of Computer and Emerging Sciences, Islamabad, Federal Capital'],
             ['name' => 'National University of Modern Languages, Islamabad, Federal Capital'],

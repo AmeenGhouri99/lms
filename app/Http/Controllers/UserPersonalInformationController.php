@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePersonalInformationRequest;
 use App\Models\Country;
 use Faker\Extension\CountryExtension;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserPersonalInformationController extends Controller
@@ -34,6 +35,9 @@ class UserPersonalInformationController extends Controller
     {
         try {
             $user = $this->personal_information->create();
+            if ($user === false) {
+                return redirect()->route('user.personal-information.edit', Auth::id());
+            }
             $countries = Country::pluck('name', 'id');
             return view('user.personal_information.create', compact('countries'));
         } catch (CustomException $e) {
@@ -84,7 +88,8 @@ class UserPersonalInformationController extends Controller
     {
         try {
             $user = $this->personal_information->edit($id);
-            return view('user.personal_information.edit', compact('user'));
+            $countries = Country::pluck('name', 'id');
+            return view('user.personal_information.edit', compact('user', 'countries'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();

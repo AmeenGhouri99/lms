@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\AcademicInformationContract;
 use App\Exceptions\CustomException;
 use App\Models\AcademicInformation;
+use App\Models\BoardUniversity;
 use App\Models\PersonalInformation;
 use App\Models\User;
 use App\Traits\ImageUpload;
@@ -14,11 +15,14 @@ class AcademicInformationService implements AcademicInformationContract
 {
     public $academic_information;
     public $personal_information;
+    public $board_university;
+
     use ImageUpload;
     public function __construct()
     {
         $this->academic_information = new AcademicInformation();
         $this->personal_information = new PersonalInformation();
+        $this->board_university = new BoardUniversity();
     }
     public function index()
     {
@@ -30,7 +34,7 @@ class AcademicInformationService implements AcademicInformationContract
         if (empty($personal_information)) {
             throw new CustomException('Please add the Personal Information');
         }
-        $user_academic_detail = $this->academic_information->where('user_id', $user_id)->get();
+        $user_academic_detail = $this->academic_information->with('BoardUniversity')->where('user_id', $user_id)->get();
         return $user_academic_detail;
     }
     public function edit($id)
@@ -74,8 +78,8 @@ class AcademicInformationService implements AcademicInformationContract
             $model->qualification = $data['qualification'];
         }
 
-        if (isset($data['board_university_name']) && $data['board_university_name']) {
-            $model->board_university_name = $data['board_university_name'];
+        if (isset($data['board_university_id']) && $data['board_university_id']) {
+            $model->board_university_id = $data['board_university_id'];
         }
 
         if (isset($data['roll_no']) && $data['roll_no']) {

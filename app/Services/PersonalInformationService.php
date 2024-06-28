@@ -32,6 +32,7 @@ class PersonalInformationService implements PersonalInformationContract
         $user_id = Auth::id();
         $user_personal_detail = $this->personal_information->where('user_id', $user_id)->first();
         if (!empty($user_personal_detail)) {
+            return false;
             return redirect()->route('user.personal-information.edit', $user_id);
         }
         return view('user.personal_information.create');

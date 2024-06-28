@@ -13,7 +13,7 @@ class AcademicInformation extends Model
     protected $fillable = [
         'user_id',
         'qualification',
-        'board_university_name',
+        'board_university_id',
         'roll_no',
         'total_marks',
         'obtained_marks',
@@ -28,5 +28,14 @@ class AcademicInformation extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    /**
+     * Get the user that owns the AcademicInformation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function BoardUniversity(): BelongsTo
+    {
+        return $this->belongsTo(BoardUniversity::class, 'board_university_id');
     }
 }
