@@ -9,10 +9,10 @@
                     <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="row breadcrumbs-top">
                             <div class="col-12">
-                                <h2 class="content-header-title float-start mb-0">{{ __('general.Dashboard') }}</h2>
+                                <h2 class="content-header-title float-start mb-0">Dashboard</h2>
                                 <div class="breadcrumb-wrapper">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active">{{ __('general.Dashboard') }}</li>
+                                        <li class="breadcrumb-item active">Dashboard</li>
                                     </ol>
                                 </div>
                             </div>
@@ -40,14 +40,48 @@
                     <div class="col-lg-3 col-sm-6 col-12">
                         <a href="{{ route('admin.users.index') }}?type=pending_users">
                             <div class="card">
-                                <div class="card-head er">
+                                <div class="card-header">
                                     <div>
-                                        <h2 class="fw-bolder mb-0">1</h2>
-                                        <p class="card-text">Pending Users</p>
+                                        <h2 class="fw-bolder mb-0">{{ collect($data['programs'])->count() }}</h2>
+                                        <p class="card-text">Total Programs</p>
                                     </div>
-                                    <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar bg-light-primary p-50 m-0">
                                         <div class="avatar-content">
-                                            <i data-feather='alert-circle'class="font-medium-5"></i>
+                                            <i data-feather="box" class="font-medium-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <a href="{{ route('admin.users.index') }}?type=pending_users">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <h2 class="fw-bolder mb-0">{{ collect($data['fee_challans'])->count() }}</h2>
+                                        <p class="card-text">Paid Admission Fee</p>
+                                    </div>
+                                    <div class="avatar bg-light-primary p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i data-feather="credit-card" class="font-medium-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <a href="{{ route('admin.users.index') }}?type=pending_users">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <h2 class="fw-bolder mb-0">{{ collect($data['admissions'])->count() }}</h2>
+                                        <p class="card-text">Total Admissions</p>
+                                    </div>
+                                    <div class="avatar bg-light-primary p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i data-feather="anchor" class="font-medium-5"></i>
                                         </div>
                                     </div>
                                 </div>
