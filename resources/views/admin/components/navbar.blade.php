@@ -37,9 +37,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a
                             class="dropdown-item" href="{{ route('admin.profile.setting') }}"><i class="me-50"
-                                data-feather="user"></i> {{ __('general.profile') }}</a>
+                                data-feather="user"></i> Profile</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"><i class="me-50"
-                                data-feather="power"></i> {{ __('general.logout') }}</a>
+                                data-feather="power"></i> logout</a>
                     </div>
                 </li>
             </ul>
