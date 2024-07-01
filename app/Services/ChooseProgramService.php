@@ -173,6 +173,10 @@ class ChooseProgramService implements ChooseProgramContract
         if (isset($data['user_id']) && $data['user_id']) {
             $model->user_id = $data['user_id'];
         }
+        $model->admission_start_date = settings('admission_start_date');
+        $model->admission_end_date = settings('admission_end_date');
+        $model->admission_term = settings('admission_term');
+        $model->admission_amount = settings('admission_fee');
         $model->save();
         if (isset($data['programs']) && $data['programs']) {
             foreach ($data['programs'] as $program) {

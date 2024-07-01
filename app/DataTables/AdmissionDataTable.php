@@ -2,36 +2,63 @@
 
 namespace App\DataTables;
 
-use App\Helpers\Constant;
 use App\Models\Admission;
-use App\Models\User;
+use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
-use Spatie\Html\Elements\Button;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
 class AdmissionDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
-     */
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
             ->addIndexColumn()
-            ->addColumn('candidate_name', function ($data) {
+            ->addColumn('student_name', function ($data) {
                 return $data->user->personalInformation->candidate_name;
             })
-            ->addColumn('candidate_cnic', function ($data) {
+            ->addColumn('cnic', function ($data) {
                 return $data->user->personalInformation->candidate_cnic;
             })
             ->addColumn('father_name', function ($data) {
                 return $data->user->personalInformation->father_name;
+            })
+            ->editColumn('hafiz_e_quran', function ($data) {
+                return $data->user->personalInformation->hafiz_e_quran;
+            })
+            ->addColumn('matric_marks', function ($data) {
+                foreach ($data->user->qualification as $qualification) {
+                    if ($qualification->qualification == 'matric') {
+                        return $qualification->obtained_marks . '/' . $qualification->total_marks;
+                    }
+                }
+                return ''; // Default behavior if no qualification matches
+            })
+            ->addColumn('matric_%age', function ($data) {
+                foreach ($data->user->qualification as $qualification) {
+                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
+                        return $qualification->obtained_marks / $qualification->total_marks * 100;
+                    }
+                }
+                return ''; // Default behavior if no qualification matches
+            })
+            ->addColumn('inter_marks', function ($data) {
+                foreach ($data->user->qualification as $qualification) {
+                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
+                        return $qualification->obtained_marks . '/' . $qualification->total_marks;
+                    }
+                }
+                return ''; // Default behavior if no qualification matches
+            })
+            ->addColumn('inter_%age', function ($data) {
+                foreach ($data->user->qualification as $qualification) {
+                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
+                        return $qualification->obtained_marks . '/' . $qualification->total_marks * 100;
+                    }
+                }
+                return ''; // Default behavior if no qualification matches
             })
             ->addColumn('programs', function ($data) {
                 $all_applied_program = "";
@@ -50,90 +77,55 @@ class AdmissionDataTable extends DataTable
                 }
             })
             ->addColumn('action', 'admin.admission.datatables_actions');
-        // ->rawColumns(['action']);
     }
 
-    /**
-     * Get query source of dataTable.
-     *
-     * @param \App\Models\ProjectBlock $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function query(Admission $model, Request $request)
     {
-        // Your Yajra DataTable query here
-        return $model->with([
-            'program', 'user', 'admissionFee'
-        ])->where('is_undertaking_accept', 1)->latest()->newQuery()->select([
-            'id',
-            'admission_date',
-            'session',
-            'user_id',
-            'admission_fee',
-            'admission_amount',
-            'status'
-
-        ]);
+        return $model->with(['program', 'user.personalInformation', 'user.qualification', 'program.program.parent'])
+            ->where('is_undertaking_accept', 1)
+            ->latest()
+            ->select([
+                'id',
+                'admission_date',
+                'admission_term',
+                'user_id',
+                'admission_fee',
+                'admission_amount',
+                'status'
+            ]);
     }
 
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
+    protected function getColumns()
+    {
+        return [
+            'sr#' => ['title' => 'sr#', 'data' => 'DT_RowIndex', 'orderable' => false, 'searchable' => false],
+            'student_name' => ['searchable' => true],
+            'cnic' => ['searchable' => true],
+            'father_name' => ['searchable' => true],
+            'hafiz_e_quran' => ['searchable' => true, 'name' => 'user.personalInformation.hafiz_e_quran'],
+            'matric_marks' => ['searchable' => true],
+            'matric_%age' => ['searchable' => true],
+            'inter_marks' => ['searchable' => true],
+            'inter_%age' => ['searchable' => true],
+            'programs' => ['searchable' => true],
+            'status' => ['title' => 'status', 'data' => 'status', 'searchable' => true],
+        ];
+    }
+
     public function html()
     {
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->addAction(['width' => '90px', 'printable' => false, 'title' => 'action'])
+            ->serverSide(true)
             ->parameters([
                 'bSort' => false,
-                'dom' => '<"d-flex justify-content-between"<"dt-buttons pt-1"B><"dataTables_filter"f>>rtip', // Custom layout for search and buttons
-                'buttons' => [
-                    // [
-                    //     'extend' => 'print',
-                    //     'exportOptions' => [
-                    //         'columns' => ':visible:not(.not-printable)' // Exclude columns with class 'not-printable'
-                    //     ]
-                    // ],
-                    'csv',
-                    'excel',
-                    // 'pdf',
-                ],
+                'dom' => '<"d-flex justify-content-between"<"dt-buttons pt-1"B><"dataTables_filter"f>>rtip',
+                'buttons' => ['csv', 'excel'],
                 'pageLength' => 50,
                 'order' => [[0, 'desc']],
                 'lengthMenu' => [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
             ]);
     }
-
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
-    protected function getColumns()
-    {
-        return [
-            'sr#' => ['title' => 'sr#', 'data' => 'DT_RowIndex', 'orderable' => false, 'searchable' => false],
-            'candidate_name',
-            'candidate_cnic',
-            'father_name',
-            'admission_date' => ['title' => 'admission date', 'data' => 'admission_date'],
-            'session' => ['title' => 'Session', 'data' => 'session'],
-            'category',
-            'programs',
-            'status' => ['title' => 'status', 'data' => 'status'],
-        ];
-    }
-
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    // protected function filename()
-    // {
-    //     return 'project_blocks_datatable_' . time();
-    // }
 }

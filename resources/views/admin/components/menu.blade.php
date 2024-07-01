@@ -33,13 +33,13 @@
                     <i data-feather="anchor"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Admission
                     </span></a>
             </li>
-            <li class="nav-item {{ Route::CurrentRouteNamed('admin.settings*') ? 'active' : '' }}">
-                <a class="d-flex align-items-center" href="{{ route('admin.settings.index') }}">
-                    <i data-feather="settings"></i><span class="menu-item text-truncate"
+            <li class="nav-item {{ Route::CurrentRouteNamed('admin.programs*') ? 'active' : '' }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.programs.create') }}">
+                    <i data-feather="box"></i><span class="menu-item text-truncate"
                         data-i18n="eCommerce">Programs</span></a>
             </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.settings*') ? 'active' : '' }}">
-                <a class="d-flex align-items-center" href="{{ route('admin.settings.index') }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.settings.create') }}">
                     <i data-feather="settings"></i><span class="menu-item text-truncate"
                         data-i18n="eCommerce">Settings</span></a>
             </li>

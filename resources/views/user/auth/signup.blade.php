@@ -65,13 +65,12 @@
                                 <div class="card mb-0">
                                     <div class="card-body text-center">
                                         <a href="index.html" class="brand-logo">
-                                            <img src="{{ asset('newdata/iub.jpg') }}" alt="LOGO"
-                                                style="height: 50px; width:50px;">
-                                            <h2 class="brand-text text-primary ms-1">University</h2>
+                                            <img src="{{ asset('app-assets/images/uni.png') }}" alt="LOGO"
+                                                style="height: 130px; width:130px;">
+                                            <h2 class="brand-text text-primary ms-1">MNS-UET MULTAN</h2>
                                         </a>
                                         @include('flash::message')
-
-                                        <h4 class="card-title mb-1">Welcome to University!</h4>
+                                        <h6 class="card-title mb-1">Welcome to University!</h6>
                                         <p class="card-text mb-2">Please Sign-up for apply Here</p>
 
                                         <form class="auth-login-form mt-2" action="{{ route('register') }}"
