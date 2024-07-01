@@ -5,4 +5,6 @@ return [
     App\Providers\ImageServiceProvider::class,
     App\Providers\UniversityServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,
+    Yajra\DataTables\DataTablesServiceProvider::class,
+
 ];

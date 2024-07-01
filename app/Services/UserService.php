@@ -17,6 +17,11 @@ class UserService implements UserContract
         $this->user = new User();
         $this->admission_model = new Admission();
     }
+    public function adminUserIndex()
+    {
+        $model = $this->user->with(['personalInformation', 'qualification', 'admission', 'document', 'feeChalan'])->get();
+        return $model;
+    }
     public function index()
     {
         $model = $this->user->with(['personalInformation', 'qualification', 'admission', 'document', 'feeChalan'])->find(Auth::id());

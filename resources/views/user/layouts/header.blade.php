@@ -13,7 +13,7 @@
     <meta name="keywords"
         content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app" />
     <meta name="author" content="PIXINVENT" />
-    <title>Academic Record</title>
+    <title>@yield('title')</title>
     <link rel="apple-touch-icon" href="{{ asset('newdata/uni.png') }}" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('newdata/uni.png') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
@@ -42,8 +42,8 @@
         href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/dashboard-ecommerce.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/charts/chart-apex.css') }}" />
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.css') }}" />
+    {{-- <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.css') }}" /> --}}
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
