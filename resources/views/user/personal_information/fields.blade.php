@@ -184,13 +184,12 @@
                             $.each(response.data, function(index, state) {
                                 var selected = '';
                                 @if (isset($user))
-                                    if ({{ $user->state_id }} === state.id) {
+                                    if ({{ isset($user) && $user->state_id }} === state.id) {
                                         selected = 'selected';
                                         // alert('ok');
                                         selected_state(state.id);
                                     }
                                 @endif
-                                // alert({{ $user->state_id }})
                                 state_select_box.append('<option value="' + state.id + '" ' + selected +
                                     '>' + state.name + '</option>');
                             });

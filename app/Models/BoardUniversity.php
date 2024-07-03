@@ -14,13 +14,8 @@ class BoardUniversity extends Model
 
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'created_at',
+        'updated_at'
     ];
-
-
-    /**
-     * Get the user that owns the Admission
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
 }
