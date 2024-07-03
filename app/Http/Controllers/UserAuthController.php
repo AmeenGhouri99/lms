@@ -62,7 +62,7 @@ class UserAuthController extends Controller
         try {
             $user = $this->user->login($request->prepareRequest());
             if ($user->role_id === 2) {
-                return redirect()->route('user.personal-information.create');
+                return redirect()->route('user.home');
             } else {
                 return redirect()->route('admin.dashboard');
             }

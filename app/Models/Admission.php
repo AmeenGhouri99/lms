@@ -23,7 +23,10 @@ class Admission extends Model
         'degree_level_applied_id',
         'admission_fee',
         'admission_amount',
-        'is_undertaking_accept'
+        'is_undertaking_accept',
+        'admission_end_date',
+        'admission_start_date',
+        'admission_term',
     ];
 
     protected $attributes = [

@@ -65,12 +65,11 @@
                                 <div class="card mb-0">
                                     <div class="card-body text-center">
                                         <a href="index.html" class="brand-logo">
-                                            <img src="{{ asset('newdata/uni.png') }}" alt="LOGO"
-                                                style="height: 50px; width:50px;">
-                                            <h2 class="brand-text text-primary ms-1">University</h2>
+                                            <img src="{{ asset('app-assets/images/uni.png') }}" alt="LOGO"
+                                                style="height: 130px; width:130px;">
+                                            <h2 class="brand-text text-primary ms-1">MNS-UET MULTAN</h2>
                                         </a>
-
-                                        <h4 class="card-title mb-1">Welcome to University!</h4>
+                                        <h6 class="card-title mb-1">Welcome to University!</h6>
                                         <p class="card-text mb-2">Please sign-in to your account and start the adventure
                                         </p>
                                         @include('flash::message')
@@ -78,8 +77,11 @@
                                             method="POST">
                                             @csrf
                                             <div class="mb-1">
-                                                <label for="login-email" class="form-label">CNIC/B-form Number <span
-                                                        class="text-danger">(without Dashes (-))</span></label>
+                                                <div class="d-flex justify-content-between">
+                                                    <label for="login-email" class="form-label">CNIC/B-form Number <span
+                                                            class="text-danger">(without Dashes (-))</span></label>
+                                                </div>
+
                                                 <input type="text" class="form-control" id="login-email"
                                                     name="cnic/b-form" placeholder="3220324198595"
                                                     aria-describedby="login-email" tabindex="1" autofocus />
@@ -102,11 +104,13 @@
                                                 </div>
                                             </div>
                                             <div class="mb-1">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="remember-me"
-                                                        tabindex="3" />
-                                                    <label class="form-check-label" for="remember-me"> Remember Me
-                                                    </label>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="remember-me" tabindex="3" />
+                                                        <label class="form-check-label" for="remember-me"> Remember Me
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
@@ -123,7 +127,7 @@
                                             <div class="divider-text">or</div>
                                         </div>
 
-                                        <div class="auth-footer-btn d-flex justify-content-center">
+                                        {{-- <div class="auth-footer-btn d-flex justify-content-center">
                                             <a href="#" class="btn btn-facebook">
                                                 <i data-feather="facebook"></i>
                                             </a>
@@ -136,7 +140,7 @@
                                             <a href="#" class="btn btn-github">
                                                 <i data-feather="github"></i>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

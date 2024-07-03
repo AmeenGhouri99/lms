@@ -64,7 +64,7 @@ class CreatePersonalInformationRequest extends FormRequest
             'gender' => $request['gender'],
             'dob' => $request['dob'],
             'country_id' => $request['country'],
-            'province_id' => $request['province'],
+            'state_id' => $request['province'],
             'domicile_id' => $request['domicile'],
             'phone_no' => $request['phone_no'],
             'email' => $request['email'],

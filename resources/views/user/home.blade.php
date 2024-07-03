@@ -14,6 +14,7 @@
                     <div class="card card-statistics">
                         <div class="card-body statistics-body">
                             @include('flash::message')
+                            @include('user.home_page_modal')
                             <h4>Applied In Following Programs</h4>
                             <table class="table" style="overflow:scroll">
                                 <thead>
@@ -77,3 +78,10 @@
     </div>
     <!-- END: Content-->
 @endsection
+@push('js_scripts')
+    <script>
+        $(document).ready(function() {
+            $('#shareProject').modal('show');
+        });
+    </script>
+@endpush
