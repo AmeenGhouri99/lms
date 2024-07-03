@@ -5,15 +5,20 @@
                 id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100"
                 width="100" />
         </a>
+        @if (isset($user))
+            <input type="hidden" value="{{ $user->profile_image }}" name="existing_profile_image">
+        @endif
         <div class="d-flex align-items-end mt-75 ms-1">
             <div>
                 <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Upload</label>
-                <input type="file" id="account-upload" name="profile_image" hidden accept="image/*" />
+                <input type="file" id="account-upload" name="profile_image" hidden accept="image/*"
+                    value="{{ isset($user) ? $user->profile_image : null }}" />
                 <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
                 <p class="mb-0">Allowed file types: png, jpg, jpeg.</p>
             </div>
         </div>
     </div>
+
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Candidate Name <span class="text-danger">*(According to the
                 Martriculation
@@ -72,11 +77,11 @@
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Country <span class="text-danger">*</span></label>
-        {{ html()->select('country', ['' => 'Select Country'] + $countries->toArray())->class('form-control form-control-sm')->attribute('id', 'country_id') }}
+        {{ html()->select('country', ['' => 'Select Country'] + $countries->toArray(), isset($user) ? $user->country_id : null)->class('form-control form-control-sm')->attribute('id', 'country_id') }}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Province <span class="text-danger">*</span></label>
-        {!! html()->select('province', ['' => 'Select Province'])->id('state_select_box')->class('form-control form-control-sm') !!}
+        {!! html()->select('province', ['' => 'Select Province'], isset($user) ? $user->state_id : null)->id('state_select_box')->class('form-control form-control-sm') !!}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Domicile <span class="text-danger">*</span></label>
@@ -119,27 +124,42 @@
                     accountUserImage = $('.uploadedAvatar'),
                     accountResetBtn = $('#account-reset');
 
-                if (accountUserImage) {
+                if (accountUserImage.length) {
                     var resetImage = accountUserImage.attr('src');
+
                     accountUploadBtn.on('change', function(e) {
                         var reader = new FileReader(),
                             files = e.target.files;
+
                         reader.onload = function() {
-                            if (accountUploadImg) {
+                            if (accountUploadImg.length) {
                                 accountUploadImg.attr('src', reader.result);
                             }
                         };
-                        reader.readAsDataURL(files[0]);
+
+                        if (files.length) {
+                            reader.readAsDataURL(files[0]);
+                        }
                     });
 
                     accountResetBtn.on('click', function() {
-                        accountUserImage.attr('src', resetImage);
+                        if (accountUserImage.length) {
+                            accountUserImage.attr('src', resetImage);
+                            accountUploadBtn.val(''); // Clear the input file
+                        }
                     });
                 }
             });
 
+            var country_id = $('#country_id').val();
+            // alert(country_id)
+            selected_country(country_id);
             $('#country_id').on('change', function() {
-                let country_id = $(this).val();
+                var country_id = $(this).val();
+                selected_country(country_id)
+            });
+
+            function selected_country(country_id) {
                 let state_select_box = $('#state_select_box');
 
                 $.ajax({
@@ -162,9 +182,19 @@
                         if (response.status === true && response.data.length > 0) {
                             // Loop through the states data and append each option to the select box
                             $.each(response.data, function(index, state) {
-                                state_select_box.append('<option value="' + state.id + '">' + state
-                                    .name + '</option>');
+                                var selected = '';
+                                @if (isset($user))
+                                    if ({{ $user->state_id }} === state.id) {
+                                        selected = 'selected';
+                                        // alert('ok');
+                                        selected_state(state.id);
+                                    }
+                                @endif
+                                // alert({{ $user->state_id }})
+                                state_select_box.append('<option value="' + state.id + '" ' + selected +
+                                    '>' + state.name + '</option>');
                             });
+
                         } else {
                             // If no states found, you can handle the message here
                             state_select_box.append('<option value="">No states available</option>');
@@ -175,9 +205,14 @@
                         console.error('Error:', response);
                     }
                 });
-            });
+            }
             $('#state_select_box').on('change', function() {
-                let state_id = $(this).val();
+                var state_select_box = $(this).val();
+                selected_state(state_select_box)
+            });
+
+            function selected_state(state_select_box) {
+                let state_id = state_select_box;
                 let domicile_select_box = $('#domicile_select_box');
 
                 $.ajax({
@@ -194,19 +229,30 @@
                         domicile_select_box.empty();
 
                         // Append the default option
-                        domicile_select_box.append('<option value="">Select Province</option>');
+                        domicile_select_box.append('<option value="">Select Domicile</option>');
 
                         // Check if response status is true and data is present
                         if (response.status === true && response.data.length > 0) {
                             // Loop through the states data and append each option to the select box
                             $.each(response.data, function(index, state) {
-                                domicile_select_box.append('<option value="' + state.id + '">' +
+                                var selected = '';
+                                @if (isset($user))
+                                    if ({{ $user->domicile_id }} === state.id) {
+                                        selected = 'selected';
+                                        // alert('ok');
+                                        // selected_state(state.id);
+                                    }
+                                @endif
+
+                                domicile_select_box.append('<option value="' + state.id + '"' + selected +
+                                    ' >' +
                                     state
                                     .name + '</option>');
                             });
                         } else {
                             // If no states found, you can handle the message here
-                            domicile_select_box.append('<option value="">No Domicile available</option>');
+                            domicile_select_box.append(
+                                '<option value="">No Domicile available</option>');
                         }
                     },
                     error: function(response) {
@@ -214,7 +260,7 @@
                         console.error('Error:', response);
                     }
                 });
-            });
+            }
             $('#check_same_as_above').click(function() {
                 if (this.checked) {
                     let address = $('#address').val();

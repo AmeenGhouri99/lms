@@ -74,6 +74,10 @@ class DocumentService implements DocumentContract
             $image_path = $this->upload($data['document']);
             $model->document = $image_path;
         }
+        // if (isset($data['existing_file']) && $data['existing_file']) {
+        //     $image_path = $data['existing_file'];
+        //     $model->document = $image_path;
+        // }
         $model->save();
         return $model;
     }

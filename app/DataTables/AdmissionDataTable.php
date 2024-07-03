@@ -39,7 +39,7 @@ class AdmissionDataTable extends DataTable
             ->addColumn('matric_%age', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
                     if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
-                        return $qualification->obtained_marks / $qualification->total_marks * 100;
+                        return number_format($qualification->obtained_marks / $qualification->total_marks * 100, 1) . '%';
                     }
                 }
                 return ''; // Default behavior if no qualification matches
@@ -55,7 +55,7 @@ class AdmissionDataTable extends DataTable
             ->addColumn('inter_%age', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
                     if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
-                        return $qualification->obtained_marks . '/' . $qualification->total_marks * 100;
+                        return number_format($qualification->obtained_marks / $qualification->total_marks * 100, 1) . '%';
                     }
                 }
                 return ''; // Default behavior if no qualification matches
