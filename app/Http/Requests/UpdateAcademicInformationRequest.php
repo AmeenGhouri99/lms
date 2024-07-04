@@ -29,7 +29,14 @@ class UpdateAcademicInformationRequest extends FormRequest
             'degree_exam_year' => 'required',
             'total_marks' => 'required',
             'obtained_marks' => 'required',
-            'degree_image' => 'required|mimes:png,jpg,jpeg'
+            'degree_image' => 'nullable|mimes:png,jpg,jpeg',
+            'other_board_university_name' => 'required_if:board_university_name,124'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'other_board_university_name' => 'The other board university name field is required when board university name is Other',
         ];
     }
     public function prepareRequest()
@@ -44,6 +51,8 @@ class UpdateAcademicInformationRequest extends FormRequest
             'total_marks' => $request['total_marks'],
             'obtained_marks' => $request['obtained_marks'],
             'image' => $request['degree_image'],
+            'other_board_university_name' => $request['other_board_university_name'],
+
         ];
     }
 }

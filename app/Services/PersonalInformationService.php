@@ -129,8 +129,8 @@ class PersonalInformationService implements PersonalInformationContract
             $model->country_id = $data['country_id'];
         }
 
-        if (isset($data['province_id']) && $data['province_id']) {
-            $model->state_id = $data['province_id'];
+        if (isset($data['state_id']) && $data['state_id']) {
+            $model->state_id = $data['state_id'];
         }
 
         if (isset($data['domicile_id']) && $data['domicile_id']) {

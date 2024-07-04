@@ -139,7 +139,8 @@ class BoardUniversitySeeder extends Seeder
             ['name' => 'University of Veterinary and Animal Sciences, Lahore, Punjab'],
             ['name' => 'Virtual University of Pakistan, Lahore, Punjab'],
             ['name' => 'Women University Multan, Multan, Punjab'],
-            ['name' => 'Ziauddin University, Karachi, Sindh']
+            ['name' => 'Ziauddin University, Karachi, Sindh'],
+            ['id' => 124, 'name' => 'Other']
         ];
 
         foreach ($data as $item) {
