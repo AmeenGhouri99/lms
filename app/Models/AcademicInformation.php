@@ -19,6 +19,7 @@ class AcademicInformation extends Model
         'obtained_marks',
         'degree_exam_year',
         'image',
+        'other'
     ];
     /**
      * Get the user that owns the AcademicInformation

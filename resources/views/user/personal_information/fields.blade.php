@@ -23,18 +23,18 @@
         <label for="name">Candidate Name <span class="text-danger">*(According to the
                 Martriculation
                 Certificate)</label>
-        {{ html()->text('candidate_name')->class('form-control form-control-sm') }}
+        {{ html()->text('candidate_name', auth()->user()->full_name)->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Candidate CNIC <span class="text-danger">*(without dashes (-))
             </span></label>
-        {{ html()->text('candidate_cnic')->class('form-control form-control-sm') }}
+        {{ html()->text('candidate_cnic', auth()->user()->cnic)->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Father's Name<span class="text-danger">*(According to the
                 Martriculation
                 Certificate)</span></label>
-        {{ html()->text('father_name')->class('form-control form-control-sm') }}
+        {{ html()->text('father_name', isset($user) && $user->father_name != null ? $user->father_name : auth()->user()->father_name)->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Guardian/Father CNIC <span class="text-danger">* (without
@@ -152,7 +152,6 @@
             });
 
             var country_id = $('#country_id').val();
-            // alert(country_id)
             selected_country(country_id);
             $('#country_id').on('change', function() {
                 var country_id = $(this).val();
@@ -190,7 +189,6 @@
                                         selected_state(state.id);
                                     }
                                 @endif
-                                // alert({{ $user->state_id }})
                                 state_select_box.append('<option value="' + state.id + '" ' + selected +
                                     '>' + state.name + '</option>');
                             });

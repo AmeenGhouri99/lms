@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             CitySeeder::class,
             ProgramSeeder::class,
-            BoardUniversity::class
+            BoardUniversitySeeder::class
         ]);
     }
 }

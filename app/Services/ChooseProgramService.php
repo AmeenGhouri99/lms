@@ -119,8 +119,11 @@ class ChooseProgramService implements ChooseProgramContract
     public function create()
     {
         $user_id = Auth::id();
-        $user_intermediate_degree = $this->user_academic_detail->where('user_id', $user_id)->get(['id', 'qualification', 'user_id']);
 
+        $exist_academic_records = $this->user_academic_detail->where('user_id', $user_id)->get();
+        if (empty($exist_academic_records->count() > 1)) {
+            throw new CustomException('Please Add Your Academic Details');
+        }
         $degree_levels = $this->choose_program->where('parent_id', null)->get();
         return $degree_levels;
     }

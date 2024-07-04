@@ -88,7 +88,8 @@ class UserAcademicInformationController extends Controller
             $academic_detail = $this->academic_information->edit($id);
             $user_id = Auth::id();
             $academic_details = AcademicInformation::where('user_id', $user_id)->get();
-            return view('user.academic.edit', compact(['academic_detail', 'academic_details']));
+            $board_unis = BoardUniversity::pluck('name', 'id');
+            return view('user.academic.edit', compact(['academic_detail', 'academic_details', 'board_unis']));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();

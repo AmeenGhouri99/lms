@@ -81,6 +81,9 @@ class AcademicInformationService implements AcademicInformationContract
         if (isset($data['board_university_id']) && $data['board_university_id']) {
             $model->board_university_id = $data['board_university_id'];
         }
+        if (isset($data['other_board_university_name']) && $data['other_board_university_name']) {
+            $model->other_board_university_name = $data['other_board_university_name'];
+        }
 
         if (isset($data['roll_no']) && $data['roll_no']) {
             $model->roll_no = $data['roll_no'];

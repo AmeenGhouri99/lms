@@ -20,7 +20,11 @@
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Select University/Board:</label>
-        {{ html()->select('board_university_name', ['' => 'Select'] + $board_unis->toArray())->class('form-control form-control-sm') }}
+        {{ html()->select('board_university_name', ['' => 'Select'] + $board_unis->toArray())->attribute('id', 'select_university_board')->class('form-control form-control-sm') }}
+    </div>
+    <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0" id="other_university_board" style="display: none;">
+        <label for="other_board_university_name">Enter Other University/Board:</label>
+        {{ html()->text('other_board_university_name')->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Enter Roll No:</label>
@@ -38,53 +42,67 @@
         <label for="name">Enter Obtained Marks:</label>
         {{ html()->text('obtained_marks')->class('form-control form-control-sm') }}
     </div>
+</div>
+<div class="row">
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0 mt-1">
         <input type="submit" value="Save Qualification" name="submit" class="btn btn-success">
     </div>
-    @push('js_scripts')
-        <script>
-            $(document).ready(function() {
-                $('#total_marks, #obtained_marks').on('input', function() {
-                    let total_marks = parseFloat($('#total_marks').val());
-                    let obtained_marks = parseFloat($('#obtained_marks').val());
-                    if (isNaN(total_marks) || isNaN(obtained_marks)) {
-                        // Optionally handle invalid inputs if needed
-                        return;
-                    }
+</div>
+@push('js_scripts')
+    <script>
+        $(document).ready(function() {
+            $('#total_marks, #obtained_marks').on('input', function() {
+                let total_marks = parseFloat($('#total_marks').val());
+                let obtained_marks = parseFloat($('#obtained_marks').val());
+                if (isNaN(total_marks) || isNaN(obtained_marks)) {
+                    return;
+                }
 
-                    if (total_marks < obtained_marks) {
-                        alert('Obtained Marks Must Not Be Greater than Total Marks');
-                        $('#obtained_marks').val('');
-
-                    }
-
-                });
-
-
-
-                var form = $('.validate-form'),
-                    accountUploadImg = $('#account-upload-img'),
-                    accountUploadBtn = $('#account-upload'),
-                    accountUserImage = $('.uploadedAvatar'),
-                    accountResetBtn = $('#account-reset');
-
-                if (accountUserImage) {
-                    var resetImage = accountUserImage.attr('src');
-                    accountUploadBtn.on('change', function(e) {
-                        var reader = new FileReader(),
-                            files = e.target.files;
-                        reader.onload = function() {
-                            if (accountUploadImg) {
-                                accountUploadImg.attr('src', reader.result);
-                            }
-                        };
-                        reader.readAsDataURL(files[0]);
-                    });
-
-                    accountResetBtn.on('click', function() {
-                        accountUserImage.attr('src', resetImage);
-                    });
+                if (total_marks < obtained_marks) {
+                    alert('Obtained Marks Must Not Be Greater than Total Marks');
+                    $('#obtained_marks').val('');
                 }
             });
-        </script>
-    @endpush
+
+            var form = $('.validate-form'),
+                accountUploadImg = $('#account-upload-img'),
+                accountUploadBtn = $('#account-upload'),
+                accountUserImage = $('.uploadedAvatar'),
+                accountResetBtn = $('#account-reset');
+
+            if (accountUserImage) {
+                var resetImage = accountUserImage.attr('src');
+                accountUploadBtn.on('change', function(e) {
+                    var reader = new FileReader(),
+                        files = e.target.files;
+                    reader.onload = function() {
+                        if (accountUploadImg) {
+                            accountUploadImg.attr('src', reader.result);
+                        }
+                    };
+                    reader.readAsDataURL(files[0]);
+                });
+
+                accountResetBtn.on('click', function() {
+                    accountUserImage.attr('src', resetImage);
+                });
+            }
+            let selected_inst = $('#select_university_board').val();
+            selected_board_university(selected_inst);
+            $('#select_university_board').on('change', function() {
+                selected_board_university($(this).val());
+            });
+
+            function selected_board_university(selected_institute) {
+                if (selected_institute == 124) {
+                    $('#other_university_board').show();
+                } else {
+                    $('#other_university_board').hide();
+                }
+            }
+
+            // Trigger change event on page load to handle pre-selected option
+            $('#select_university_board').trigger('change');
+        });
+    </script>
+@endpush
