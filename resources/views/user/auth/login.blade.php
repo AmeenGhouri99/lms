@@ -69,7 +69,7 @@
                                                 style="height: 130px; width:130px;">
                                             <h2 class="brand-text text-primary ms-1">MNS-UET MULTAN</h2>
                                         </a>
-                                        <h6 class="card-title mb-1">Welcome to University!</h6>
+                                        <h6 class="card-title mb-1">LOGIN</h6>
                                         <p class="card-text mb-2">Please sign-in to your account and start the adventure
                                         </p>
                                         @include('flash::message')
@@ -118,9 +118,11 @@
 
                                         <p class="text-center mt-2">
                                             <span>New on our platform?</span>
-                                            <a href="{{ route('register') }}">
-                                                <button class="btn btn-secondary">Create an account</button>
-                                            </a>
+                                            @if (Route::currentRouteName() === 'login')
+                                                <a href="{{ route('register') }}">
+                                                    <button class="btn btn-secondary">Create an account</button>
+                                                </a>
+                                            @endif
                                         </p>
 
                                         <div class="divider my-2">

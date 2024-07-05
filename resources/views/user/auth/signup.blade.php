@@ -70,7 +70,7 @@
                                             <h2 class="brand-text text-primary ms-1">MNS-UET MULTAN</h2>
                                         </a>
                                         @include('flash::message')
-                                        <h6 class="card-title mb-1">Welcome to University!</h6>
+                                        <h6 class="card-title mb-1">SIGNUP</h6>
                                         <p class="card-text mb-2">Please Sign-up for apply Here</p>
 
                                         <form class="auth-login-form mt-2" action="{{ route('register') }}"

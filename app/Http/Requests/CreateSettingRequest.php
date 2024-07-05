@@ -22,7 +22,7 @@ class CreateSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admission_picture' => 'required|mimes:png,jpg,jpeg',
+            'admission_picture' => 'nullable|mimes:png,jpg,jpeg',
             'admission_end_date' => 'required',
             'admission_start_date' => 'required',
             'admission_fee' => 'required|integer',

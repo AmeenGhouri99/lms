@@ -19,13 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
+Route::get('admin-login', function () {
     return view('user/auth/login');
-});
+})->name('admin-login');
 
-Route::get('/signup', function () {
-    return view('user/auth/signup');
-});
+Route::get('signup', [UserAuthController::class, 'signUpPage']);
+Route::get('login', [UserAuthController::class, 'loginUpPage'])->name('login');
 Route::get('/logout', function () {
     Auth::logout();
     return view('user.auth.login');
