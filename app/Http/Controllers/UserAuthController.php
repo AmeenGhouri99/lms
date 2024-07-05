@@ -30,10 +30,40 @@ class UserAuthController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function signUpPage()
     {
+        try {
+            $check_admission_status = $this->user->checkAdmissionDate();
+            if ($check_admission_status === false) {
+                return view('user.admission_not_open');
+            }
+            return view('user.auth.signup');
+        } catch (CustomException $th) {
+            flash($th->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('signup page', 'none', $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
     }
-
+    public function loginUpPage()
+    {
+        try {
+            $check_admission_status = $this->user->checkAdmissionDate();
+            if ($check_admission_status === false) {
+                return view('user.admission_not_open');
+            }
+            return view('user.auth.login');
+        } catch (CustomException $th) {
+            flash($th->getMessage())->error();
+            return back();
+        } catch (\Exception $e) {
+            Helper::logMessage('signup page', 'none', $e->getMessage());
+            flash("Something Went Wrong!")->error();
+            return back();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */

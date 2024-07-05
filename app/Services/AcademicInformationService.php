@@ -44,15 +44,20 @@ class AcademicInformationService implements AcademicInformationContract
     }
     public function store($data)
     {
+        $user_id = Auth::id();
+        $academic_information = $this->academic_information->where('user_id', $user_id)->where('qualification', $data['qualification'])->first();
+        if (!empty($academic_information)) {
+            throw new CustomException('You have Already add ' . $data['qualification'] . ' record');
+        }
         $model = new $this->academic_information;
         return $this->prepareData($model, $data, true);
     }
     public function update($data, $id)
     {
-        // $academic_information = $this->academic_information->where('user_id', $data['user_id'])->first();
-        // if (!empty($academic_information)) {
-        //     throw new CustomException('Record Already Exist');
-        // }
+        $academic_information = $this->academic_information->where('user_id', $data['user_id'])->where('qualification', $data['qualification'])->first();
+        if (!empty($academic_information)) {
+            throw new CustomException('You have Already add ' . $data['qualification'] . ' record');
+        }
         $model = $this->academic_information->find($id);
         if (empty($model)) {
             throw new CustomException("Record Not Exists!");

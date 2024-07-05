@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\AuthContract;
 use App\Exceptions\CustomException;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,6 +15,18 @@ class AuthService implements AuthContract
     public function __construct()
     {
         $this->model = new User();
+    }
+    public function checkAdmissionDate()
+    {
+        // Retrieve the admission dates from settings
+        $admission_start_date = Carbon::parse(settings('admission_start_date'));
+        $admission_end_date = Carbon::parse(settings('admission_end_date'));
+        $current_date = Carbon::now();
+        if ($admission_start_date->lessThan($current_date) && $admission_end_date->greaterThan($current_date)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public function index()
     {

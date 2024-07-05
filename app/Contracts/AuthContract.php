@@ -8,4 +8,5 @@ interface AuthContract
     public function store($data);
     public function create();
     public function login($data);
+    public function checkAdmissionDate();
 }

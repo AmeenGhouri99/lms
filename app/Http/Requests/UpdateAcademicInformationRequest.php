@@ -45,14 +45,13 @@ class UpdateAcademicInformationRequest extends FormRequest
         return [
             'user_id' => Auth::id(),
             'qualification' => $request['qualification'],
-            'board_university_name' => $request['board_university_name'],
+            'board_university_id' => $request['board_university_name'],
             'roll_no' => $request['roll_no'],
             'degree_exam_year' => $request['degree_exam_year'],
             'total_marks' => $request['total_marks'],
             'obtained_marks' => $request['obtained_marks'],
             'image' => $request['degree_image'],
             'other_board_university_name' => $request['other_board_university_name'],
-
         ];
     }
 }
