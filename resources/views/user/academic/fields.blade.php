@@ -20,11 +20,11 @@
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Select University/Board:</label>
-        {{ html()->select('board_university_name', ['' => 'Select'] + $board_unis->toArray())->attribute('id', 'select_university_board')->class('form-control form-control-sm') }}
+        {{ html()->select('board_university_name', ['' => 'Select'] + $board_unis->toArray(), isset($academic_detail) ? $academic_detail->board_university_id : null)->attribute('id', 'select_university_board')->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0" id="other_university_board" style="display: none;">
         <label for="other_board_university_name">Enter Other University/Board:</label>
-        {{ html()->text('other_board_university_name')->class('form-control form-control-sm') }}
+        {{ html()->text('other_board_university_name', isset($academic_detail) ? $academic_detail->other_board_university_name : null)->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Enter Roll No:</label>
@@ -46,6 +46,9 @@
 <div class="row">
     <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0 mt-1">
         <input type="submit" value="Save Qualification" name="submit" class="btn btn-success">
+        <a href="{{ route('user.academic-information.create') }}" class="btn btn-warning">
+            Back
+        </a>
     </div>
 </div>
 @push('js_scripts')

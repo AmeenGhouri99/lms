@@ -29,6 +29,7 @@ class CreateAcademicInformationRequest extends FormRequest
             'degree_exam_year' => 'required',
             'total_marks' => 'required',
             'obtained_marks' => 'required',
+            'degree_image' => 'required|mimes:png,jpg,jpeg',
             'other_board_university_name' => 'required_if:board_university_name,124'
         ];
     }
@@ -49,4 +50,3 @@ class CreateAcademicInformationRequest extends FormRequest
         ];
     }
 }
-            'degree_image' => 'required|mimes:png,jpg,jpeg',

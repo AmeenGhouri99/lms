@@ -23,12 +23,12 @@
         <label for="name">Candidate Name <span class="text-danger">*(According to the
                 Martriculation
                 Certificate)</label>
-        {{ html()->text('candidate_name', auth()->user()->full_name)->class('form-control form-control-sm') }}
+        {{ html()->text('candidate_name', isset($user) && $user->candidate_name != null ? $user->candidate_name : auth()->user()->full_name)->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Candidate CNIC <span class="text-danger">*(without dashes (-))
             </span></label>
-        {{ html()->text('candidate_cnic', auth()->user()->cnic)->class('form-control form-control-sm') }}
+        {{ html()->text('candidate_cnic', isset($user) && $user->candidate_cnic != null ? $user->candidate_cnic : auth()->user()->cnic)->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Father's Name<span class="text-danger">*(According to the
