@@ -9,6 +9,7 @@ use App\Models\Program;
 use App\Models\AcademicInformation;
 use App\Models\Admission;
 use App\Models\AppliedProgram;
+use App\Models\GenerateChallanNo;
 use Illuminate\Support\Facades\Auth;
 
 class ChooseProgramService implements ChooseProgramContract
@@ -17,12 +18,15 @@ class ChooseProgramService implements ChooseProgramContract
     public $admission;
     public $user_academic_detail;
     public $applied_program;
+    public $challan_no_generate;
+
     public function __construct()
     {
         $this->choose_program = new Program();
         $this->admission = new Admission();
         $this->user_academic_detail = new AcademicInformation();
         $this->applied_program = new AppliedProgram();
+        $this->challan_no_generate = new GenerateChallanNo();
     }
     public function index($data)
     {
@@ -176,10 +180,23 @@ class ChooseProgramService implements ChooseProgramContract
         if (isset($data['user_id']) && $data['user_id']) {
             $model->user_id = $data['user_id'];
         }
+        if (isset($data['e-cat_roll_no']) && $data['e-cat_roll_no']) {
+            $model->e_cat_roll_no = $data['e-cat_roll_no'];
+        }
+        if (isset($data['e-cat_obtained_marks']) && $data['e-cat_obtained_marks']) {
+            $model->e_cat_obtained_marks = $data['e-cat_obtained_marks'];
+        }
+        if (isset($data['e-cat_total_marks']) && $data['e-cat_total_marks']) {
+            $model->e_cat_total_marks = $data['e-cat_total_marks'];
+        }
+        if (isset($data['is_e_cat_attempt']) && $data['is_e_cat_attempt']) {
+            $model->is_e_cat_attempt = $data['is_e_cat_attempt'];
+        }
         $model->admission_start_date = settings('admission_start_date');
         $model->admission_end_date = settings('admission_end_date');
         $model->admission_term = settings('admission_term');
         $model->admission_amount = settings('admission_fee');
+
         $model->save();
         if (isset($data['programs']) && $data['programs']) {
             foreach ($data['programs'] as $program) {
@@ -189,6 +206,17 @@ class ChooseProgramService implements ChooseProgramContract
                 $applied_program_model->program_id = $program;
                 $applied_program_model->degree_level_applied_id = $data['degree_level_applied_id'];
                 $applied_program_model->save();
+            }
+        }
+        if ($new_record) {
+            $check_existing_chalan_no = $this->challan_no_generate->latest()->first();
+            if (!empty($check_existing_chalan_no)) {
+                $challan_no = $check_existing_chalan_no->chalan_no + 1;
+                $challan_no_generate_model = new $this->challan_no_generate;
+                $challan_no_generate_model->admission_id = $model->id;
+                $challan_no_generate_model->chalan_no = $challan_no;
+                $challan_no_generate_model->abbreviation = $check_existing_chalan_no->abbreviation;
+                $challan_no_generate_model->save();
             }
         }
         return $model;

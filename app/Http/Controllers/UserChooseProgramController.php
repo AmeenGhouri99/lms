@@ -32,6 +32,7 @@ class UserChooseProgramController extends Controller
 
             $groupedPrograms = $programs->groupBy('parent_id')->map(function ($group) {
                 return [
+                    'title_id' => $group->first()->parent->id, // Assuming each program has a parent relationship to fetch the title
                     'title' => $group->first()->parent->name, // Assuming each program has a parent relationship to fetch the title
                     'programs' => $group->map(function ($item) {
                         return [
