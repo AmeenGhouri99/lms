@@ -29,14 +29,18 @@
             </span></label>
         {{ html()->date('admission_end_date')->value(settings('admission_end_date'))->class('form-control form-control-sm') }}
     </div>
-    <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
+    <div class="col-xl-4 col-sm-12 col-12 mb-2 mb-xl-0">
         <label for="name">Admission Fee</span></label>
         {{ html()->text('admission_fee')->value(settings('admission_fee'))->class('form-control form-control-sm') }}
     </div>
-    <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
+    <div class="col-xl-4 col-sm-12 col-12 mb-2 mb-xl-0">
         <label for="name">Admission Term</span></label>
 
         {{ html()->select('admission_term', ['' => 'Select', 'Fall' => 'Fall', 'Spring' => 'Spring'], settings('admission_term'))->class('form-control form-control-sm') }}
+    </div>
+    <div class="col-xl-4 col-sm-12 col-12 mb-2 mb-xl-0">
+        <label for="name">University Entry Test</span></label>
+        {{ html()->date('university_entry_test', settings('university_entry_test'))->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1 text-start" id="submit_button">
         <input type="submit" value="Update Setting" name="submit" class="btn btn-success btn-sm">

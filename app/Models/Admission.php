@@ -27,6 +27,10 @@ class Admission extends Model
         'admission_end_date',
         'admission_start_date',
         'admission_term',
+        'e_cat_roll_no',
+        'e_cat_obtained_marks',
+        'e_cat_total_marks',
+        "is_e_cat_attempt",
     ];
 
     protected $attributes = [

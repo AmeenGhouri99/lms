@@ -26,6 +26,7 @@ class CreateSettingRequest extends FormRequest
             'admission_end_date' => 'required',
             'admission_start_date' => 'required',
             'admission_fee' => 'required|integer',
+            'university_entry_test' => 'required'
         ];
     }
     public function prepareRequest()
@@ -36,7 +37,7 @@ class CreateSettingRequest extends FormRequest
             'admission_start_date' => $request['admission_start_date'],
             'admission_end_date' => $request['admission_end_date'],
             'admission_fee' => $request['admission_fee'],
-
+            'university_entry_test' => $request['university_entry_test'],
         ];
     }
 }

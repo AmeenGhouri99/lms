@@ -33,6 +33,11 @@ class SettingsController extends Controller
                 'admission_end_date' => $request->admission_end_date,
             ]);
         }
+        if (!empty($request->university_entry_test)) {
+            settings()->set([
+                'university_entry_test' => $request->university_entry_test,
+            ]);
+        }
         if (!empty($request->admission_picture)) {
             settings()->set([
                 'admission_picture' => $request->file('admission_picture')->store('images', ['disk' => 'public']),

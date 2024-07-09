@@ -34,6 +34,11 @@ class CreateChooseProgramRequest extends FormRequest
             'user_id' => Auth::id(),
             'programs' => $request['programs'],
             'degree_level_applied_id' => $request['degree_level_to_apply'],
+            'e-cat_roll_no' => $request['e-cat_roll_no'],
+            'e-cat_obtained_marks' => $request['e-cat_obtained_marks'],
+            'e-cat_total_marks' => $request['e-cat_total_marks'],
+            'is_e_cat_attempt' => $request['is_e_cat_attempt'],
+
         ];
     }
 }
