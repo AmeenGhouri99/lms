@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdmissionController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\FeeChalanController;
 use App\Http\Controllers\PdfController;
@@ -55,7 +56,7 @@ Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as'
 Route::group(['middleware' => ['auth:sanctum', 'admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('dashboard');
     Route::resource('users', AdminUserController::class);
-    Route::resource('programs', AdminUserController::class);
+    Route::resource('programs', ProgramController::class);
     Route::resource('admissions', AdmissionController::class);
     Route::resource('settings', SettingsController::class);
 

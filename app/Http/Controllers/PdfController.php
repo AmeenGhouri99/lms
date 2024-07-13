@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\PdfContract;
 use App\Models\FeeChalan;
+use App\Models\GenerateChallanNo;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
@@ -25,13 +26,12 @@ class PDFController extends Controller
     public function generatePDF($id)
     {
         $user = $this->pdf->create($id);
-        $challan_no = FeeChalan::latest()->first();
-        $generate_ch_no = $challan_no ? $challan_no->id + 1 : 1;
+        $challan_no = GenerateChallanNo::where('admission_id', $id)->first();
 
         $data = [
             'time' => Carbon::now(),
             'user' => $user,
-            'challan_no' => 'RD' . $generate_ch_no,
+            'challan_no' => $challan_no->abbreviation . $challan_no->chalan_no,
         ];
 
         $pdf = Pdf::loadView('user.chalans.pdf', $data)->setPaper('A4', 'landscape');
