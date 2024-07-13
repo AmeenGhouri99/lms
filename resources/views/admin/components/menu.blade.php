@@ -34,7 +34,7 @@
                     </span></a>
             </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.programs*') ? 'active' : '' }}">
-                <a class="d-flex align-items-center" href="{{ route('admin.programs.create') }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.programs.index') }}">
                     <i data-feather="box"></i><span class="menu-item text-truncate"
                         data-i18n="eCommerce">Programs</span></a>
             </li>

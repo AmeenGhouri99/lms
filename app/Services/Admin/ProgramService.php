@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Admin;
 
-use App\Contracts\PdfContract;
+use App\Contracts\Admin\ProgramContract;
 use App\Exceptions\CustomException;
 use App\Models\FeeChalan;
 use App\Models\User;
-use App\Traits\ImageUpload;
 use Illuminate\Support\Facades\Auth;
 
-class PdfService implements PdfContract
+class ProgramService implements ProgramContract
 {
     public $pdf;
     public $user;
-    use ImageUpload;
     public function __construct()
     {
         $this->pdf = new FeeChalan();

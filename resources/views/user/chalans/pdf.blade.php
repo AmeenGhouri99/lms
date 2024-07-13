@@ -119,7 +119,7 @@
                         <table class="challan-info">
                             <tr>
                                 <td class="bold">Student Name: </td>
-                                <td>{{ $user->full_name }}</td>
+                                <td>{{ $user->personalInformation->candidate_name }}</td>
                             </tr>
                             <tr>
                                 <td class="bold">Program Type: </td>
@@ -181,8 +181,8 @@
                         </tr>
                         <tr>
                             <td>7</td>
-                            <td>SUMMER FEE</td>
-                            <td>1000</td>
+                            <td>Admission FEE</td>
+                            <td>{{ settings('admission_fee') }}</td>
                         </tr>
                         <tr>
                             <td>8</td>
@@ -231,7 +231,7 @@
                         </tr>
                         <tr>
                             <th colspan="2">Total RS.</th>
-                            <th>1000</th>
+                            <th>{{ settings('admission_fee') }}</th>
                         </tr>
                     </table>
                     <div class="signature">
