@@ -23,8 +23,17 @@ class UserDataTable extends DataTable
 
         return $dataTable
             ->addIndexColumn()
-            ->addColumn('action', 'admin.users.datatables_actions');
-        // ->rawColumns(['action']);
+            ->editColumn('status', function ($data) {
+                $status_btn = '';
+                if ($data->status === 1) {
+                    $status_btn = '<span class="alert alert-success">Active</span>';
+                } else {
+                    $status_btn = '<span class="alert alert-danger">Inactive</span>';
+                }
+                return $status_btn;
+            })
+            ->addColumn('action', 'admin.users.datatables_actions')
+            ->rawColumns(['status', 'action']);
     }
 
     /**
@@ -41,7 +50,8 @@ class UserDataTable extends DataTable
             'full_name',
             'father_name',
             'email',
-            'cnic'
+            'cnic',
+            'status'
         ]);
     }
 
@@ -89,6 +99,7 @@ class UserDataTable extends DataTable
             'father_name' => ['title' => 'father name', 'data' => 'father_name'],
             'cnic' => ['title' => 'cnic', 'data' => 'cnic'],
             'email' => ['title' => 'email', 'data' => 'email'],
+            'status',
         ];
     }
 
