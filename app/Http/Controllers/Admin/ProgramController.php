@@ -7,7 +7,9 @@ use App\DataTables\ProgramDataTable;
 use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProgramRequest;
 use App\Http\Requests\UpdateProgramRequest;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
@@ -36,7 +38,8 @@ class ProgramController extends Controller
     {
         try {
             $parent_programs = $this->program->create();
-            return view('admin.programs.create', compact($parent_programs));
+            // dd($parent_programs);
+            return view('admin.programs.create', compact('parent_programs'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
@@ -50,13 +53,37 @@ class ProgramController extends Controller
     public function edit($id)
     {
         try {
-            $user = $this->program->edit($id);
-            return view('admin.programs.edit', compact('program'));
+            $program = $this->program->edit($id);
+            $parent_programs = Program::where('parent_id', null)->pluck('name', 'id');
+
+            return view('admin.programs.edit', compact('parent_programs', 'program'));
         } catch (CustomException $th) {
             Flash::error($th->getMessage());
             return back();
         } catch (\Exception $th) {
             Helper::logMessage('program edit', 'id=' . $id, $th->getMessage());
+            Flash::error('Something went wrong!');
+            return back();
+        }
+    }
+    public function store(CreateProgramRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $program = $this->program->store($request->prepareRequest());
+            DB::commit();
+            Flash::success('Program Saved Successfully.');
+            // if ($program->deleted_at === null) {
+            //     return redirect()->route('admin.programs.index');
+            // }
+            return back();
+        } catch (CustomException $th) {
+            DB::rollBack();
+            Flash::error($th->getMessage());
+            return back();
+        } catch (\Exception $th) {
+            DB::rollBack();
+            Helper::logMessage('program create', $request->input(), $th->getMessage());
             Flash::error('Something went wrong!');
             return back();
         }

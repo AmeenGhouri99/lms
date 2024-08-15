@@ -25,12 +25,13 @@ class CreateProgramRequest extends FormRequest
             'name' => 'required',
         ];
     }
-    public function prepareData(): array
+    public function prepareRequest(): array
     {
         $request = $this->all();
 
         return [
             'name' => $request['name'] ?? null,
+            'parent_id' => $request['parent_id'] ?? null,
             'fsc_pre_eng_can_apply' => $request['fsc_pre_eng_can_apply'] ?? null,
             'fsc_pre_eng_60_percentage_for_engineering_programs' => $request['fsc_pre_eng_60_percentage_for_engineering_programs'] ?? null,
             'fsc_pre_med_can_apply' => $request['fsc_pre_med_can_apply'] ?? null,

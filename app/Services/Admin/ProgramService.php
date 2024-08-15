@@ -28,16 +28,12 @@ class ProgramService implements ProgramContract
     }
     public function edit($id)
     {
-        $pdf = $this->pdf->find($id);
-        return $pdf;
+        $program = $this->program->find($id);
+        return $program;
     }
     public function store($data)
     {
-        $record_exist = $this->pdf->where('document_type', $data['document_type'])->where('user_id', $data['user_id'])->first();
-        if (!empty($record_exist)) {
-            throw new CustomException('Specific Document Already Uploaded!');
-        }
-        $model = new $this->pdf;
+        $model = new $this->program;
         return $this->prepareData($model, $data, true);
     }
     public function update($data, $id)
@@ -64,6 +60,9 @@ class ProgramService implements ProgramContract
     {
         if (isset($data['name']) && $data['name']) {
             $model->name = $data['name'];
+        }
+        if (isset($data['parent_id']) && $data['parent_id']) {
+            $model->parent_id = $data['parent_id'];
         }
         // Field: fsc_pre_eng_can_apply
         if (isset($data['fsc_pre_eng_can_apply'])) {
