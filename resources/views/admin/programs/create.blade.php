@@ -33,24 +33,22 @@
 
                     <div class="card p-1">
                         <!-- Add Category Form START -->
-                        {!! Form::open(['route' => 'admin.banners.store', 'files' => true, 'class' => 'form']) !!}
-                        <div class="row mb-2 mt-2">
-                            @include('flash::message')
-                            @include('admin.banners.fields')
-                        </div>
-
-                        {!! Form::close() !!}
+                        @include('flash::message')
+                        {{ html()->form('post', route('admin.programs.store'))->attribute('enctype', 'multipart/form-data')->open() }}
+                        @include('admin.programs.fields')
+                        {{ html()->form()->close() }}
                         <!-- Add Category Form END -->
                     </div>
 
                 </div>
             </div>
         </div>
-        <!-- END: Content-->
-    @endsection
+    </div>
+    <!-- END: Content-->
+@endsection
 
-    @push('js_scripts')
-        {{-- <script>
+@push('js_scripts')
+    {{-- <script>
         const submissionButton = document.querySelector('.submission-button');
         const nextButton = document.querySelector('.next-button');
 
@@ -58,4 +56,4 @@
             nextButton.style.display = 'block';
         });
     </script> --}}
-    @endpush
+@endpush
