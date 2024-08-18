@@ -42,7 +42,7 @@ class ProgramService implements ProgramContract
         // if (!empty($document)) {
         //     throw new CustomException('Record Already Exist');
         // }
-        $model = $this->pdf->find($id);
+        $model = $this->program->find($id);
         if (empty($model)) {
             throw new CustomException("Record Not Exists!");
         }
