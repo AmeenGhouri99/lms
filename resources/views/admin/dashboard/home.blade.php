@@ -60,7 +60,7 @@
                                 <div class="card-header">
                                     <div>
                                         <h2 class="fw-bolder mb-0">{{ collect($data['fee_challans'])->count() }}</h2>
-                                        <p class="card-text">Paid Admission Fee</p>
+                                        <p class="card-text">Paid Admissions</p>
                                     </div>
                                     <div class="avatar bg-light-primary p-50 m-0">
                                         <div class="avatar-content">

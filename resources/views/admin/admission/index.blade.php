@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Users')
+@section('title', 'Admissions')
 @section('main-section')
     <!-- BEGIN: Content-->
     <div class="app-content content ">
@@ -39,7 +39,7 @@
                                 </h4>
                             </div>
                             @include('flash::message')
-                            @include('admin.users.table')
+                            @include('admin.admission.table')
                         </div>
                     </div>
                 </div>

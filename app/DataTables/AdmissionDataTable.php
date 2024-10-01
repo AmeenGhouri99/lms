@@ -30,7 +30,7 @@ class AdmissionDataTable extends DataTable
             })
             ->addColumn('matric_marks', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
-                    if ($qualification->qualification == 'matric') {
+                    if ($qualification->qualification == 'matriculation') {
                         return $qualification->obtained_marks . '/' . $qualification->total_marks;
                     }
                 }
@@ -38,7 +38,7 @@ class AdmissionDataTable extends DataTable
             })
             ->addColumn('matric_%age', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
-                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
+                    if ($qualification->qualification == 'matriculation' || $qualification->qualification == 'matriculation') {
                         return number_format($qualification->obtained_marks / $qualification->total_marks * 100, 1) . '%';
                     }
                 }
@@ -54,7 +54,7 @@ class AdmissionDataTable extends DataTable
             })
             ->addColumn('inter_%age', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
-                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
+                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical' || $qualification->qualification === 'fsc pre eng' || $qualification->qualification === 'ics' || $qualification->qualification === 'dae_electrical' || $qualification->qualification === 'dae_mechanical' || $qualification->qualification === 'dae_chemical' || $qualification->qualification === 'civil') {
                         return number_format($qualification->obtained_marks / $qualification->total_marks * 100, 1) . '%';
                     }
                 }
