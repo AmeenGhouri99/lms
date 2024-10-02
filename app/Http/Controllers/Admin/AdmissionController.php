@@ -84,12 +84,18 @@ class AdmissionController extends Controller
     {
         try {
             $admission = $this->admission->edit($id);
-            return view('admin.admission.show', compact('admission'));
+            // if ($user === false) {
+            //     return view('user.verify_and_submit.already_submit_application');
+            // }
+            $admission_id = $id;
+            $user = $admission->user;
+            // session()->put('admission_id', $admission_id);
+            return view('admin.admission.show', compact('user', 'admission_id'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
         } catch (\Exception $e) {
-            Helper::logMessage('edit admin Admission Controller ', 'id=' . $id, $e->getMessage());
+            Helper::logMessage('review & submit application in user Controller ', 'none', $e->getMessage());
             flash("Something Went Wrong!")->error();
             return back();
         }

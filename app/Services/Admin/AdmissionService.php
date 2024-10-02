@@ -25,7 +25,7 @@ class AdmissionService implements AdmissionContract
     }
     public function edit($id)
     {
-        $admission = $this->admission->with('admissionFee')->find($id);
+        $admission = $this->admission->with('admissionFee', 'user')->find($id);
         if (empty($admission)) {
             throw new CustomException('No Records Found!');
         }

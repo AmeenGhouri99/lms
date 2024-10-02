@@ -1,13 +1,8 @@
-@section('style')
-    <link href="{{ asset('app-assets/css/lightbox.min.css') }}" rel="stylesheet" />
-@endsection
-
 <div class="d-flex">
     <a href="{{ $admission->admissionFee->chalan_pic ? asset('storage/' . $admission->admissionFee->chalan_pic) : asset('app-assets/no-image-icon.png') }}"
         data-lightbox="admission-image" class="me-25">
         <img src="{{ $admission->admissionFee->chalan_pic ? asset('storage/' . $admission->admissionFee->chalan_pic) : asset('app-assets/no-image-icon.png') }}"
-            id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100"
-            width="100" />
+            id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100" />
     </a>
 </div>
 <table class="table table-bordered mt-2">

@@ -45,6 +45,8 @@
 
 <!-- Add this code inside the script tags at the end of your HTML body -->
 @stack('js_scripts')
+<script src="{{ asset('app-assets/js/lightbox.min.js') }}"></script>
+
 
 </body>
 
