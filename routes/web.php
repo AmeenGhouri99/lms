@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdmissionController;
+use App\Http\Controllers\Admin\AppliedProgramController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -59,7 +60,6 @@ Route::group(['middleware' => ['auth:sanctum', 'admin'], 'prefix' => 'admin', 'a
     Route::resource('programs', ProgramController::class);
     Route::resource('admissions', AdmissionController::class);
     Route::resource('settings', SettingsController::class);
-
-
+    Route::resource('applied_programs', AppliedProgramController::class);
     Route::get('profile/setting', [HomeController::class, 'profileSetting'])->name('profile.setting');
 });

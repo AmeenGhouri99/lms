@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\AcademicInformationContract;
 use App\Contracts\Admin\AdmissionContract;
+use App\Contracts\Admin\AppliedProgramContract;
 use App\Contracts\Admin\HomeContract;
 use App\Contracts\Admin\ProgramContract;
 use App\Contracts\Admin\UserContract as AdminUserContract;
@@ -17,6 +18,7 @@ use App\Contracts\UserContract;
 use App\Models\FeeChalan;
 use App\Services\AcademicInformationService;
 use App\Services\Admin\AdmissionService;
+use App\Services\Admin\AppliedProgramService;
 use App\Services\Admin\HomeService;
 use App\Services\Admin\ProgramService;
 use App\Services\Admin\UserService as AdminUserService;
@@ -106,6 +108,12 @@ class UniversityServiceProvider extends ServiceProvider
             AdmissionContract::class,
             function ($app) {
                 return $app->make(AdmissionService::class);
+            }
+        );
+        $this->app->bind(
+            AppliedProgramContract::class,
+            function ($app) {
+                return $app->make(AppliedProgramService::class);
             }
         );
     }
