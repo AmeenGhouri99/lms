@@ -20,14 +20,10 @@
             <td>{{ $applied_program->program->name }}</td>
             <td>{{ $applied_program->status }}</td>
             <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewCard">
-                    Show
-                </button></td>
+                    Change Status
+                </button>
+            </td>
         @endforeach
-        @if ($admission->admission_fee === 'unpaid')
-            <td><span class="badge bg-danger">{{ $admission->admission_fee }}</span></td>
-        @else
-            <td><span class="badge bg-success">{{ $admission->admission_fee }}</span></td>
-        @endif
         {{-- <td><span class="badge bg-success">{{ $admission->admission_fee }}</span></td> --}}
     </tbody>
 </table>
@@ -91,12 +87,15 @@
                 <h1 class="text-center mb-1" id="addNewCardTitle">Change the Applied Program Status</h1>
                 <p class="text-center">You can change the applied status</p>
                 <!-- form -->
-                <form action="{{ route('admin.app') }}" class="row gy-1 gx-2 mt-75" onsubmit="return false">
+                <form action="" class="row gy-1 gx-2 mt-75" onsubmit="return false">
                     <div class="col-12">
                         <label class="form-label" for="modalAddCardNumber">Change Status</label>
                         <select name="status" class="form-control">
                             <option value="" selected disabled>Change Status</option>
                             <option value="in_process">IN PROCESS</option>
+                            <option value="confirmed">CONFIRMED</option>
+                            <option value="pending">PENDING</option>
+                            <option value="cancel">CANCEL</option>
                         </select>
                     </div>
                     <input type="hidden" value="here will be the slected id will show">
