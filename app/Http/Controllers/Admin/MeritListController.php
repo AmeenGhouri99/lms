@@ -23,7 +23,9 @@ class MeritListController extends Controller
     public function create()
     {
         try {
-            return view('admin.appliedProgram.edit', compact('appliedProgram'));
+
+            $programs = $this->merit_list->create();
+            return view('admin.merit_lists.index', compact('programs'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
@@ -36,13 +38,13 @@ class MeritListController extends Controller
     public function generateMeritList(MeritListRequest $request)
     {
         try {
-            $merit_list = $this->merit_list->edit($request->prepareRequest());
+            $merit_list = $this->merit_list->generateMeritList($request->prepareRequest());
             return view('admin.merit_lists.index', compact('merit_list'));
         } catch (CustomException $e) {
             flash($e->getMessage())->error();
             return back();
         } catch (\Exception $e) {
-            Helper::logMessage('Merit List  Controller ', 'id=' . $request->input(), $e->getMessage());
+            Helper::logMessage('Merit List  Controller ', 'id=' . $request, $e->getMessage());
             flash("Something Went Wrong!")->error();
             return back();
         }

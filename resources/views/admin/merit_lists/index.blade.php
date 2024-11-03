@@ -39,7 +39,9 @@
                                 </h4>
                             </div>
                             @include('flash::message')
+                            {{ html()->form('post', route('admin.merit-list.generate'))->attribute('enctype', 'multipart/form-data')->open() }}
                             @include('admin.merit_lists.field')
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                 </div>

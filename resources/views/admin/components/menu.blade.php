@@ -38,6 +38,11 @@
                     <i data-feather="box"></i><span class="menu-item text-truncate"
                         data-i18n="eCommerce">Programs</span></a>
             </li>
+            <li class="nav-item {{ Route::CurrentRouteNamed('admin.merit-list*') ? 'active' : '' }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.merit-list.create') }}">
+                    <i data-feather="settings"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Merit
+                        Lists</span></a>
+            </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.settings*') ? 'active' : '' }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.settings.create') }}">
                     <i data-feather="settings"></i><span class="menu-item text-truncate"
