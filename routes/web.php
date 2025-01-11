@@ -18,9 +18,7 @@ use App\Http\Controllers\UserDocumentController;
 use App\Http\Controllers\UserPersonalInformationController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [UserAuthController::class, 'loginUpPage']);
 
 Route::get('admin-login', function () {
     return view('user/auth/login');
