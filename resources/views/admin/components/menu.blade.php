@@ -21,8 +21,8 @@
             <!--DashBoard Menu START-->
             <li class=" nav-item {{ Route::CurrentRouteNamed('admin.dashboard') ? 'active' : '' }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.dashboard') }}">
-                    <i data-feather="home"></i><span class="menu-title text-truncate"
-                        data-i18n="Dashboards">Dashboard</span></a>
+                    <i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Admin
+                        Dashboard</span></a>
             </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.users*') ? 'active' : '' }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.users.index') }}">
