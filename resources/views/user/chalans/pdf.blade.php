@@ -94,7 +94,8 @@
                                 <td class="bold">Acc. No: </td>
                                 <td>8900875503</td>
                                 <td class="bold">Challan No: </td>
-                                <td>{{ $challan_no }}</td>
+                                {{-- @dd($voucher_no) --}}
+                                <td>{{ $voucher_no }}</td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="center">

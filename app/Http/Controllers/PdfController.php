@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\PdfContract;
+use App\Models\Admission;
 use App\Models\FeeChalan;
 use App\Models\GenerateChallanNo;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -26,16 +27,17 @@ class PDFController extends Controller
     public function generatePDF($id)
     {
         $user = $this->pdf->create($id);
-        $challan_no = GenerateChallanNo::where('admission_id', $id)->first();
+        $voucher_no = Admission::find($id)->voucher_no;
 
         $data = [
             'time' => Carbon::now(),
             'user' => $user,
-            'challan_no' => $challan_no->abbreviation . $challan_no->chalan_no,
+            'voucher_no' => $voucher_no,
         ];
 
+        // $data = [];
         $pdf = Pdf::loadView('user.chalans.pdf', $data)->setPaper('A4', 'landscape');
 
-        return $pdf->download('mns-uet-multan.pdf');
+        return $pdf->stream('mns-uet-multan.pdf');
     }
 }

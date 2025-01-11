@@ -177,6 +177,7 @@ class ChooseProgramService implements ChooseProgramContract
     }
     private function prepareData($model, $data, $new_record = false)
     {
+        // dd($data);
         if (isset($data['user_id']) && $data['user_id']) {
             $model->user_id = $data['user_id'];
         }
@@ -191,6 +192,9 @@ class ChooseProgramService implements ChooseProgramContract
         }
         if (isset($data['is_e_cat_attempt']) && $data['is_e_cat_attempt']) {
             $model->is_e_cat_attempt = $data['is_e_cat_attempt'];
+        }
+        if (isset($data['voucher_no']) && $data['voucher_no']) {
+            $model->voucher_no = $data['voucher_no'];
         }
         $model->admission_start_date = settings('admission_start_date');
         $model->admission_end_date = settings('admission_end_date');

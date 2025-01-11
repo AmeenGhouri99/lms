@@ -130,7 +130,7 @@
 
                                         <p class="text-center mt-2">
                                             <span>If you already register</span>
-                                            <a href="{{ route('login') }}">
+                                            <a href="{{ route('login.page') }}">
                                                 <button class="btn btn-secondary">Sign-in</button>
                                             </a>
                                         </p>

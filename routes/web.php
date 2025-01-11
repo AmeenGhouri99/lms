@@ -27,7 +27,7 @@ Route::get('admin-login', function () {
 })->name('admin-login');
 
 Route::get('signup', [UserAuthController::class, 'signUpPage']);
-Route::get('login', [UserAuthController::class, 'loginUpPage'])->name('login');
+Route::get('login', [UserAuthController::class, 'loginUpPage'])->name('login.page');
 Route::get('/logout', function () {
     Auth::logout();
     return view('user.auth.login');
