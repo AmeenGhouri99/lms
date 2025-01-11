@@ -36,8 +36,7 @@
                                 alt="Avatar" height="40" width="40"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a
-                            class="dropdown-item" href="{{ route('admin.profile.setting') }}"><i class="me-50"
-                                data-feather="user"></i> Profile</a>
+                            class="dropdown-item" href="#"><i class="me-50" data-feather="user"></i> Profile</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"><i class="me-50"
                                 data-feather="power"></i> logout</a>
                     </div>
