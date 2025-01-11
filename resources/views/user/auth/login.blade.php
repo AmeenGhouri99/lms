@@ -118,7 +118,7 @@
 
                                         <p class="text-center mt-2">
                                             <span>New on our platform?</span>
-                                            @if (Route::currentRouteName() === 'login')
+                                            @if (Route::currentRouteName() === 'login.page')
                                                 <a href="{{ route('register') }}">
                                                     <button class="btn btn-secondary">Create an account</button>
                                                 </a>

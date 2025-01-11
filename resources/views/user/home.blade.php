@@ -21,7 +21,7 @@
                                     <tr>
                                         <th>Sr#</th>
                                         <th>Applied Programs</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Admission Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -37,11 +37,12 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
                                                     @foreach ($applied_program->program as $program)
-                                                        {{ $program->appliedDegreeLevel->name }}{{ $program->program->name }}
+                                                        {{ $program->appliedDegreeLevel->name }}
+                                                        {{ $program->program->name }}
                                                         |<br>
                                                     @endforeach
                                                 </td>
-                                                <td>{{ $applied_program->status }}</td>
+                                                {{-- <td>{{ $applied_program->status }}</td> --}}
                                                 <td>{{ $applied_program->admission_date }}</td>
                                                 <td>
                                                     <div class="row">

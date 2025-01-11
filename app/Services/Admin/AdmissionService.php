@@ -31,6 +31,7 @@ class AdmissionService implements AdmissionContract
         }
         return $admission;
     }
+
     public function store($data)
     {
         $model = new $this->admission;

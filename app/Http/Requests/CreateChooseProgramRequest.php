@@ -38,7 +38,15 @@ class CreateChooseProgramRequest extends FormRequest
             'e-cat_obtained_marks' => $request['e-cat_obtained_marks'],
             'e-cat_total_marks' => $request['e-cat_total_marks'],
             'is_e_cat_attempt' => $request['is_e_cat_attempt'],
+            'voucher_no' => $this->generateVoucherNumber(),
 
         ];
+    }
+    private function generateVoucherNumber()
+    {
+        $year = now()->format('Y');
+        $lastVoucher = \App\Models\Admission::latest('id')->value('voucher_no');
+        $increment = $lastVoucher ? intval(substr($lastVoucher, -4)) + 1 : 1;
+        return "ADM-$year-" . str_pad($increment, 4, '0', STR_PAD_LEFT);
     }
 }

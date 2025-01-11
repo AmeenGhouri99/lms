@@ -23,7 +23,7 @@
                 <th>ECAT Total Marks</th>
                 <th>ECAT %age</th>
             @endif
-            <th>Status</th>
+            {{-- <th>Status</th> --}}
             <th>Admission Date</th>
             <th>Action</th>
         </tr>
@@ -53,7 +53,7 @@
                             <td colspan="4">N/A</td>
                         @endif
                     @endif
-                    <td>{{ $applied_program->status }}</td>
+                    {{-- <td>{{ $applied_program->status }}</td> --}}
                     <td>{{ $applied_program->admission_date }}</td>
                     <td>
                         <div class="row">

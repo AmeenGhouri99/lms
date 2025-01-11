@@ -23,7 +23,7 @@
                                 <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1 text-end">
                                     <a href="{{ route('user.personal-information.create') }}"
                                         class="btn btn-primary btn-sm"><i data-feather='arrow-left'></i>Back</a>
-                                    <a href="{{ route('user.choose-program-to-apply.create') }}" value=""
+                                    <a href="{{ route('user.documents.create') }}" value=""
                                         class="btn btn-success btn-sm">Go To Next</a>
                                 </div>
                             </div>
