@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Admissions')
+@section('title', 'Merit Lists')
 @section('main-section')
     <!-- BEGIN: Content-->
     <div class="app-content content ">
@@ -15,12 +15,12 @@
                     <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="row breadcrumbs-top">
                             <div class="col-12">
-                                <h2 class="content-header-title float-start mb-0">Admissions</h2>
+                                <h2 class="content-header-title float-start mb-0">Merit Lists</h2>
                                 <div class="breadcrumb-wrapper">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">Admission</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Merit List</a></li>
                                         <li class="breadcrumb-item active">
-                                            Admissions
+                                            Merit Lists
                                         </li>
                                     </ol>
                                 </div>
@@ -35,11 +35,13 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    Admissions
+                                    Merit Lists
                                 </h4>
                             </div>
                             @include('flash::message')
-                            @include('admin.admission.table')
+                            {{ html()->form('post', route('admin.merit-list.generate'))->attribute('enctype', 'multipart/form-data')->open() }}
+                            @include('admin.merit_lists.field')
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                 </div>

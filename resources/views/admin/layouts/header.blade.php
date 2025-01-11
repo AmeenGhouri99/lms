@@ -55,6 +55,9 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/custom.css') }}" />
+    <link href="{{ asset('app-assets/css/lightbox.min.css') }}" rel="stylesheet" />
+
 
     <!-- END: Custom CSS-->
+    @yield('style')
 </head>

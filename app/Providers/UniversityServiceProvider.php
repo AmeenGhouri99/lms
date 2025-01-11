@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Contracts\AcademicInformationContract;
+use App\Contracts\Admin\AdmissionContract;
+use App\Contracts\Admin\AppliedProgramContract;
 use App\Contracts\Admin\HomeContract;
+use App\Contracts\Admin\MeritListContract;
 use App\Contracts\Admin\ProgramContract;
 use App\Contracts\Admin\UserContract as AdminUserContract;
 use App\Contracts\AuthContract;
@@ -15,7 +18,10 @@ use App\Contracts\PersonalInformationContract;
 use App\Contracts\UserContract;
 use App\Models\FeeChalan;
 use App\Services\AcademicInformationService;
+use App\Services\Admin\AdmissionService;
+use App\Services\Admin\AppliedProgramService;
 use App\Services\Admin\HomeService;
+use App\Services\Admin\MeritListService;
 use App\Services\Admin\ProgramService;
 use App\Services\Admin\UserService as AdminUserService;
 use App\Services\AuthService;
@@ -98,6 +104,24 @@ class UniversityServiceProvider extends ServiceProvider
             AdminUserContract::class,
             function ($app) {
                 return $app->make(AdminUserService::class);
+            }
+        );
+        $this->app->bind(
+            AdmissionContract::class,
+            function ($app) {
+                return $app->make(AdmissionService::class);
+            }
+        );
+        $this->app->bind(
+            AppliedProgramContract::class,
+            function ($app) {
+                return $app->make(AppliedProgramService::class);
+            }
+        );
+        $this->app->bind(
+            MeritListContract::class,
+            function ($app) {
+                return $app->make(MeritListService::class);
             }
         );
     }
