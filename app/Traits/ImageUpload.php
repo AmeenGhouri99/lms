@@ -12,12 +12,19 @@ trait ImageUpload
 
         $imageName = time() . '.' . $media->getClientOriginalExtension();
         $imageExtension = $media->getClientOriginalExtension();
+        // if ($imageExtension === 'pdf') {
+        //     $path = $media->storeAs('public/documents', $imageName);
+        // } else {
+        //     $path = $media->storeAs('public/images', $imageName);
+        // }
+        // $relativePath = str_replace('public/', '', $path);
+
         if ($imageExtension === 'pdf') {
-            $path = $media->storeAs('public/documents', $imageName);
+            $path = $media->storeAs('documents', $imageName);
         } else {
-            $path = $media->storeAs('public/images', $imageName);
+            $path = $media->storeAs('images', $imageName);
         }
-        $relativePath = str_replace('public/', '', $path);
+        $relativePath = $path;
 
         // This will store the image in the storage directory
         // You might want to save the image path or details in your database here
