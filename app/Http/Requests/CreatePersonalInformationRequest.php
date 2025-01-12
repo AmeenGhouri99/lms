@@ -23,7 +23,7 @@ class CreatePersonalInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'profile_image' => 'required|mimes:png,jpg,jpeg',
+            'profile_image' => 'required|mimes:jpg,jpeg,png',
             'candidate_name' => 'required',
             'candidate_cnic' => 'required',
             'guardian_father_cnic' => 'required',
