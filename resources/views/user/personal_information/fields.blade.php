@@ -1,18 +1,16 @@
 <div class="row">
     <div class="d-flex mb-1">
         <a href="#" class="me-25">
+
+
             <img src="{{ isset($user) && $user ? asset('storage/' . $user->profile_image) : asset('app-assets/images/no_image_icon.jpg') }}"
-                id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100"
+                id="account-upload-img" class="uploadedAvatar rounded me-50" alt="Profile Picture" height="100"
                 width="100" />
         </a>
-        @if (isset($user))
-            <input type="hidden" value="{{ $user->profile_image }}" name="existing_profile_image">
-        @endif
         <div class="d-flex align-items-end mt-75 ms-1">
             <div>
                 <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Upload</label>
-                <input type="file" id="account-upload" name="profile_image" hidden accept="image/*"
-                    value="{{ isset($user) ? $user->profile_image : null }}" />
+                <input type="file" id="account-upload" name="profile_image" hidden accept="image/*" />
                 <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
                 <p class="mb-0">Allowed file types: png, jpg, jpeg.</p>
             </div>
@@ -124,29 +122,21 @@
                     accountUserImage = $('.uploadedAvatar'),
                     accountResetBtn = $('#account-reset');
 
-                if (accountUserImage.length) {
+                if (accountUserImage) {
                     var resetImage = accountUserImage.attr('src');
-
                     accountUploadBtn.on('change', function(e) {
                         var reader = new FileReader(),
                             files = e.target.files;
-
                         reader.onload = function() {
-                            if (accountUploadImg.length) {
+                            if (accountUploadImg) {
                                 accountUploadImg.attr('src', reader.result);
                             }
                         };
-
-                        if (files.length) {
-                            reader.readAsDataURL(files[0]);
-                        }
+                        reader.readAsDataURL(files[0]);
                     });
 
                     accountResetBtn.on('click', function() {
-                        if (accountUserImage.length) {
-                            accountUserImage.attr('src', resetImage);
-                            accountUploadBtn.val(''); // Clear the input file
-                        }
+                        accountUserImage.attr('src', resetImage);
                     });
                 }
             });
