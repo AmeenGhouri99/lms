@@ -17,7 +17,7 @@
                         <div class="card-body statistics-body">
                             {{-- @dd($admission_detail) --}}
                             <a href="{{ route('user.generate-pdf', ['id' => $admission_detail->id]) }}"
-                                class="btn btn-primary" id="printVoucher">Print Chalan</a>
+                                class="btn btn-primary" id="printVoucher" target="_blank">Print Chalan</a>
                             @include('flash::message')
                             {{ html()->form('POST', route('user.pay-admission-fee.store'))->attribute('enctype', 'multipart/form-data')->open() }}
                             <div id="submit_challan_fields" style="display: none">
