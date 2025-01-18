@@ -5,12 +5,14 @@ namespace App\Services;
 use App\Contracts\AuthContract;
 use App\Exceptions\CustomException;
 use App\Models\User;
+use App\Traits\ImageUpload;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService implements AuthContract
 {
+    use ImageUpload;
     public $model;
     public function __construct()
     {
@@ -28,8 +30,11 @@ class AuthService implements AuthContract
             return false;
         }
     }
-    public function index()
+    public function index() {}
+    public function profile()
     {
+        $user = $this->model->find(auth()->user()->id);
+        return $user;
     }
     public function create()
     {
@@ -43,6 +48,24 @@ class AuthService implements AuthContract
         }
         $model = new $this->model;
         return $this->prepareData($model, $data, true);
+    }
+    public function update($data, $id)
+    {
+        // dd($data);
+        $model = $this->model->find($id);
+        if (empty($model)) {
+            throw new CustomException("User Not Found!");
+        }
+
+        if (isset($data['old_password']) && $data['old_password'] && $data['password']) {
+            $check_old_password = Hash::check($data['old_password'], $model->password);
+            if ($check_old_password == false) {
+                throw new CustomException("Old Password Not Correct!");
+            }
+        }
+
+        $user = $this->prepareData($model, $data, false);
+        return $user;
     }
     public function login($data)
     {
@@ -59,6 +82,12 @@ class AuthService implements AuthContract
     {
         if (isset($data['full_name']) && $data['full_name']) {
             $model->full_name = $data['full_name'];
+        }
+        if (isset($data['profile_image']) && $data['profile_image']) {
+            // dd($data['profile_image']);
+            // $model->profile_image = $data['profile_image'];
+            $image_path = $this->upload($data['profile_image']);
+            $model->profile_image = $image_path;
         }
         if (isset($data['cnic']) && $data['cnic']) {
             $model->cnic = $data['cnic'];

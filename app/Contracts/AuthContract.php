@@ -9,4 +9,6 @@ interface AuthContract
     public function create();
     public function login($data);
     public function checkAdmissionDate();
+    public function update($data, $id);
+    public function profile();
 }

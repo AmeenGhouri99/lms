@@ -48,6 +48,11 @@
                     <i data-feather="settings"></i><span class="menu-item text-truncate"
                         data-i18n="eCommerce">Settings</span></a>
             </li>
+            <li class="nav-item {{ Route::CurrentRouteNamed('admin.profile*') ? 'active' : '' }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.profile.show') }}">
+                    <i data-feather="profile"></i><span class="menu-item text-truncate"
+                        data-i18n="eCommerce">Profile</span></a>
+            </li>
         </ul>
     </div>
 </div>

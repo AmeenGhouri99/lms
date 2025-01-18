@@ -24,7 +24,8 @@ class User extends Authenticatable
         'cnic',
         'password',
         'father_name',
-        'status'
+        'status',
+        'profile_image'
         // 'degree_level_to_apply'
     ];
 

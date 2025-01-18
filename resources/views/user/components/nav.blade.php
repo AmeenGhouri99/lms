@@ -34,11 +34,12 @@
                     <div class="user-nav d-sm-flex d-none"><span
                             class="user-name fw-bolder">{{ auth()->user()->full_name }}</span><span
                             class="user-status">User</span></div><span class="avatar"><img class="round"
-                            src="{{ asset('app-assets/images/no_image_icon.jpg') }}" alt="avatar" height="40"
-                            width="40"><span class="avatar-status-online"></span></span>
+                            src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : asset('app-assets/images/no_image_icon.jpg') }}"
+                            alt="avatar" height="40" width="40"><span
+                            class="avatar-status-online"></span></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item"
-                        href="page-profile.html"><i class="me-50" data-feather="user"></i> Profile</a><a
+                        href="{{ route('user.profile.show') }}"><i class="me-50" data-feather="user"></i> Profile</a><a
                         class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i>
                         FAQ</a><a class="dropdown-item" href="{{ route('logout') }}"><i class="me-50"
                             data-feather="power"></i> Logout</a>

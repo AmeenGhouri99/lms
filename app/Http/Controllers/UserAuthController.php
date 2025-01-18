@@ -7,8 +7,10 @@ use App\Exceptions\CustomException;
 use App\Helpers\Helper;
 use App\Http\Requests\CreateRegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
 
@@ -125,10 +127,6 @@ class UserAuthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -136,5 +134,41 @@ class UserAuthController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function profile()
+    {
+        try {
+            $user = $this->user->profile();
+            if ($user->role_id === 2) {
+                return view('user.profile.update', compact('user'));
+            } else {
+                return view('admin.profile.update', compact('user'));
+            }
+        } catch (CustomException $th) {
+            return Flash::error($th->getMessage());
+        } catch (\Exception $th) {
+            Helper::logMessage('profile', 'none', $th->getMessage());
+            return Flash::error(__('general.something_went_wrong'));
+        }
+    }
+
+    public function update(UpdateProfileRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user = $this->user->update($request->prepareRequest(), Auth::user()->id);
+            DB::commit();
+            Flash::success('Profile Updated Successfully.');
+            return back();
+        } catch (CustomException $th) {
+            DB::rollBack();
+            Flash::error($th->getMessage());
+            return back();
+        } catch (\Exception $th) {
+            DB::rollBack();
+            Helper::logMessage('profile ', $request->input(), $th->getMessage());
+            Flash::error("Something Went Wrong");
+            return back();
+        }
     }
 }

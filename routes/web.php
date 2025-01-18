@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth:sanctum', 'user'], 'prefix' => 'user', 'as'
     Route::post('review-application', [UserController::class, 'reviewAdmissionApplication'])->name('review-application.store');
     Route::post('is_undertaking_accept', [UserController::class, 'updateIsUndertakingAccept'])->name('is-undertaking-accept.store');
     Route::get('generate-pdf/{id}', [PdfController::class, 'generatePDF'])->name('generate-pdf');
+    Route::get('profile/show', [UserAuthController::class, 'profile'])->name('profile.show');
+    Route::put('profile/update', [UserAuthController::class, 'update'])->name('profile.update');
 });
 Route::group(['middleware' => ['auth:sanctum', 'admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('dashboard');
@@ -59,6 +61,8 @@ Route::group(['middleware' => ['auth:sanctum', 'admin'], 'prefix' => 'admin', 'a
     Route::resource('programs', ProgramController::class);
     Route::resource('admissions', AdmissionController::class);
     Route::resource('settings', SettingsController::class);
+    Route::get('profile/show', [UserAuthController::class, 'profile'])->name('profile.show');
+    Route::put('profile/update', [UserAuthController::class, 'update'])->name('profile.update');
     Route::resource('applied_programs', AppliedProgramController::class);
     Route::get('merit-list/create', [MeritListController::class, 'create'])->name('merit-list.create');
     Route::post('merit-list/generate', [MeritListController::class, 'generateMeritList'])->name('merit-list.generate');
