@@ -11,7 +11,7 @@
     <meta name="keywords"
         content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app" />
     <meta name="author" content="PIXINVENT" />
-    <title>Login Page</title>
+    <title>Student Login | MNS UET Multan</title>
     <link rel="apple-touch-icon" href="{{ asset('newdata/iub.jpg') }}" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('newdata/iub.jpg') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
@@ -64,7 +64,7 @@
                             <div class="col-md-4"> <!-- Adjust the width as needed -->
                                 <div class="card mb-0">
                                     <div class="card-body text-center">
-                                        <a href="index.html" class="brand-logo">
+                                        <a href="https://mnsuet.edu.pk/" class="brand-logo">
                                             <img src="{{ asset('app-assets/images/uni.png') }}" alt="LOGO"
                                                 style="height: 130px; width:130px;">
                                             <h2 class="brand-text text-primary ms-1">MNS-UET MULTAN</h2>

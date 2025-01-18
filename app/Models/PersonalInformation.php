@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class PersonalInformation extends Model
 {
@@ -32,4 +34,16 @@ class PersonalInformation extends Model
         'address',
         'permanent_address',
     ];
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
+    public function domicile(): BelongsTo
+    {
+        return $this->belongsTo(Domicile::class, 'domicile_id');
+    }
 }
