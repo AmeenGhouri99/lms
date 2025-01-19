@@ -46,7 +46,12 @@ class AdmissionDataTable extends DataTable
             })
             ->addColumn('inter_marks', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
-                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical') {
+                    if (
+                        $qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc_pre_medical' ||
+                        $qualification->qualification == 'fsc_pre_engineering' ||  $qualification->qualification == 'dae_chemical' || $qualification->qualification == 'dae_mechanical' || $qualification->qualification == 'dae_electrical' || $qualification->qualification == 'fa_with_math_or_it' ||
+                        $qualification->qualification == 'dae_civil' ||
+                        $qualification->qualification == 'i_com'
+                    ) {
                         return $qualification->obtained_marks . '/' . $qualification->total_marks;
                     }
                 }
@@ -54,7 +59,12 @@ class AdmissionDataTable extends DataTable
             })
             ->addColumn('inter_%age', function ($data) {
                 foreach ($data->user->qualification as $qualification) {
-                    if ($qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc Pre medical' || $qualification->qualification === 'fsc pre eng' || $qualification->qualification === 'ics' || $qualification->qualification === 'dae_electrical' || $qualification->qualification === 'dae_mechanical' || $qualification->qualification === 'dae_chemical' || $qualification->qualification === 'civil') {
+                    if (
+                        $qualification->qualification == 'fa_simple' || $qualification->qualification == 'fsc_pre_medical' ||
+                        $qualification->qualification == 'fsc_pre_engineering' ||  $qualification->qualification == 'dae_chemical' || $qualification->qualification == 'dae_mechanical' || $qualification->qualification == 'dae_electrical' || $qualification->qualification == 'fa_with_math_or_it' ||
+                        $qualification->qualification == 'dae_civil' ||
+                        $qualification->qualification == 'i_com'
+                    ) {
                         return number_format($qualification->obtained_marks / $qualification->total_marks * 100, 1) . '%';
                     }
                 }

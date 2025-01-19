@@ -16,7 +16,7 @@
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Select Your Qualification:</label>
-        {{ html()->select('qualification', ['' => 'Select', 'matriculation' => 'Matriculation', 'fsc_pre_engineering' => 'Fsc Pre Engineering', 'fsc_pre_medical' => 'Fsc Pre Medical', 'fa_simple' => 'FA Simple', 'fa_with_math_or_it' => 'FA Math/IT', 'dae_electical' => 'DAE Electrical', 'dae_mechanical' => 'DAE Mechanical', 'dae_civil' => 'DAE Civil', 'dae_chemical' => 'DAE Chemical', 'i_com' => 'ICom'])->class('form-control form-control-sm') }}
+        {{ html()->select('qualification', ['' => 'Select', 'matriculation' => 'Matriculation', 'fsc_pre_engineering' => 'Fsc Pre Engineering', 'fsc_pre_medical' => 'Fsc Pre Medical', 'fa_simple' => 'FA Simple', 'fa_with_math_or_it' => 'FA Math/IT', 'dae_electical' => 'DAE Electrical', 'dae_mechanical' => 'DAE Mechanical', 'dae_civil' => 'DAE Civil', 'dae_chemical' => 'DAE Chemical', 'i_com' => 'ICom', 'bs' => 'Bachelor In Science', 'bs' => 'BA', 'ma' => 'MA', 'm_phil' => 'M Phil'])->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Select University/Board:</label>

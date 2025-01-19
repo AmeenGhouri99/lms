@@ -40,7 +40,7 @@
             </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.merit-list*') ? 'active' : '' }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.merit-list.create') }}">
-                    <i data-feather="settings"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Merit
+                    <i data-feather="clipboard"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Merit
                         Lists</span></a>
             </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.settings*') ? 'active' : '' }}">
@@ -50,7 +50,7 @@
             </li>
             <li class="nav-item {{ Route::CurrentRouteNamed('admin.profile*') ? 'active' : '' }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.profile.show') }}">
-                    <i data-feather="profile"></i><span class="menu-item text-truncate"
+                    <i data-feather="user"></i><span class="menu-item text-truncate"
                         data-i18n="eCommerce">Profile</span></a>
             </li>
         </ul>

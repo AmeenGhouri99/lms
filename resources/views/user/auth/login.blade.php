@@ -13,7 +13,7 @@
     <meta name="author" content="PIXINVENT" />
     <title>Student Login | MNS UET Multan</title>
     <link rel="apple-touch-icon" href="{{ asset('newdata/iub.jpg') }}" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('newdata/iub.jpg') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/uni.png') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
         rel="stylesheet" />
 
@@ -172,7 +172,6 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.js') }}"></script>
     <!-- END: Page JS-->
 
     <script>
