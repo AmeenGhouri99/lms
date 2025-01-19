@@ -37,6 +37,7 @@ class AppliedProgramController extends Controller
     public function update(AdminAppliedProgramUpdateRequest $request, $id)
     {
         try {
+            // dd($id);
             DB::beginTransaction();
             $this->appliedProgram->update($request->prepareRequest(), $id);
             DB::commit();

@@ -50,7 +50,7 @@ class ProgramService implements ProgramContract
     }
     public function delete($id)
     {
-        $document = $this->pdf->where('user_id', Auth::id())->find($id);
+        $document = $this->program->find($id);
         if (!$document->count() > 0) {
             throw new CustomException('Record Not Exists!');
         }

@@ -94,7 +94,7 @@
                         <th>Email Address</th>
                         <th style="font-weight: 100">{{ $user->personalInformation->email }}</th>
                         <th>Mailing Address</th>
-                        <th style="font-weight: 100"></th>
+                        <th style="font-weight: 100">{{ $user->personalInformation->permanent_address }}</th>
                     </tr>
                     {{-- </thead> --}}
                     <tr>

@@ -15,22 +15,28 @@ class ProgramDataTable extends DataTable
 
         return $dataTable
             ->addIndexColumn()
-            ->addColumn('category', function ($data) {
-                return $data->parent->name;
+            ->addColumn('parent_program_name', function ($data) {
+                return $data->parent ? $data->parent->name : "Parent Program";
             })
-            ->addColumn('action', 'admin.programs.datatables_actions');
+            ->addColumn('action', 'admin.programs.datatables_actions')
+            ->rawColumns(['action']);
     }
 
     public function query(Program $model, Request $request)
     {
-        return $model->with(['parent'])
-            ->where('parent_id', '!=', null)
+        // Check if the request has a 'parent' parameter
+        if ($request->has('parent')) {
+            // If 'parent' is in the request, return only parent programs
+            return $model->whereNull('parent_id')
+                ->latest()
+                ->select('id', 'name', 'parent_id');
+        }
+
+        // Otherwise, return programs where parent_id is not null
+        return $model->whereNotNull('parent_id')
+            ->with(['parent'])
             ->latest()
-            ->select(
-                'id',
-                'name',
-                'parent_id'
-            );
+            ->select('id', 'name', 'parent_id');
     }
 
     protected function getColumns()
@@ -38,7 +44,7 @@ class ProgramDataTable extends DataTable
         return [
             'sr#' => ['title' => 'sr#', 'data' => 'DT_RowIndex', 'orderable' => false, 'searchable' => false],
             'name' => ['title' => 'Program Name', 'data' => 'name', 'searchable' => true],
-            'category',
+            'parent_program_name',
         ];
     }
 

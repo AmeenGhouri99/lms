@@ -34,7 +34,7 @@
                     <div class="user-nav d-sm-flex d-none"><span
                             class="user-name fw-bolder">{{ auth()->user()->full_name }}</span><span
                             class="user-status">User</span></div><span class="avatar"><img class="round"
-                            src="{{ auth()->check() ? asset('storage/' . auth()->user()->profile_image) : asset('app-assets/images/no_image_icon.jpg') }}"
+                            src="{{ auth()->check() && auth()->user()->profile_image !== null ? asset('storage/' . auth()->user()->profile_image) : asset('app-assets/images/no_image_icon.jpg') }}"
                             alt="avatar" height="40" width="40"><span
                             class="avatar-status-online"></span></span>
                 </a>

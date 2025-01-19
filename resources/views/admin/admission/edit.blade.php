@@ -35,9 +35,7 @@
                     <!-- Add Product Form START -->
                     <!-- Add Image Section END -->
                     @include('flash::message')
-                    {{ html()->modelForm($admission, 'PUT', route('admin.admissions.update', $admission->id))->attribute('enctype', 'multipart/form-data')->open() }}
                     @include('admin.admission.fields')
-                    {{ html()->form()->close() }}
                 </div>
             </div>
         </div>

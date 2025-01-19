@@ -6,7 +6,9 @@
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
         </svg>
     </a>
-    <form action="{{ route('admin.programs.destroy', $id) }}" method="delete">
+    <form action="{{ route('admin.programs.destroy', $id) }}" method="POST">
+        @csrf
+        @method('DELETE')
         <button type="submit" style="border: none; background: none; padding: 0; margin: 0; color: red;"
             onclick="return confirm('Are you sure to delete?')">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"

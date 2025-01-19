@@ -33,7 +33,7 @@
                                 class="user-name fw-bolder">{{ auth()->check() ? auth()->user()->name : null }}</span><span
                                 class="user-status">{{ auth()->check() && auth()->user()->role_id === 1 ? 'Admin' : 'User' }}</span>
                         </div><span class="avatar"><img class="round"
-                                src="{{ auth()->check() ? asset('storage/' . auth()->user()->profile_image) : asset('app-assets/images/uni.png') }}"
+                                src="{{ auth()->check() && auth()->user()->profile_image !== null ? asset('storage/' . auth()->user()->profile_image) : asset('app-assets/images/uni.png') }}"
                                 alt="Avatar" height="40" width="40"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a

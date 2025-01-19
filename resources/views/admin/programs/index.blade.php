@@ -45,6 +45,13 @@
                                     Programs
                                 </h4>
                             </div>
+                            <div class="row mt-1">
+                                <div class="col-3">
+                                    <a class="btn btn-success btn-sm"
+                                        href="{{ route('admin.programs.index') }}?parent=parent_programs"> Parent
+                                        Programs</a>
+                                </div>
+                            </div>
                             @include('flash::message')
                             @include('admin.users.table')
                         </div>

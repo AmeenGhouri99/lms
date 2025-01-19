@@ -18,7 +18,7 @@
     </div>
     <div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
         <label for="name">Select Document Type</label>
-        {{ html()->select('document_type', ['' => 'Select Document Type', 'CNIC/B-FORM' => 'CNIC/B-Form Front', 'SCANNED COPY OF LAST DEGREE TRANSCRIPT' => 'Scanned Copy of Last Degree Transcript'])->class('form-control form-control-sm') }}
+        {{ html()->select('document_type', ['' => 'Select Document Type', 'CNIC Front Pic' => 'CNIC Front Pic', 'CNIC Back Pic' => 'CNIC Back Pic', 'Domicile' => 'Domicile', 'SCANNED COPY OF LAST DEGREE TRANSCRIPT' => 'Scanned Copy of Last Degree Transcript'])->class('form-control form-control-sm') }}
     </div>
     <div class="col-xl-12 col-sm-6 col-12 mb-2 mb-xl-0 mt-1">
         <input type="submit" value="Save" name="submit" class="btn btn-success btn-sm">
