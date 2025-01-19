@@ -119,7 +119,7 @@ class ProgramController extends Controller
         try {
             $program = $this->program->delete($id);
             Flash::success('Program deleted successfully.');
-            return redirect()->route('admin.programs.index');
+            return back();
         } catch (CustomException $th) {
             Flash::error($th->getMessage());
             return back();

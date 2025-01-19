@@ -21,8 +21,8 @@ class AdminAdmissionUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        // dd($userId);
+        // dd($this);
+        //dd($userId);
         return [
             'admission_fee' => 'required',
             'status' => 'required',
