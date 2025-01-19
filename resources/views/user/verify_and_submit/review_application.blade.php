@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equal Table</title>
+    <title>Review Application </title>
     <style>
         .table {
             width: 100%;
@@ -40,167 +40,198 @@
         .text-center {
             text-align: center;
         }
+
+        @media (max-width: 576px) {
+
+            .table th,
+            .table td {
+                font-size: 0.875rem;
+                /* Smaller text for small screens */
+                padding: 6px;
+                /* Reduce padding */
+                word-wrap: break-word;
+            }
+
+            .table th[colspan="4"],
+            .table th[colspan="8"] {
+                font-size: 1rem;
+                /* Keep header slightly larger */
+            }
+
+            .uploadedAvatar {
+                width: 80px;
+                height: 80px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <table class="table table-bordered ">
-        <thead>
-            <tr>
-                <th colspan="4">Personal Information</th>
-            </tr>
-        </thead>
-        <tr>
-            <th>Full Name</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->candidate_name }}</th>
-            <th>Father's Name</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->father_name }}</th>
-        </tr>
-        {{-- </thead> --}}
-        <tbody>
-            <tr>
-                <td>CNIC</td>
-                <td style="font-weight: 100">{{ $user->personalInformation->candidate_cnic }}</td>
-                <td>Cell No</td>
-                <td style="font-weight: 100">{{ $user->personalInformation->phone_no }}</td>
-            </tr>
-        </tbody>
-        {{-- <thead> --}}
-        <tr>
-            <th>Email Address</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->email }}</th>
-            <th>Mailing Address</th>
-            <th style="font-weight: 100"></th>
-        </tr>
-        {{-- </thead> --}}
-        <tbody>
-            <tr>
-                <td>Hafiz e Quran</td>
-                <td style="font-weight: 100">{{ $user->personalInformation->hafiz_e_quran }}</td>
-                <td>Gender</td>
-                <td style="font-weight: 100">{{ $user->personalInformation->gender }}</td>
-            </tr>
-        </tbody>
-        {{-- <thead> --}}
-        <tr>
-            <th>Date of Birth</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->dob }}</th>
-            <th>Nationality</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->country_id }}</th>
-        </tr>
-        {{-- </thead> --}}
-        <tbody>
-            <tr>
-                <td>Province</td>
-                <td style="font-weight: 100">{{ $user->personalInformation->state_id }}</td>
-                <td>Guardian/Emg.</td>
-                <td style="font-weight: 100">{{ $user->personalInformation->guardian_father_cnic }}</td>
-            </tr>
-        </tbody>
-        {{-- <thead> --}}
-        <tr>
-            <th>Current Address</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->address }}</th>
-            <th>Permanent Address</th>
-            <th style="font-weight: 100">{{ $user->personalInformation->permanent_address }}</th>
-        </tr>
-        {{-- </thead> --}}
-        <thead>
-            <tr class="text-center">
-                <th colspan="4"><b>Applied Programs</b></th>
-            </tr>
-        </thead>
-        {{-- <thead> --}}
-        <tr>
-            <th>#sr</th>
-            <th>Program Name</th>
-            <th>Application Status</th>
-            <th>Admission Date</th>
-        </tr>
-        {{-- </thead> --}}
-        <tbody>
-            @php
-                $admission_id = '';
-            @endphp
-            @foreach ($user->appliedProgram->where('admission_id', auth()->check() && auth()->user()->role_id === 2 ? request()->route('id') : request()->route('admission')) as $program)
-                @php
-                    $admission_id = $program->admission->id;
-                @endphp
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th colspan="4">Personal Information</th>
+                    </tr>
+                </thead>
                 <tr>
-                    <td style="font-weight: 100">{{ $loop->iteration }}</td>
-                    <td style="font-weight: 100">{{ $program->program->name }}</td>
-                    <td style="font-weight: 100">{{ $program->status }}</td>
-                    <td style="font-weight: 100">{{ $program->admission->admission_date }}</td>
+                    <th>Full Name</th>
+                    <th style="font-weight: 100">{{ $user->personalInformation->candidate_name }}</th>
+                    <th>Father's Name</th>
+                    <th style="font-weight: 100">{{ $user->personalInformation->father_name }}</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <table class="table">
-        {{-- <thead> --}}
-        <thead>
-            <tr class="text-center">
-                <th colspan="8"><b>Qualifications</b></th>
-            </tr>
-        </thead>
-        <tr>
-            <th>#sr</th>
-            <th>Qualification</th>
-            {{-- <th>Board/University</th> --}}
-            <th>Roll No</th>
-            <th>Passing Year</th>
-            <th>Obtained Marks</th>
-            <th>Total Marks</th>
-            <th>%age</th>
-            <th>Image</th>
-        </tr>
-        {{-- </thead> --}}
-        <tbody>
-            @foreach ($user->qualification as $qualification)
+                {{-- </thead> --}}
+                <tbody>
+                    <tr>
+                        <td>CNIC</td>
+                        <td style="font-weight: 100">{{ $user->personalInformation->candidate_cnic }}</td>
+                        <td>Cell No</td>
+                        <td style="font-weight: 100">{{ $user->personalInformation->phone_no }}</td>
+                    </tr>
+                    {{-- <thead> --}}
+                    <tr>
+                        <th>Email Address</th>
+                        <th style="font-weight: 100">{{ $user->personalInformation->email }}</th>
+                        <th>Mailing Address</th>
+                        <th style="font-weight: 100"></th>
+                    </tr>
+                    {{-- </thead> --}}
+                    <tr>
+                        <td>Hafiz e Quran</td>
+                        <td style="font-weight: 100">{{ $user->personalInformation->hafiz_e_quran }}</td>
+                        <td>Gender</td>
+                        <td style="font-weight: 100">{{ $user->personalInformation->gender }}</td>
+                    </tr>
+                    {{-- <thead> --}}
+                    <tr>
+                        <th>Date of Birth</th>
+                        <th style="font-weight: 100">{{ $user->personalInformation->dob }}</th>
+                        <th>Nationality</th>
+                        <th style="font-weight: 100">{{ $user->personalInformation->country->name }}</th>
+                    </tr>
+                    {{-- </thead> --}}
+                    <tr>
+                        <td>Province</td>
+                        <td style="font-weight: 100">{{ $user->personalInformation->state->name }}</td>
+                        <td>Guardian/Emg.</td>
+                        <td style="font-weight: 100">{{ $user->personalInformation->guardian_father_cnic }}</td>
+                    </tr>
+                    {{-- <thead> --}}
+                    <tr>
+                        <th>Current Address</th>
+                        <th style="font-weight: 100">{{ $user->personalInformation->address }}</th>
+                        <th>Permanent Address</th>
+                        <th style="font-weight: 100">{{ $user->personalInformation->permanent_address }}</th>
+                    </tr>
+                </tbody>
+                {{-- </thead> --}}
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="4"><b>Applied Programs</b></th>
+                    </tr>
+                </thead>
+                {{-- <thead> --}}
                 <tr>
-                    <td style="font-weight: 100">{{ $loop->iteration }}</td>
-                    <td style="font-weight: 100">{{ $qualification->qualification }}</td>
-                    {{-- <td style="font-weight: 100">{{ $qualification->board_university_name }}</td> --}}
-                    <td style="font-weight: 100">{{ $qualification->roll_no }}</td>
-                    <td style="font-weight: 100">{{ $qualification->degree_exam_year }}</td>
-                    <td style="font-weight: 100">{{ $qualification->obtained_marks }}</td>
-                    <td style="font-weight: 100">{{ $qualification->total_marks }}</td>
-                    <td>{{ number_format(($qualification->obtained_marks / $qualification->total_marks) * 100) }} %
-                    </td>
-                    <td> <a href="{{ $qualification->image ? asset('storage/' . $qualification->image) : asset('app-assets/no-image-icon.png') }}"
-                            data-lightbox="admission-image" class="me-25"><img
-                                src="{{ asset('storage') . '/' . $qualification->image }}"
-                                style="width: 80px; height:80px"></a></td>
+                    <th>#sr</th>
+                    <th>Program Name</th>
+                    <th>Application Status</th>
+                    <th>Admission Date</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <table class="table table-bordered">
-        <thead>
-            <tr class="text-center">
-                <th colspan="4"><b>Attached Documents</b></th>
+                {{-- </thead> --}}
+                <tbody>
+                    @php
+                        $admission_id = '';
+                    @endphp
+                    @foreach ($user->appliedProgram->where('admission_id', auth()->check() && auth()->user()->role_id === 2 ? request()->route('id') : request()->route('admission')) as $program)
+                        @php
+                            $admission_id = $program->admission->id;
+                        @endphp
+                        <tr>
+                            <td style="font-weight: 100">{{ $loop->iteration }}</td>
+                            <td style="font-weight: 100">{{ $program->program->name }}</td>
+                            <td style="font-weight: 100">{{ $program->status }}</td>
+                            <td style="font-weight: 100">{{ $program->admission->admission_date }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            {{-- <thead> --}}
+            <thead>
+                <tr class="text-center">
+                    <th colspan="8"><b>Qualifications</b></th>
+                </tr>
+            </thead>
+            <tr>
+                <th>#sr</th>
+                <th>Qualification</th>
+                {{-- <th>Board/University</th> --}}
+                <th>Roll No</th>
+                <th>Passing Year</th>
+                <th>Obtained Marks</th>
+                <th>Total Marks</th>
+                <th>%age</th>
+                <th>Image</th>
             </tr>
-        </thead>
-        {{-- <thead> --}}
-        <tr>
-            <th style="width: 100px;">#sr</th>
-            <th style="width: calc(100% - 100px);">Document Type</th>
-            <th style="width: calc(100% - 100px);">Document </th>
+            {{-- </thead> --}}
+            <tbody>
+                @foreach ($user->qualification as $qualification)
+                    <tr>
+                        <td style="font-weight: 100">{{ $loop->iteration }}</td>
+                        <td style="font-weight: 100">{{ $qualification->qualification }}</td>
+                        {{-- <td style="font-weight: 100">{{ $qualification->board_university_name }}</td> --}}
+                        <td style="font-weight: 100">{{ $qualification->roll_no }}</td>
+                        <td style="font-weight: 100">{{ $qualification->degree_exam_year }}</td>
+                        <td style="font-weight: 100">{{ $qualification->obtained_marks }}</td>
+                        <td style="font-weight: 100">{{ $qualification->total_marks }}</td>
+                        <td>{{ number_format(($qualification->obtained_marks / $qualification->total_marks) * 100) }} %
+                        </td>
+                        <td> <a href="{{ $qualification->image ? asset('storage/' . $qualification->image) : asset('app-assets/no-image-icon.png') }}"
+                                data-lightbox="admission-image" class="me-25"><img
+                                    src="{{ asset('storage') . '/' . $qualification->image }}"
+                                    style="width: 80px; height:80px"></a></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th colspan="4"><b>Attached Documents</b></th>
+                </tr>
+            </thead>
+            {{-- <thead> --}}
+            <tr>
+                <th style="width: 100px;">#sr</th>
+                <th style="width: calc(100% - 100px);">Document Type</th>
+                <th style="width: calc(100% - 100px);">Document </th>
 
-        </tr>
-        {{-- </thead> --}}
-        <tbody>
-            @foreach ($user->document as $document)
-                <tr>
-                    <td style="font-weight: 100; width: 100px;">{{ $loop->iteration }}</td>
-                    <td style="font-weight: 100; width: calc(100% - 100px);">{{ $document->document_type }}</td>
-                    <td> <a href="{{ $document->document ? asset('storage/' . $document->document) : asset('app-assets/no-image-icon.png') }}"
-                            data-lightbox="admission-image" class="me-25"><img
-                                src="{{ asset('storage') . '/' . $document->document }}"
-                                style="width: 80px; height:80px"></a></td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </tr>
+            {{-- </thead> --}}
+            <tbody>
+                @foreach ($user->document as $document)
+                    <tr>
+                        <td style="font-weight: 100; width: 100px;">{{ $loop->iteration }}</td>
+                        <td style="font-weight: 100; width: calc(100% - 100px);">{{ $document->document_type }}</td>
+                        <td> <a href="{{ $document->document ? asset('storage/' . $document->document) : asset('app-assets/no-image-icon.png') }}"
+                                data-lightbox="admission-image" class="me-25"><img
+                                    src="{{ asset('storage') . '/' . $document->document }}"
+                                    style="width: 80px; height:80px"></a></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     @if (auth()->check() && auth()->user()->role_id === 2)
         <h4 class="mt-1 text-bold">UNDERTAKING</h4>
         <ol class="text-danger">
