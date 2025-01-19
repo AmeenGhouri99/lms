@@ -38,7 +38,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
-                        <a href="{{ route('admin.users.index') }}?type=pending_users">
+                        <a href="{{ route('admin.programs.index') }}">
                             <div class="card">
                                 <div class="card-header">
                                     <div>
@@ -55,7 +55,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
-                        <a href="{{ route('admin.users.index') }}?type=pending_users">
+                        <a href="{{ route('admin.admissions.index') }}">
                             <div class="card">
                                 <div class="card-header">
                                     <div>
@@ -72,7 +72,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
-                        <a href="{{ route('admin.users.index') }}?type=pending_users">
+                        <a href="{{ route('admin.admissions.index') }}">
                             <div class="card">
                                 <div class="card-header">
                                     <div>

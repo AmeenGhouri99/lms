@@ -20,8 +20,8 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
     <title>@yield('title', 'MNS UET MULTAN')</title>
-    <link rel="apple-touch-icon" href="{{ asset('newdata/uni.png') }}" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('newdata/uni.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('app-assets/images/uni.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/uni.png') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
         rel="stylesheet" />
 
